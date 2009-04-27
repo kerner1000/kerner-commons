@@ -40,6 +40,7 @@ public abstract class AbstractDirectoryWalker {
     private volatile boolean cancelled = false;
     private volatile Long maxDepth = null;
     private volatile Long minDepth = null;
+    //protected volatile File currentFile = null;
 
     /**
      * Main method to walk through directory hierarchy.
@@ -63,6 +64,7 @@ public abstract class AbstractDirectoryWalker {
             while (!cancelled && !stack.isEmpty()) {
                 handle(stack.pop());
             }
+            lastAction(cancelled);
         }
     }
     
@@ -107,6 +109,7 @@ public abstract class AbstractDirectoryWalker {
     }
 
     private void handleFileOrDir(final FileObject file) throws IOException {
+        //currentFile = file.file;
         if (file.file.isDirectory())
             handleDir(file.file);
         else if (file.file.isFile())
@@ -182,6 +185,15 @@ public abstract class AbstractDirectoryWalker {
      * @throws IOException if IO error occurs.
      */
     protected void handleStartingDir(final File file) throws IOException {
+        // do nothing by default
+    }
+    
+    /**
+     * This method is called, when walking has finished. <br>
+     * By default, it does nothing. Maybe overriden by extending classes to do something else.
+     * @param wasCancelled true, if directory walking was aborted.
+     */
+    protected void lastAction(boolean wasCancelled){
         // do nothing by default
     }
 

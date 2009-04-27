@@ -12,7 +12,7 @@ public class FileSizePrinter {
     private final long oneG;
     private final long size;
 
-    FileSizePrinter(long size, boolean usePowerOf1000) {
+    public FileSizePrinter(long size, boolean usePowerOf1000) {
         if (usePowerOf1000)
             oneK = 1000L;
         else

@@ -1,5 +1,6 @@
 package de.kerner.commons.file;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +14,7 @@ import java.io.StringWriter;
 public class LazyStringReader {
 
 	private final InputStream in;
+	private final OutputStream defaultOutputStream= new ByteArrayOutputStream(); 
 
 	public LazyStringReader(File file) throws IOException {
 		this.in = getInputStreamFromFile(file);
@@ -25,7 +27,7 @@ public class LazyStringReader {
 	public LazyStringReader(InputStream stream) {
 		this.in = stream;
 	}
-
+	
 	public String getString() throws IOException {
 		InputStreamReader reader = new InputStreamReader(in);
 		StringWriter sw = new StringWriter();
@@ -38,8 +40,8 @@ public class LazyStringReader {
 		return streamImpl;
 	}
 
-	public OutputStream toStream() throws IOException {
-		return getStream(new ByteArrayOutputStream());
+	public OutputStream getStream() throws IOException {
+		return getStream(defaultOutputStream);
 	}
 
 	private InputStream getInputStreamFromFile(File file) throws IOException {

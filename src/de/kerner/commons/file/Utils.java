@@ -2,7 +2,9 @@ package de.kerner.commons.file;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -10,7 +12,7 @@ public class Utils {
 	
 	public static int DEFAULT_BUFFER = 1024;
 	
-	public static long ReaderToWriter(Reader reader, Writer writer) throws IOException{
+	public static long readerToWriter(Reader reader, Writer writer) throws IOException{
 		char[] buffer = new char[DEFAULT_BUFFER];
         long count = 0;
         int n = 0;
@@ -18,10 +20,11 @@ public class Utils {
             writer.write(buffer, 0, n);
             count += n;
         }
+        writer.flush();
         return count;
 	}
 	
-	public static long StreamToStream(InputStream in, OutputStream out) throws IOException{
+	public static long inputStreamToOutputStream(InputStream in, OutputStream out) throws IOException{
 		byte[] buffer = new byte[DEFAULT_BUFFER];
         long count = 0;
         int n = 0;
@@ -32,6 +35,14 @@ public class Utils {
         return count;
 	}
 	
-	
+	public static long inputStreamToWriter(InputStream in, Writer writer) throws IOException{
+		InputStreamReader inr = new InputStreamReader(in);
+		return readerToWriter(inr, writer);
+	}
 
+	public static long outputStreamToReader(OutputStream out, Reader reader) throws IOException{
+		OutputStreamWriter outw = new OutputStreamWriter(out);
+		return readerToWriter(reader, outw);
+	}
+	
 }

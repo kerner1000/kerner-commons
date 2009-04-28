@@ -1,18 +1,21 @@
 package de.kerner.commons.file;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.StringWriter;
+import java.io.StringReader;
 
 public class LazyStringWriter {
+
+	private final String string;
 	
-	private final OutputStream out;
-	
-	public LazyStringWriter(OutputStream out){
-		this.out = out;
+	public LazyStringWriter(String string){
+		this.string = string;
 	}
 	
-	
-
+	public long toFile(File file) throws IOException{
+		StringReader reader = new StringReader(string);
+		FileWriter writer = new FileWriter(file);
+		return Utils.readerToWriter(reader, writer);
+	}
 }

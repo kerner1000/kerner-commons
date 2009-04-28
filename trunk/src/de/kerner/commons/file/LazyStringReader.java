@@ -1,10 +1,8 @@
 package de.kerner.commons.file;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,12 +29,12 @@ public class LazyStringReader {
 	public String getString() throws IOException {
 		InputStreamReader reader = new InputStreamReader(in);
 		StringWriter sw = new StringWriter();
-		long charactersRead = Utils.ReaderToWriter(reader, sw);
+		long charactersRead = Utils.readerToWriter(reader, sw);
 		return sw.toString();
 	}
 
 	public OutputStream getStream(OutputStream streamImpl) throws IOException {
-		long bytesTransferred = Utils.StreamToStream(in, streamImpl);
+		long bytesTransferred = Utils.inputStreamToOutputStream(in, streamImpl);
 		return streamImpl;
 	}
 

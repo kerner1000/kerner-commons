@@ -30,12 +30,12 @@ public class LazyStringReader {
 	public String getString() throws IOException {
 		InputStreamReader reader = new InputStreamReader(in);
 		StringWriter sw = new StringWriter();
-		long charactersRead = Utils.readerToWriter(reader, sw);
+		long charactersRead = FileUtils.readerToWriter(reader, sw);
 		return sw.toString();
 	}
 
 	public OutputStream getStream(OutputStream streamImpl) throws IOException {
-		long bytesTransferred = Utils.inputStreamToOutputStream(in, streamImpl);
+		long bytesTransferred = FileUtils.inputStreamToOutputStream(in, streamImpl);
 		return streamImpl;
 	}
 

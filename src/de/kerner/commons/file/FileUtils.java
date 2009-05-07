@@ -1,5 +1,6 @@
 package de.kerner.commons.file;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,16 +9,22 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-public class Utils {
+public class FileUtils {
 	
-	public static int DEFAULT_BUFFER = 1024;
+	public static final int DEFAULT_BUFFER = 1024;
+	
+	public static final File WORKING_DIR = new File(System.getProperty("user.dir"));
 	
 	public static long readerToWriter(Reader reader, Writer writer) throws IOException{
-		char[] buffer = new char[DEFAULT_BUFFER];
+		return readerToWriter(reader, writer, DEFAULT_BUFFER);
+	}
+	
+	public static long readerToWriter(Reader reader, Writer writer, int buffer) throws IOException{
+		char[] charBuffer = new char[buffer];
         long count = 0;
         int n = 0;
-        while ((n = reader.read(buffer)) != -1) {
-            writer.write(buffer, 0, n);
+        while ((n = reader.read(charBuffer)) != -1) {
+            writer.write(charBuffer, 0, n);
             count += n;
         }
         writer.flush();
@@ -25,11 +32,15 @@ public class Utils {
 	}
 	
 	public static long inputStreamToOutputStream(InputStream in, OutputStream out) throws IOException{
-		byte[] buffer = new byte[DEFAULT_BUFFER];
+		return inputStreamToOutputStream(in, out, DEFAULT_BUFFER);
+	}
+	
+	public static long inputStreamToOutputStream(InputStream in, OutputStream out, int buffer) throws IOException{
+		byte[] byteBuffer = new byte[buffer];
         long count = 0;
         int n = 0;
-        while ((n = in.read(buffer)) != -1) {
-            out.write(buffer, 0, n);
+        while ((n = in.read(byteBuffer)) != -1) {
+            out.write(byteBuffer, 0, n);
             count += n;
         }
         return count;

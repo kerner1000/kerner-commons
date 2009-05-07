@@ -16,6 +16,6 @@ public class LazyStringWriter {
 	public long toFile(File file) throws IOException{
 		StringReader reader = new StringReader(string);
 		FileWriter writer = new FileWriter(file);
-		return Utils.readerToWriter(reader, writer);
+		return FileUtils.readerToWriter(reader, writer);
 	}
 }

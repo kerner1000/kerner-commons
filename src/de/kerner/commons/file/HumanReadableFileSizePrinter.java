@@ -2,7 +2,7 @@ package de.kerner.commons.file;
 
 import java.io.File;
 
-public class FileSizePrinter {
+public class HumanReadableFileSizePrinter {
     private static final String POST_FIX_B = "B";
     private static final String POST_FIX_K = "K";
     private static final String POST_FIX_M = "M";
@@ -12,7 +12,7 @@ public class FileSizePrinter {
     private final long oneG;
     private final long size;
 
-    public FileSizePrinter(long size, boolean usePowerOf1000) {
+    public HumanReadableFileSizePrinter(long size, boolean usePowerOf1000) {
         if (usePowerOf1000)
             oneK = 1000L;
         else
@@ -23,7 +23,7 @@ public class FileSizePrinter {
         this.size = size;
     }
 
-    FileSizePrinter(File file) {
+    HumanReadableFileSizePrinter(File file) {
         oneK = 1024L;
         oneM = oneK * oneK;
         oneG = oneK * oneM;

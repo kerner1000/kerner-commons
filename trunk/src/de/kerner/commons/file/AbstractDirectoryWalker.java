@@ -37,6 +37,7 @@ public abstract class AbstractDirectoryWalker {
 
     private final Stack<FileObject> stack = new Stack<FileObject>();
     private final Set<FileFilter> filters = new HashSet<FileFilter>();
+    private final Set<FileFilter> dirFilters = new HashSet<FileFilter>();
     private volatile boolean cancelled = false;
     private volatile Long maxDepth = null;
     private volatile Long minDepth = null;
@@ -65,23 +66,24 @@ public abstract class AbstractDirectoryWalker {
                 handle(stack.pop());
             }
             lastAction(cancelled);
+            stack.clear();
         }
     }
     
     public synchronized void walk(final List<File> dirs) throws IOException {
-        walk(dirs.toArray(new File[0]));
+        walk(dirs.toArray(new File[dirs.size()]));
     }
     
     private void handle(final FileObject file) throws IOException {
-        if ((minDepth != null && file.depth < minDepth) ||
-                (maxDepth != null && file.depth > maxDepth)) {
+        if ((minDepth != null && file.depth < minDepth)) {
             // out of boundaries
-        } else if (notFiltered(file)) {
+        } else if (notFiltered(file.file)) {
             handleFileOrDir(file);
         } else {
             // filtered out
         }
         try {
+        if (file.file.isDirectory() && (maxDepth == null || file.depth < maxDepth) && dirNotFiltered(file.file))
             handleChilds(file);
         } catch (SecurityException e) {
             // Exception rises, when access to folder content was denied
@@ -115,14 +117,14 @@ public abstract class AbstractDirectoryWalker {
         else if (file.file.isFile())
             handleFile(file.file);
         else {
-            // ignore unknown file type
+            handleSpecialFile(file.file);
         }
     }
 
-    private boolean notFiltered(final FileObject file) {
+    private boolean notFiltered(final File file) {
         if (!filters.isEmpty())
             for (FileFilter filter : filters)
-                if (!filter.accept(file.file))
+                if (!filter.accept(file))
                     return false;
         return true;
     }
@@ -132,6 +134,20 @@ public abstract class AbstractDirectoryWalker {
      */
     public void stopWalking() {
         cancelled = true;
+    }
+    
+    /**
+     * Stop recursing if this is false.
+     */
+    private boolean dirNotFiltered(File file) {
+        if (!dirFilters.isEmpty()) {
+            for (FileFilter filter : dirFilters) {
+                if (!filter.accept(file)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -157,6 +173,10 @@ public abstract class AbstractDirectoryWalker {
      */
     public synchronized void addFilter(FileFilter filter) {
         filters.add(filter);
+    }
+    
+    public synchronized void addDirectoryFilter(FileFilter filter) {
+        dirFilters.add(filter);
     }
     
     private boolean isNoSymLink(File file) throws IOException{
@@ -192,8 +212,9 @@ public abstract class AbstractDirectoryWalker {
      * This method is called, when walking has finished. <br>
      * By default, it does nothing. Maybe overriden by extending classes to do something else.
      * @param wasCancelled true, if directory walking was aborted.
+     * @throws IOException 
      */
-    protected void lastAction(boolean wasCancelled){
+    protected void lastAction(boolean wasCancelled) throws IOException{
         // do nothing by default
     }
 
@@ -212,5 +233,9 @@ public abstract class AbstractDirectoryWalker {
      * @throws IOException if IO error occurs.
      */
     public abstract void handleFile(final File file) throws IOException;
+    
+    public void handleSpecialFile(File file) throws IOException {
+        // do nothing by default
+    }
 
 }

@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.util.Collection;
 
 public class LazyStringReader {
 
@@ -30,12 +29,12 @@ public class LazyStringReader {
 	public String getString() throws IOException {
 		InputStreamReader reader = new InputStreamReader(in);
 		StringWriter sw = new StringWriter();
-		long charactersRead = FileUtils.readerToWriter(reader, sw);
+		FileUtils.readerToWriter(reader, sw);
 		return sw.toString();
 	}
 
 	public OutputStream getStream(OutputStream streamImpl) throws IOException {
-		long bytesTransferred = FileUtils.inputStreamToOutputStream(in, streamImpl);
+		FileUtils.inputStreamToOutputStream(in, streamImpl);
 		return streamImpl;
 	}
 

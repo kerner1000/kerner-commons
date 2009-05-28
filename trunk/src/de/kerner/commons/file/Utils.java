@@ -3,15 +3,17 @@ package de.kerner.commons.file;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.Writer;
-import java.net.URL;
 
 public class Utils {
 
@@ -73,5 +75,19 @@ public class Utils {
         OutputStreamWriter outw = new OutputStreamWriter(out);
         return readerToWriter(reader, outw);
     }
-
+    
+    public void objectToFile(Serializable s, File file) throws IOException{
+    OutputStream fos = new FileOutputStream( file );
+    ObjectOutputStream outStream = 
+	    new ObjectOutputStream( fos );
+	     outStream.writeObject( s );
+	     outStream.flush();
+    }
+    
+    public <V> V fileToObject(Class<V> c, File file) throws IOException, ClassNotFoundException{
+    	InputStream fis = new FileInputStream( file );
+	    ObjectInputStream inStream = new ObjectInputStream( fis );
+	    V v = c.cast(inStream.readObject());
+	    return  v;
+    }
 }

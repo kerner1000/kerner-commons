@@ -76,7 +76,7 @@ public class Utils {
         return readerToWriter(reader, outw);
     }
     
-    public void objectToFile(Serializable s, File file) throws IOException{
+    public static void objectToFile(Serializable s, File file) throws IOException{
     OutputStream fos = new FileOutputStream( file );
     ObjectOutputStream outStream = 
 	    new ObjectOutputStream( fos );
@@ -84,7 +84,7 @@ public class Utils {
 	     outStream.flush();
     }
     
-    public <V> V fileToObject(Class<V> c, File file) throws IOException, ClassNotFoundException{
+    public static <V> V fileToObject(Class<V> c, File file) throws IOException, ClassNotFoundException{
     	InputStream fis = new FileInputStream( file );
 	    ObjectInputStream inStream = new ObjectInputStream( fis );
 	    V v = c.cast(inStream.readObject());

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarEntry;
@@ -13,6 +12,11 @@ import java.util.jar.JarOutputStream;
 
 import de.kerner.commons.file.AbstractDirectoryWalker;
 
+/**
+ * 
+ * BROKEN
+ *
+ */
 public class JarBuilder {
 	
 	private static class JarFileFilter implements FileFilter{

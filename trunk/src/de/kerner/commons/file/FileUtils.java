@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.io.Writer;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class FileUtils {
 
@@ -97,6 +98,8 @@ public class FileUtils {
 	}
 
 	public static void objectToXML(Object o, File file) throws IOException {
+		if(o == null || file == null)
+			throw new NullPointerException();
 		XStream xstream = new XStream();
 		String xml = xstream.toXML(o);
 		new LazyStringWriter(xml).toFile(file);

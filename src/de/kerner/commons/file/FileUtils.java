@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.io.Writer;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class FileUtils {
 
@@ -24,6 +23,8 @@ public class FileUtils {
 
 	public static final File WORKING_DIR = new File(System
 			.getProperty("user.dir"));
+	
+	public final static String NEW_LINE = System.getProperty("line.separator"); 
 
 	public static long readerToWriter(Reader reader, Writer writer)
 			throws IOException {

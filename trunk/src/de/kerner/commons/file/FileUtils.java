@@ -58,6 +58,7 @@ public class FileUtils {
 			out.write(byteBuffer, 0, n);
 			count += n;
 		}
+		out.flush();
 		return count;
 	}
 

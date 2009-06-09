@@ -14,6 +14,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -23,8 +25,8 @@ public class FileUtils {
 
 	public static final File WORKING_DIR = new File(System
 			.getProperty("user.dir"));
-	
-	public final static String NEW_LINE = System.getProperty("line.separator"); 
+
+	public final static String NEW_LINE = System.getProperty("line.separator");
 
 	public static long readerToWriter(Reader reader, Writer writer)
 			throws IOException {
@@ -99,8 +101,48 @@ public class FileUtils {
 		return v;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <V> V fileToObject(final Class<V> c, final File file, final ClassLoader loader)
+			throws IOException, ClassNotFoundException {
+		if (c == null || file == null)
+			throw new NullPointerException(c + " + " + file
+					+ " must not be null");
+		V v = null;
+		
+		try {
+		Class<FileInputStream> clazz = (Class<FileInputStream>) loader.loadClass( "java.io.FileInputStream" ); 
+		Constructor<?> con = clazz.getConstructor(File.class);
+		InputStream fis = (InputStream) con.newInstance(file);
+		final ObjectInputStream inStream = new ObjectInputStream(fis);
+		v = c.cast(inStream.readObject());
+		inStream.close();
+		fis.close();
+		
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return v;
+	}
+
 	public static void objectToXML(Object o, File file) throws IOException {
-		if(o == null || file == null)
+		if (o == null || file == null)
 			throw new NullPointerException();
 		XStream xstream = new XStream();
 		String xml = xstream.toXML(o);
@@ -123,36 +165,36 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 	}
-	
-	public static byte[] getBytesFromFile(File file) throws IOException {
-        InputStream is = new FileInputStream(file);
-        // Get the size of the file
-        long length = file.length();
-        // You cannot create an array using a long type.
-        // It needs to be an int type.
-        // Before converting to an int type, check
-        // to ensure that file is not larger than Integer.MAX_VALUE.
-        if (length > Integer.MAX_VALUE) {
-            throw new IOException("File too large");
-        }
-        // Create the byte array to hold the data
-        byte[] bytes = new byte[(int)length];
-        // Read in the bytes
-        int offset = 0;
-        int numRead = 0;
-        while (offset < bytes.length
-               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
-            offset += numRead;
-        }
-        // Ensure all the bytes have been read in
-        if (offset < bytes.length) {
-            throw new IOException("Could not completely read file "+file.getName());
-        }
-        // Close the input stream and return bytes
-        is.close();
-        return bytes;
-    }
 
+	public static byte[] getBytesFromFile(File file) throws IOException {
+		InputStream is = new FileInputStream(file);
+		// Get the size of the file
+		long length = file.length();
+		// You cannot create an array using a long type.
+		// It needs to be an int type.
+		// Before converting to an int type, check
+		// to ensure that file is not larger than Integer.MAX_VALUE.
+		if (length > Integer.MAX_VALUE) {
+			throw new IOException("File too large");
+		}
+		// Create the byte array to hold the data
+		byte[] bytes = new byte[(int) length];
+		// Read in the bytes
+		int offset = 0;
+		int numRead = 0;
+		while (offset < bytes.length
+				&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+			offset += numRead;
+		}
+		// Ensure all the bytes have been read in
+		if (offset < bytes.length) {
+			throw new IOException("Could not completely read file "
+					+ file.getName());
+		}
+		// Close the input stream and return bytes
+		is.close();
+		return bytes;
+	}
 
 	public static boolean isBinary(File file) throws IOException {
 		boolean isbin = false;
@@ -174,7 +216,8 @@ public class FileUtils {
 			isbin = true;
 		}
 		return isbin;
-
 	}
+	
+	
 
 }

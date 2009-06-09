@@ -7,9 +7,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
+import java.util.zip.ZipEntry;
 
 import de.kerner.commons.file.FileUtils;
 import de.kerner.commons.file.LazyStringWriter;
@@ -30,40 +37,26 @@ public class JarBuilder {
 		try {
 			System.out.println("building jar file for " + clazz);
 			System.out.println("will be written to " + jarPath);
-
-			final String clazzName = clazz.getSimpleName();
 			final Package myPackage = clazz.getPackage();
-			final String myPackageName = myPackage.getName();
-			final String myPackageFileName = myPackageName.replace('.', '/');
-			System.out.println("package file name " + myPackageFileName);
-			final File clazzFolder = getClassFolder(clazz);
-			System.out.println("class folder " + clazzFolder);
-			final File pkgFile = new File(getClassFolder(clazz),
-					myPackageFileName);
-			System.out.println("package file " + pkgFile);
-			final File[] classFiles = pkgFile.listFiles(new FileFilter() {
-				public boolean accept(File file) {
-					return file.getName().endsWith(".class")
-							|| file.getName().equalsIgnoreCase("MANIFEST.MF");
-				}
-			});
-
-			final FileOutputStream fos = new FileOutputStream(jarPath);
-			final JarOutputStream os = new JarOutputStream(fos);
-			for (File f : classFiles) {
-				final String name = myPackageFileName + '/' + f.getName();
-				System.out.printf("Adding: %s", name);
-				System.out.println();
-				addFileToJar(f, name, os);
+			System.out.println(myPackage);
+			final File pkgFile = getFullPath(myPackage, clazz);
+			System.out.println("full path " + pkgFile);
+			List<File> classes = null;
+			if (pkgFile.isDirectory()) {
+				System.out.println("file is directory");
+				classes = getClassesFromDir(pkgFile);
+			} else if (pkgFile.isFile()) {
+				System.out.println("file is file");
+				classes = getClassesFromJar(pkgFile);
+			} else {
+				System.out.println(pkgFile.getName());
+				throw new RuntimeException("KANN nicht sein");
 			}
 
-			final File manifest = getManifest(clazz);
-			System.out.printf("Adding manifest: %s", manifest.toString());
-			addFileToJar(manifest, manifest.getParent() + "/"
-					+ manifest.getName(), os);
-			os.close();
+			addClassesToJar(clazz, classes, jarPath);
 			System.out.println("----------------------------");
 			System.out.printf("Wrote: %s", jarPath);
+			System.out.println();
 
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
@@ -73,18 +66,60 @@ public class JarBuilder {
 		}
 
 	}
-	
+
+	private static void addClassesToJar(final Class<?> clazz,
+			final List<File> classes, final File jarPath) throws IOException {
+		final FileOutputStream fos = new FileOutputStream(jarPath);
+		final JarOutputStream os = new JarOutputStream(fos);
+		for (File f : classes) {
+			System.out.printf("Adding: %s", f);
+			System.out.println();
+			addFileToJar(f, f.getName(), os);
+		}
+		final File manifest = getManifest(clazz);
+		System.out.printf("Adding manifest: %s", manifest.toString());
+		System.out.println();
+		addFileToJar(manifest, manifest.getParent() + "/" + manifest.getName(),
+				os);
+		os.close();
+	}
+
+	private static List<File> getClassesFromJar(final File pkgFile)
+			throws IOException {
+		final JarFile jarFile = new JarFile(pkgFile);
+		final Enumeration<JarEntry> entries = jarFile.entries();
+		while (entries.hasMoreElements()) {
+			ZipEntry entry = entries.nextElement();
+			System.out.println("content of jar:" + entry);
+		}
+		return null;
+	}
+
+	private static List<File> getClassesFromDir(final File pkgFile) {
+		final File[] classFiles = pkgFile.listFiles(new FileFilter() {
+			public boolean accept(File file) {
+				return file.getName().endsWith(".class");
+			}
+		});
+		return Arrays.asList(classFiles);
+	}
+
 	/**
 	 * 
-	 * Add a file to a jar file.
-	 * {@code OutPutStream} will be flushed after writing, but not closed.
+	 * Add a file to a jar file. {@code OutPutStream} will be flushed after
+	 * writing, but not closed.
 	 * 
-	 * @param file File, that will be written to the {@code JarOutPutStream}
-	 * @param jarEntryName full path within the jar-file. Directory separator is "/"
-	 * @param os {@code JarOutPutStream}, to which is written
+	 * @param file
+	 *            File, that will be written to the {@code JarOutPutStream}
+	 * @param jarEntryName
+	 *            full path within the jar-file. Directory separator is "/"
+	 * @param os
+	 *            {@code JarOutPutStream}, to which is written
 	 * @throws IOException
 	 */
-	private static void addFileToJar(final File file, final String jarEntryName, final JarOutputStream os) throws IOException{
+	private static void addFileToJar(final File file,
+			final String jarEntryName, final JarOutputStream os)
+			throws IOException {
 		final JarEntry entry = new JarEntry(jarEntryName);
 		os.putNextEntry(entry);
 		final InputStream is = new BufferedInputStream(
@@ -109,15 +144,66 @@ public class JarBuilder {
 		return file;
 	}
 
-	private static File getClassFolder(final Class<?> clazz)
+	/**
+	 * 
+	 * @param clazz
+	 *            Class, from which we want to know from where it has been
+	 *            loaded
+	 * @return Either directory, where the .class file is stored, or the name of
+	 *         the jar, from which class has been loaded
+	 * @throws URISyntaxException
+	 */
+	private static File getLocationOfClass(final Class<?> clazz)
 			throws URISyntaxException {
-		return new File(clazz.getProtectionDomain().getCodeSource()
-				.getLocation().toURI().getPath());
+		final File result = new File(clazz.getProtectionDomain()
+				.getCodeSource().getLocation().toURI().getPath());
+		System.out.println("location of class file:" + result);
+		return result;
+	}
+
+	private static File getFullPath(Package myPackage, Class<?> clazz)
+			throws URISyntaxException {
+		if (myPackage == null)
+			return getLocationOfClass(clazz);
+		return new File(getLocationOfClass(clazz), myPackage.getName().replace(
+				'.', '/'));
+	}
+
+	private static void buildJarFromJar(final File inFile, File outFile)
+			throws IOException {
+		if (!inFile.isFile() || !inFile.canRead())
+			throw new IOException("cannot read jarfile " + inFile);
+		final JarFile jar = new JarFile(inFile);
+		final FileOutputStream fos = new FileOutputStream(outFile);
+		final JarOutputStream os = new JarOutputStream(fos);
+		final Enumeration<JarEntry> entries = jar.entries();
+		while (entries.hasMoreElements()) {
+			final JarEntry entry = entries.nextElement();
+			System.out.println("now entry " + entry);
+			os.putNextEntry(entry);
+			
+			os.flush();
+			System.out.println("added jar entry " + entry);
+		}
+		os.close();
+
 	}
 
 	public static void main(String[] args) {
-		File outFile = new File("/home/pcb/kerner/Desktop/test.jar");
-		buildJar(JarBuilder.class, outFile);
+
+		try {
+			File outFile = new File("/home/pcb/kerner/Desktop/test.jar");
+			// buildJarFromJar(new File("/home/pcb/kerner/Desktop/commons.jar"),
+			// outFile);
+
+			buildJarFromJar(new File(
+					"/home/pcb/kerner/Desktop/ringversuch-v.3.1.1.jar"),
+					outFile);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

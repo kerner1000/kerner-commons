@@ -30,12 +30,14 @@ public class FileUtils {
 
 	public static long readerToWriter(Reader reader, Writer writer)
 			throws IOException {
-		return readerToWriter(reader, writer, DEFAULT_BUFFER);
+		return readerToWriter(reader, writer, 0);
 	}
 
-	public static long readerToWriter(Reader reader, Writer writer, int buffer)
+	public static long readerToWriter(final Reader reader, final Writer writer, int buffer)
 			throws IOException {
-		char[] charBuffer = new char[buffer];
+		if(buffer == 0)
+			buffer = DEFAULT_BUFFER;
+		final char[] charBuffer = new char[buffer];
 		long count = 0;
 		int n = 0;
 		while ((n = reader.read(charBuffer)) != -1) {
@@ -51,9 +53,11 @@ public class FileUtils {
 		return inputStreamToOutputStream(in, out, DEFAULT_BUFFER);
 	}
 
-	public static long inputStreamToOutputStream(InputStream in,
-			OutputStream out, int buffer) throws IOException {
-		byte[] byteBuffer = new byte[buffer];
+	public static long inputStreamToOutputStream(final InputStream in,
+			final OutputStream out, int buffer) throws IOException {
+		if(buffer == 0)
+			buffer = DEFAULT_BUFFER;
+		final byte[] byteBuffer = new byte[buffer];
 		long count = 0;
 		int n = 0;
 		while ((n = in.read(byteBuffer)) != -1) {
@@ -68,6 +72,12 @@ public class FileUtils {
 			throws IOException {
 		InputStreamReader inr = new InputStreamReader(in);
 		return readerToWriter(inr, writer);
+	}
+
+	public static long inputStreamToWriter(final InputStream in, final Writer writer,
+			final int buffer) throws IOException {
+		InputStreamReader inr = new InputStreamReader(in);
+		return readerToWriter(inr, writer, buffer);
 	}
 
 	public static long outputStreamToReader(OutputStream out, Reader reader)
@@ -98,46 +108,6 @@ public class FileUtils {
 		V v = c.cast(inStream.readObject());
 		inStream.close();
 		fis.close();
-		return v;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <V> V fileToObject(final Class<V> c, final File file, final ClassLoader loader)
-			throws IOException, ClassNotFoundException {
-		if (c == null || file == null)
-			throw new NullPointerException(c + " + " + file
-					+ " must not be null");
-		V v = null;
-		
-		try {
-		Class<FileInputStream> clazz = (Class<FileInputStream>) loader.loadClass( "java.io.FileInputStream" ); 
-		Constructor<?> con = clazz.getConstructor(File.class);
-		InputStream fis = (InputStream) con.newInstance(file);
-		final ObjectInputStream inStream = new ObjectInputStream(fis);
-		v = c.cast(inStream.readObject());
-		inStream.close();
-		fis.close();
-		
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		return v;
 	}
 
@@ -217,7 +187,5 @@ public class FileUtils {
 		}
 		return isbin;
 	}
-	
-	
 
 }

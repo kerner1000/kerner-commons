@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -69,7 +71,12 @@ public class ZipUtils {
 		final JarCreator creator = new JarCreator(jarFile, mainClassName);
 		create(dir, jarFile, creator);
 	}
-
+	
+	public static Manifest getManifestFromJar(final File archive) throws IOException{
+		final JarFile jarFile = new JarFile(archive);
+		return jarFile.getManifest();
+	}
+	
 	private static void create(final File dir, final File zipFile,
 			final AbstractArchiveCreator creator) throws IOException {
 		if (dir == null || zipFile == null)
@@ -80,27 +87,30 @@ public class ZipUtils {
 		LOGGER.debug("creating archive=" + zipFile + " from " + dir);
 		creator.create(dir);
 	}
-
+	
 	public static final void main(String[] args) {
 		PropertyConfigurator
 				.configure("/home/pcb/kerner/Dropbox/log.properties");
-		final File file = new File(
+		final File file1 = new File(
 				"/home/pcb/kerner/Desktop/ringversuch-v.3.1.1.jar");
 		final File file2 = new File(
 				"/home/pcb/kerner/Desktop/ringversuchExtract/");
 		final File file3 = new File(
 				"/home/pcb/kerner/Desktop/ringversuchPacked.jar/");
-		try {
-			// extractToDir(file, file2);
+		final File file4 = new File("/home/pcb/kerner/Desktop/pipelinetest/plugins/de.mpg.mpiz.koeln.kerner.conrad_0.0.1.jar");
+		final File file5 = new File("/home/pcb/kerner/Desktop/tmpDir2");
+		final File file6= new File("/home/pcb/kerner/Desktop/tmpDir2.jar");
+//		try {
+			//extractToDir(file4, file5);
 			// createZip(file2, file3);
-			createRunnableJarFromDirectory(file2, file3, "core.StartR");
-		} catch (ZipException e) {
+//			createRunnableJarFromBundle(file4, file5);
+//		} catch (ZipException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			e.printStackTrace();
+//		}
 	}
 
 	private static File getFullPathForEntryName(final String entryName,

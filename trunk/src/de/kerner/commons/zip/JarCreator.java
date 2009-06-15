@@ -25,8 +25,7 @@ class JarCreator extends AbstractArchiveCreator {
 		}
 	}
 
-	private final static Logger LOGGER = Logger
-	.getLogger(JarCreator.class);
+//	private final static Logger LOGGER = Logger.getLogger(JarCreator.class);
 	protected final JarOutputStream out;
 	
 	JarCreator(File zipFile, String mainClassName) throws FileNotFoundException, IOException {
@@ -41,7 +40,7 @@ class JarCreator extends AbstractArchiveCreator {
 		final FileInputStream fi = new FileInputStream(file);
 		final String entryName = getEntryName(file, zipFile);
 		final ZipEntry entry = new ZipEntry(entryName);
-		LOGGER.debug(entryName);
+//		LOGGER.debug(entryName);
 		out.putNextEntry(entry);
 		FileUtils.inputStreamToOutputStream(fi, out);
 		fi.close();

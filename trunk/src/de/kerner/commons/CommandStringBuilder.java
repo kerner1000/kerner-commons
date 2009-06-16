@@ -1,4 +1,4 @@
-package de.kerner.commons.other;
+package de.kerner.commons;
 
 import java.util.ArrayList;
 import java.util.Arrays;

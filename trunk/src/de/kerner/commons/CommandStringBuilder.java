@@ -22,6 +22,7 @@ public class CommandStringBuilder {
 	public void addAllValueCommands(Map<String, String> all){
 		for(Entry<String, String> e : all.entrySet()){
 			sb.add(e.getKey());
+			sb.add(e.getValue());
 		}
 	}
 	

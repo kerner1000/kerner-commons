@@ -14,8 +14,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -33,9 +31,9 @@ public class FileUtils {
 		return readerToWriter(reader, writer, 0);
 	}
 
-	public static long readerToWriter(final Reader reader, final Writer writer, int buffer)
-			throws IOException {
-		if(buffer == 0)
+	public static long readerToWriter(final Reader reader, final Writer writer,
+			int buffer) throws IOException {
+		if (buffer == 0)
 			buffer = DEFAULT_BUFFER;
 		final char[] charBuffer = new char[buffer];
 		long count = 0;
@@ -55,7 +53,7 @@ public class FileUtils {
 
 	public static long inputStreamToOutputStream(final InputStream in,
 			final OutputStream out, int buffer) throws IOException {
-		if(buffer == 0)
+		if (buffer == 0)
 			buffer = DEFAULT_BUFFER;
 		final byte[] byteBuffer = new byte[buffer];
 		long count = 0;
@@ -74,8 +72,8 @@ public class FileUtils {
 		return readerToWriter(inr, writer);
 	}
 
-	public static long inputStreamToWriter(final InputStream in, final Writer writer,
-			final int buffer) throws IOException {
+	public static long inputStreamToWriter(final InputStream in,
+			final Writer writer, final int buffer) throws IOException {
 		InputStreamReader inr = new InputStreamReader(in);
 		return readerToWriter(inr, writer, buffer);
 	}
@@ -122,6 +120,38 @@ public class FileUtils {
 	public static <V> V XMLToObject(Class<V> c, File file) throws IOException {
 		XStream xstream = new XStream();
 		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
+	}
+
+	public static boolean fileCheck(File file, boolean createIfAbsend) {
+		if (createIfAbsend) {
+			if (file.exists())
+				return (file.canRead() && file.isFile() && file.length() != 0);
+			else {
+				try {
+					final boolean b = file.createNewFile();
+					return b;
+				} catch (IOException e) {
+					return false;
+				}
+			}
+		} else {
+			return (file.exists() && file.canRead() && file.isFile() && file
+					.length() != 0);
+		}
+	}
+
+	public static boolean dirCheck(File dir, boolean createIfAbsend) {
+		if (createIfAbsend) {
+			if (dir.exists())
+				return (dir.canRead() && dir.isDirectory() && dir.length() != 0);
+			else {
+				final boolean b = dir.mkdirs();
+				return b;
+			}
+		} else {
+			return (dir.exists() && dir.canRead() && dir.isDirectory() && dir
+					.length() != 0);
+		}
 	}
 
 	public static void main(String[] args) {

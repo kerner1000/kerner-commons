@@ -1,5 +1,7 @@
 package de.kerner.commons.file;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,8 +16,10 @@ public class LazyStringWriter {
 	}
 	
 	public long toFile(File file) throws IOException{
-		StringReader reader = new StringReader(string);
-		FileWriter writer = new FileWriter(file);
-		return FileUtils.readerToWriter(reader, writer);
+		final StringReader reader = new StringReader(string);
+		final BufferedReader br = new BufferedReader(reader);
+		final FileWriter writer = new FileWriter(file);
+		final BufferedWriter bw = new BufferedWriter(writer);
+		return FileUtils.readerToWriter(br, bw);
 	}
 }

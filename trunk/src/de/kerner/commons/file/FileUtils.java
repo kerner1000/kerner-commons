@@ -114,7 +114,7 @@ public class FileUtils {
 			throw new NullPointerException();
 		XStream xstream = new XStream();
 		String xml = xstream.toXML(o);
-		new LazyStringWriter(xml).toFile(file);
+		new LazyStringWriter(xml).write(file);
 	}
 
 	public static <V> V XMLToObject(Class<V> c, File file) throws IOException {

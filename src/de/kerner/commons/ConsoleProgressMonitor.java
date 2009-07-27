@@ -9,7 +9,7 @@ public class ConsoleProgressMonitor extends AbstractProgressMonitor {
 	@Override
 	void printPercent(int cnt, int total, String prefix, String postfix) {
 		System.out.print(prefix);
-		System.out.printf("%5.2f", (double) cnt / total * 100);
+		System.out.printf(" %5.2f", (double) cnt / total * 100);
 		System.out.print("%");
 		System.out.println(postfix);
 	}
@@ -17,7 +17,7 @@ public class ConsoleProgressMonitor extends AbstractProgressMonitor {
 	@Override
 	void printTotal(int cnt, int total, String prefix, String postfix) {
 		System.out.print(prefix);
-		System.out.printf("%d/%d", cnt, total);
+		System.out.printf(" %d/%d", cnt, total);
 		System.out.println(postfix);
 	}
 

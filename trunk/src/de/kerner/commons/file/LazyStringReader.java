@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,7 +42,7 @@ public class LazyStringReader {
 	 * @throws IOException
 	 */
 	public LazyStringReader(File file) throws IOException {
-		this.in = getInputStreamFromFile(file);
+		this.in = FileUtils.getInputStreamFromFile(file);
 	}
 
 	/**
@@ -52,7 +51,7 @@ public class LazyStringReader {
 	 * @throws IOException
 	 */
 	public LazyStringReader(String fileName) throws IOException {
-		this.in = getInputStreamFromFile(new File(fileName));
+		this.in = FileUtils.getInputStreamFromFile(new File(fileName));
 	}
 
 	/**
@@ -85,16 +84,6 @@ public class LazyStringReader {
 	public OutputStream getStream() throws IOException {
 		return getStream(defaultOutputStream);
 	}
-
-	private InputStream getInputStreamFromFile(File file) throws IOException {
-		readableFileCheck(file);
-		return new FileInputStream(file);
-	}
-
-	private void readableFileCheck(File file) throws IOException {
-		if (!file.exists() || !file.isFile() || !file.canRead())
-			throw new IOException("Cannot read file " + file);
-	}
 	
 	public static void main(String[] args){
 		try {
@@ -104,5 +93,4 @@ public class LazyStringReader {
 			e.printStackTrace();
 		}
 	}
-
 }

@@ -3,6 +3,7 @@ package de.kerner.commons.file;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,6 +83,12 @@ public class FileUtils {
 			throws IOException {
 		OutputStreamWriter outw = new OutputStreamWriter(out);
 		return readerToWriter(reader, outw);
+	}
+	
+	public static InputStream getInputStreamFromFile(File file) throws IOException {
+		if(!fileCheck(file, false))
+			throw new FileNotFoundException("cannot read file " + file);
+		return new FileInputStream(file);
 	}
 
 	public static void objectToFile(Serializable s, File file)

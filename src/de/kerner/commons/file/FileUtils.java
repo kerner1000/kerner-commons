@@ -27,11 +27,38 @@ public class FileUtils {
 
 	public final static String NEW_LINE = System.getProperty("line.separator");
 
+	/**
+	 * 
+	 * Copies the content of a <code>Reader</code> to a <code>Writer</code>.
+	 * Will flush the <code>Writer</code>, but won't close <code>Reader</code>
+	 * or <code>Writer</code>.
+	 * 
+	 * @param reader
+	 *            <code>Reader</code> from which data is read.
+	 * @param writer
+	 *            <code>Writer</code> to which data is written.
+	 * @return number of bytes read/written.
+	 * @throws IOException
+	 */
 	public static long readerToWriter(Reader reader, Writer writer)
 			throws IOException {
 		return readerToWriter(reader, writer, 0);
 	}
 
+	/**
+	 * Copies the content of a <code>Reader</code> to a <code>Writer</code>.
+	 * Will flush the <code>Writer</code>, but won't close <code>Reader</code>
+	 * or <code>Writer</code>.
+	 * 
+	 * @param reader
+	 *            <code>Reader</code> from which data is read.
+	 * @param writer
+	 *            <code>Writer</code> to which data is written.
+	 * @param buffer
+	 *            the number of bytes to buffer reading.
+	 * @return number of bytes read/written.
+	 * @throws IOException
+	 */
 	public static long readerToWriter(final Reader reader, final Writer writer,
 			int buffer) throws IOException {
 		if (buffer == 0)
@@ -47,11 +74,37 @@ public class FileUtils {
 		return count;
 	}
 
+	/**
+	 * Copies the content of an <code>InputStream</code> to an
+	 * <code>OutputStream</code>. Will flush the <code>OutputStream</code>, but
+	 * won't close <code>InputStream</code> or <code>OutputStream</code>.
+	 * 
+	 * @param in
+	 *            <code>InputStream</code> from which data is read.
+	 * @param out
+	 *            <code>OutputStream</code> to which data is written.
+	 * @return number of bytes read/written.
+	 * @throws IOException
+	 */
 	public static long inputStreamToOutputStream(InputStream in,
 			OutputStream out) throws IOException {
 		return inputStreamToOutputStream(in, out, DEFAULT_BUFFER);
 	}
 
+	/**
+	 * Copies the content of an <code>InputStream</code> to an
+	 * <code>OutputStream</code>. Will flush the <code>OutputStream</code>, but
+	 * won't close <code>InputStream</code> or <code>OutputStream</code>.
+	 * 
+	 * @param in
+	 *            <code>InputStream</code> from which data is read.
+	 * @param out
+	 *            <code>OutputStream</code> to which data is written.
+	 * @param buffer
+	 *            the number of bytes to buffer reading.
+	 * @return number of bytes read/written.
+	 * @throws IOException
+	 */
 	public static long inputStreamToOutputStream(final InputStream in,
 			final OutputStream out, int buffer) throws IOException {
 		if (buffer == 0)
@@ -67,16 +120,42 @@ public class FileUtils {
 		return count;
 	}
 
-	public static long inputStreamToWriter(InputStream in, Writer writer)
+	/**
+	 * Copies the content of an <code>InputStream</code> to a
+	 * <code>Writer</code>. Will flush the <code>Writer</code>, but won't close
+	 * <code>InputStream</code> or <code>Writer</code>.
+	 * 
+	 * @param in
+	 *            <code>InputStream</code> from which data is read.
+	 * @param out
+	 *            <code>Writer</code> to which data is written.
+	 * @return number of bytes read/written.
+	 * @throws IOException
+	 */
+	public static long inputStreamToWriter(InputStream in, Writer out)
 			throws IOException {
 		InputStreamReader inr = new InputStreamReader(in);
-		return readerToWriter(inr, writer);
+		return readerToWriter(inr, out);
 	}
 
+	/**
+	 * Copies the content of an <code>InputStream</code> to a
+	 * <code>Writer</code>. Will flush the <code>Writer</code>, but won't close
+	 * <code>InputStream</code> or <code>Writer</code>.
+	 * 
+	 * @param in
+	 *            <code>InputStream</code> from which data is read.
+	 * @param out
+	 *            <code>Writer</code> to which data is written.
+	 * @param buffer
+	 *            the number of bytes to buffer reading.
+	 * @return number of bytes read/written.
+	 * @throws IOException
+	 */
 	public static long inputStreamToWriter(final InputStream in,
-			final Writer writer, final int buffer) throws IOException {
+			final Writer out, final int buffer) throws IOException {
 		InputStreamReader inr = new InputStreamReader(in);
-		return readerToWriter(inr, writer, buffer);
+		return readerToWriter(inr, out, buffer);
 	}
 
 	public static long outputStreamToReader(OutputStream out, Reader reader)
@@ -84,11 +163,76 @@ public class FileUtils {
 		OutputStreamWriter outw = new OutputStreamWriter(out);
 		return readerToWriter(reader, outw);
 	}
-	
-	public static InputStream getInputStreamFromFile(File file) throws IOException {
-		if(!fileCheck(file, false))
+
+	/**
+	 * Reads a file an returns an <code>InputStream</code> from it.
+	 * 
+	 * @param file
+	 *            <code>File</code> from which the <code>InputStream</code> is
+	 *            created.
+	 * @return the <code>InputStream</code>.
+	 * @throws IOException
+	 */
+	public static InputStream getInputStreamFromFile(File file)
+			throws IOException {
+		if (!fileCheck(file, false))
 			throw new FileNotFoundException("cannot read file " + file);
 		return new FileInputStream(file);
+	}
+
+	/**
+	 * Extended accessibility test, if a file is available for reading. <br>
+	 * it consists of following tests:
+	 * <p>
+	 * {@code file.exists() && file.canRead() && file.isFile() && file .length()!= 0}
+	 * </p>
+	 * 
+	 * @param file
+	 *            file, that is checked.
+	 * @param createIfAbsend
+	 *            if {@code !file.exists()}, it will be created.
+	 * @return true, if file is accessible, false otherwise.
+	 */
+	public static boolean fileCheck(File file, boolean createIfAbsend) {
+		if (createIfAbsend) {
+			if (file.exists())
+				return (file.canRead() && file.isFile() && file.length() != 0);
+			else {
+				try {
+					final boolean b = file.createNewFile();
+					return b;
+				} catch (IOException e) {
+					return false;
+				}
+			}
+		} else {
+			return (file.exists() && file.canRead() && file.isFile() && file
+					.length() != 0);
+		}
+	}
+
+	/**
+	 * Extended accessibility test, if a directory is available for reading. <br>
+	 * it consists of following tests:
+	 * <p>
+	 * {@code dir.exists() && dir.canRead() && dir.isDirectory() && dir.length() != 0}
+	 * <p>
+	 * @param dir directory, that is checked.
+	 * @param createIfAbsend if {@code !dir.exists()}, it will be created.
+	 * @return true, if dir is accessible, false otherwise.
+	 */
+	public static boolean dirCheck(File dir, boolean createIfAbsend) {
+		if (createIfAbsend) {
+			if (dir.exists())
+				return (dir.canRead() && dir.isDirectory() && dir.length() != 0);
+			else {
+				final boolean b = dir.mkdirs();
+				return b;
+			}
+		} else {
+			return (dir.exists() && dir.canRead() && dir.isDirectory() && dir
+					.length() != 0);
+		}
 	}
 
 	public static void objectToFile(Serializable s, File file)
@@ -127,38 +271,6 @@ public class FileUtils {
 	public static <V> V XMLToObject(Class<V> c, File file) throws IOException {
 		XStream xstream = new XStream();
 		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
-	}
-
-	public static boolean fileCheck(File file, boolean createIfAbsend) {
-		if (createIfAbsend) {
-			if (file.exists())
-				return (file.canRead() && file.isFile() && file.length() != 0);
-			else {
-				try {
-					final boolean b = file.createNewFile();
-					return b;
-				} catch (IOException e) {
-					return false;
-				}
-			}
-		} else {
-			return (file.exists() && file.canRead() && file.isFile() && file
-					.length() != 0);
-		}
-	}
-
-	public static boolean dirCheck(File dir, boolean createIfAbsend) {
-		if (createIfAbsend) {
-			if (dir.exists())
-				return (dir.canRead() && dir.isDirectory() && dir.length() != 0);
-			else {
-				final boolean b = dir.mkdirs();
-				return b;
-			}
-		} else {
-			return (dir.exists() && dir.canRead() && dir.isDirectory() && dir
-					.length() != 0);
-		}
 	}
 
 	public static void main(String[] args) {

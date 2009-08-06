@@ -41,7 +41,14 @@ public class LazyFileCopier {
 		final BufferedReader br = new BufferedReader(reader);
 		final FileWriter writer = new FileWriter(outFile);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		return FileUtils.readerToWriter(br, bw);
+		long r = 0;
+		try{
+		r = FileUtils.readerToWriter(br, bw);
+		}finally{
+			br.close();
+			bw.close();
+		}
+		return r;
 	}
 
 }

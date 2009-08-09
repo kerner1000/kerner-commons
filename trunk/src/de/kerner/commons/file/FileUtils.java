@@ -163,6 +163,14 @@ public class FileUtils {
 		OutputStreamWriter outw = new OutputStreamWriter(out);
 		return readerToWriter(reader, outw);
 	}
+	
+	public static Writer outputStreamToWriter(OutputStream out){
+		return new OutputStreamWriter(out);
+	}
+	
+	public static Reader inputStreamToReader(InputStream in){
+		return new InputStreamReader(in);
+	}
 
 	/**
 	 * Reads a file an returns an <code>InputStream</code> from it.
@@ -178,6 +186,10 @@ public class FileUtils {
 		if (!fileCheck(file, false))
 			throw new FileNotFoundException("cannot read file " + file);
 		return new FileInputStream(file);
+	}
+	
+	public static OutputStream getOutputStreamForFile(File file) throws FileNotFoundException{
+		return new FileOutputStream(file);
 	}
 
 	/**

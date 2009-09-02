@@ -271,32 +271,7 @@ public class FileUtils {
 		fis.close();
 		return v;
 	}
-
-	public static void objectToXML(Object o, File file) throws IOException {
-		if (o == null || file == null)
-			throw new NullPointerException();
-		XStream xstream = new XStream();
-		String xml = xstream.toXML(o);
-		new LazyStringWriter(xml).write(file);
-	}
-
-	public static <V> V XMLToObject(Class<V> c, File file) throws IOException {
-		XStream xstream = new XStream();
-		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
-	}
-
-	public static void main(String[] args) {
-		File file = new File("/home/pcb/kerner/Desktop", "out.xml");
-		try {
-			objectToXML(new String("hans ist toll"), file);
-			String hans = XMLToObject(String.class, file);
-			System.out.println(hans);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	public static byte[] getBytesFromFile(File file) throws IOException {
 		InputStream is = new FileInputStream(file);
 		// Get the size of the file
@@ -325,6 +300,31 @@ public class FileUtils {
 		// Close the input stream and return bytes
 		is.close();
 		return bytes;
+	}
+
+	public static void objectToXML(Object o, File file) throws IOException {
+		if (o == null || file == null)
+			throw new NullPointerException();
+		XStream xstream = new XStream();
+		String xml = xstream.toXML(o);
+		new LazyStringWriter(xml).write(file);
+	}
+
+	public static <V> V XMLToObject(Class<V> c, File file) throws IOException {
+		XStream xstream = new XStream();
+		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
+	}
+
+	public static void main(String[] args) {
+		File file = new File("/home/pcb/kerner/Desktop", "out.xml");
+		try {
+			objectToXML(new String("hans ist toll"), file);
+			String hans = XMLToObject(String.class, file);
+			System.out.println(hans);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static boolean isBinary(File file) throws IOException {

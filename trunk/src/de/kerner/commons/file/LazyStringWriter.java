@@ -23,14 +23,20 @@ public class LazyStringWriter {
 		final BufferedReader br = new BufferedReader(reader);
 		final FileWriter writer = new FileWriter(file);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		return FileUtils.readerToWriter(br, bw);
+		final long result = FileUtils.readerToWriter(br, bw);
+		writer.close();
+		reader.close();
+		return result;
 	}
 	
 	public long write(Writer writer) throws IOException{
 		final StringReader reader = new StringReader(string);
 		final BufferedReader br = new BufferedReader(reader);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		return FileUtils.readerToWriter(br, bw);
+		final long result = FileUtils.readerToWriter(br, bw);
+		writer.close();
+		reader.close();
+		return result;
 	}
 	
 	public long write(OutputStream stream) throws IOException{
@@ -38,6 +44,9 @@ public class LazyStringWriter {
 		final BufferedReader br = new BufferedReader(reader);
 		final OutputStreamWriter writer = new OutputStreamWriter(stream);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		return FileUtils.readerToWriter(br, bw);
+		final long result = FileUtils.readerToWriter(br, bw);
+		writer.close();
+		reader.close();
+		return result;
 	}
 }

@@ -191,6 +191,48 @@ public class FileUtils {
 	public static OutputStream getOutputStreamForFile(File file) throws FileNotFoundException{
 		return new FileOutputStream(file);
 	}
+	
+	/**
+	 * 
+	 * <p> Given a {@code File} named "hans.txt".
+	 * newName is "peter".
+	 * Returning {@code String} will be "peter.txt". </p>
+	 * 
+	 * <p> Original name is "hans.txt.tex".
+	 * newName is "peter".
+	 * Returning {@code String} will be "peter.tex".
+	 * </p>
+	 * 
+	 * <p> Original name is "hans.txt.tex".
+	 * newName is "peter.txt".
+	 * Returning {@code String} will be "peter.txt.tex".
+	 * </p>
+	 * 
+	 * @param file {@code File}, for which new name is wanted.
+	 * @param newName the new filename discarding extension.
+	 * @return the new filename including extension.
+	 */
+	public static String getNewFileName(File file, String newName){
+		final String fileName = file.getName();
+		final int posOfExt = fileName.lastIndexOf(".");
+		if(posOfExt < 0){
+			return newName;
+		}
+//		final String rawNameOld = fileName.substring(0, posOfExt);
+//		System.err.println("rawNameOld="+rawNameOld);
+		final String ext = fileName.substring(posOfExt, fileName.length());
+//		System.err.println("ext="+ext);
+		return newName + ext;
+	}
+	
+	public static String getRawFileName(File file){
+		final String fileName = file.getName();
+		final int posOfExt = fileName.lastIndexOf(".");
+		if(posOfExt < 0){
+			return fileName;
+		}
+		return fileName.substring(0, posOfExt);		
+	}
 
 	/**
 	 * Extended accessibility test, if a file is available for reading. <br>
@@ -314,19 +356,7 @@ public class FileUtils {
 		XStream xstream = new XStream();
 		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
 	}
-
-	public static void main(String[] args) {
-		File file = new File("/home/pcb/kerner/Desktop", "out.xml");
-		try {
-			objectToXML(new String("hans ist toll"), file);
-			String hans = XMLToObject(String.class, file);
-			System.out.println(hans);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	public static boolean isBinary(File file) throws IOException {
 		boolean isbin = false;
 		java.io.InputStream in = null;
@@ -348,5 +378,11 @@ public class FileUtils {
 		}
 		return isbin;
 	}
+	
+	public static void main(String[] args) {
+		File file = new File("hans.txt");
+		System.out.println(getRawFileName(file)); 
+	}
+
 
 }

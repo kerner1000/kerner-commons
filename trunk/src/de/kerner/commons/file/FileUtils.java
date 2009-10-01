@@ -189,6 +189,7 @@ public class FileUtils {
 	}
 	
 	public static OutputStream getOutputStreamForFile(File file) throws FileNotFoundException{
+		// TODO: what about closing this stream?
 		return new FileOutputStream(file);
 	}
 	

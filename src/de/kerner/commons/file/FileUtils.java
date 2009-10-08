@@ -1,5 +1,7 @@
 package de.kerner.commons.file;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -163,12 +165,12 @@ public class FileUtils {
 		OutputStreamWriter outw = new OutputStreamWriter(out);
 		return readerToWriter(reader, outw);
 	}
-	
-	public static Writer outputStreamToWriter(OutputStream out){
+
+	public static Writer outputStreamToWriter(OutputStream out) {
 		return new OutputStreamWriter(out);
 	}
-	
-	public static Reader inputStreamToReader(InputStream in){
+
+	public static Reader inputStreamToReader(InputStream in) {
 		return new InputStreamReader(in);
 	}
 
@@ -183,61 +185,79 @@ public class FileUtils {
 	 */
 	public static InputStream getInputStreamFromFile(File file)
 			throws IOException {
+		// TODO: what about closing this stream?
 		return new FileInputStream(file);
 	}
-	
-	public static OutputStream getOutputStreamForFile(File file) throws FileNotFoundException{
+
+	public static BufferedInputStream getBufferedInputStreamFromFile(File file)
+			throws IOException {
+		// TODO: what about closing this stream?
+		return new BufferedInputStream(new FileInputStream(file));
+	}
+
+	public static OutputStream getOutputStreamForFile(File file)
+			throws FileNotFoundException {
 		// TODO: what about closing this stream?
 		return new FileOutputStream(file);
 	}
-	
+
+	public static BufferedOutputStream getBufferedOutputStreamForFile(File file)
+			throws FileNotFoundException {
+		// TODO: what about closing this stream?
+		return new BufferedOutputStream(new FileOutputStream(file));
+	}
+
 	/**
 	 * 
-	 * <p> Given a {@code File} named "hans.txt".
-	 * newName is "peter".
-	 * Returning {@code String} will be "peter.txt". </p>
-	 * 
-	 * <p> Original name is "hans.txt.tex".
-	 * newName is "peter".
-	 * Returning {@code String} will be "peter.tex".
+	 * <p>
+	 * Given a {@code File} named "hans.txt". newName is "peter". Returning
+	 * {@code String} will be "peter.txt".
 	 * </p>
 	 * 
-	 * <p> Original name is "hans.txt.tex".
-	 * newName is "peter.txt".
-	 * Returning {@code String} will be "peter.txt.tex".
+	 * <p>
+	 * Original name is "hans.txt.tex". newName is "peter". Returning {@code
+	 * String} will be "peter.tex".
 	 * </p>
 	 * 
-	 * @param file {@code File}, for which new name is wanted.
-	 * @param newName the new filename discarding extension.
+	 * <p>
+	 * Original name is "hans.txt.tex". newName is "peter.txt". Returning
+	 * {@code String} will be "peter.txt.tex".
+	 * </p>
+	 * 
+	 * @param file
+	 *            {@code File}, for which new name is wanted.
+	 * @param newName
+	 *            the new filename discarding extension.
 	 * @return the new filename including extension.
 	 */
-	public static String getNewFileName(File file, String newName){
+	public static String getNewFileName(File file, String newName) {
 		final String fileName = file.getName();
 		final int posOfExt = fileName.lastIndexOf(".");
-		if(posOfExt < 0){
+		if (posOfExt < 0) {
 			return newName;
 		}
-//		final String rawNameOld = fileName.substring(0, posOfExt);
-//		System.err.println("rawNameOld="+rawNameOld);
+		// final String rawNameOld = fileName.substring(0, posOfExt);
+		// System.err.println("rawNameOld="+rawNameOld);
 		final String ext = fileName.substring(posOfExt, fileName.length());
-//		System.err.println("ext="+ext);
+		// System.err.println("ext="+ext);
 		return newName + ext;
 	}
-	
-	public static String getRawFileName(File file){
+
+	public static String getRawFileName(File file) {
 		final String fileName = file.getName();
 		final int posOfExt = fileName.lastIndexOf(".");
-		if(posOfExt < 0){
+		if (posOfExt < 0) {
 			return fileName;
 		}
-		return fileName.substring(0, posOfExt);		
+		return fileName.substring(0, posOfExt);
 	}
 
 	/**
 	 * Extended accessibility test, if a file is available for reading. <br>
 	 * it consists of following tests:
 	 * <p>
-	 * {@code file.exists() && file.canRead() && file.isFile() && file .length()!= 0}
+	 * {@code file.exists() && file.canRead() && file.isFile() && file
+	 * .length()!= 0}
 	 * </p>
 	 * 
 	 * @param file
@@ -268,10 +288,14 @@ public class FileUtils {
 	 * Extended accessibility test, if a directory is available for reading. <br>
 	 * it consists of following tests:
 	 * <p>
-	 * {@code dir.exists() && dir.canRead() && dir.isDirectory() && dir.length() != 0}
+	 * {@code dir.exists() && dir.canRead() && dir.isDirectory() && dir.length()
+	 * != 0}
 	 * <p>
-	 * @param dir directory, that is checked.
-	 * @param createIfAbsend if {@code !dir.exists()}, it will be created.
+	 * 
+	 * @param dir
+	 *            directory, that is checked.
+	 * @param createIfAbsend
+	 *            if {@code !dir.exists()}, it will be created.
 	 * @return true, if dir is accessible, false otherwise.
 	 */
 	public static boolean dirCheck(File dir, boolean createIfAbsend) {
@@ -312,7 +336,7 @@ public class FileUtils {
 		fis.close();
 		return v;
 	}
-	
+
 	public static byte[] getBytesFromFile(File file) throws IOException {
 		InputStream is = new FileInputStream(file);
 		// Get the size of the file
@@ -355,7 +379,7 @@ public class FileUtils {
 		XStream xstream = new XStream();
 		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
 	}
-	
+
 	public static boolean isBinary(File file) throws IOException {
 		boolean isbin = false;
 		java.io.InputStream in = null;
@@ -377,11 +401,10 @@ public class FileUtils {
 		}
 		return isbin;
 	}
-	
+
 	public static void main(String[] args) {
 		File file = new File("hans.txt");
-		System.out.println(getRawFileName(file)); 
+		System.out.println(getRawFileName(file));
 	}
-
 
 }

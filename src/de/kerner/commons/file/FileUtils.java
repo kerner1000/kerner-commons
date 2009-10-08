@@ -183,8 +183,6 @@ public class FileUtils {
 	 */
 	public static InputStream getInputStreamFromFile(File file)
 			throws IOException {
-		if (!fileCheck(file, false))
-			throw new FileNotFoundException("cannot read file " + file);
 		return new FileInputStream(file);
 	}
 	

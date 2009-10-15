@@ -268,14 +268,15 @@ public class FileUtils {
 	 */
 	public static boolean fileCheck(File file, boolean createIfAbsend) {
 		if (createIfAbsend) {
-			if (file.exists())
-				return (file.canRead() && file.isFile() && file.length() != 0);
-			else {
-				try {
-					final boolean b = file.createNewFile();
-					return b;
-				} catch (IOException e) {
-					return false;
+			synchronized (file) {
+				if (file.exists())
+					return (file.canRead() && file.isFile() && file.length() != 0);
+				else {
+					try {
+						return file.createNewFile();
+					} catch (IOException e) {
+						return false;
+					}
 				}
 			}
 		} else {

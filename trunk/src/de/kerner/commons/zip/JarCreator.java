@@ -10,9 +10,6 @@ import java.util.jar.Attributes;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import org.apache.log4j.Logger;
 
 import de.kerner.commons.file.FileUtils;
 

@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.log4j.Logger;
-
 import de.kerner.commons.file.FileUtils;
 
 class ZipCreator extends AbstractArchiveCreator {

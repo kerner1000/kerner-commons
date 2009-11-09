@@ -21,10 +21,36 @@ public class StringUtils {
 		return sb.toString();
 	}
 	
+	/**
+	 * <p>
+	 * Example:
+	 * {@code string} = "hans peter ulf": <br>
+	 * return "hans".
+	 * </p>
+	 * 
+	 * <p>
+	 * Example:
+	 * {@code string} = "hans": <br>
+	 * return "hans".
+	 * </p>
+	 */
 	public static String removeAllAfterFirstWhiteSpace(String string){
 		return removeAllAfterFirstOccurence("[\\s+]", string);
 	}
 
+	/**
+	 * <p>
+	 * Example:
+	 * {@code string} = "hans peter ulf", {@code pattern} = "[1-3]": <br>
+	 * return "hans peter ulf".
+	 * </p>
+	 * 
+	 * <p>
+	 * Example:
+	 * {@code string} = "hans1peter2ulf", {@code pattern} = "[1-3]": <br>
+	 * return "hans".
+	 * </p>
+	 */
 	public static String removeAllAfterFirstOccurence(String pattern, String string) {
 		final String finalPattern = "(.+?)" + pattern + "(.*)";
 		final Pattern p = Pattern.compile(finalPattern);

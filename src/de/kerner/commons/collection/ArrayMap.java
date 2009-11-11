@@ -21,6 +21,7 @@ import java.util.Set;
  * @author Alexander Kerner
  * @lastVisit 2009-11-06
  * @threadSave
+ * @deprecated this class is obsolete, use {@linkplain LinkedHashMap} instead.
  * 
  * @param <K>
  *            type of key

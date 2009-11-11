@@ -11,14 +11,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-
 import de.kerner.commons.file.FileUtils;
+import de.kerner.commons.logging.Log;
 
 public class ZipUtils {
 
-	private final static Logger LOGGER = Logger.getLogger(ZipUtils.class);
+	private final static Log LOGGER = new Log(ZipUtils.class);
 
 	private ZipUtils() {
 	}
@@ -89,8 +87,6 @@ public class ZipUtils {
 	}
 	
 	public static final void main(String[] args) {
-		PropertyConfigurator
-				.configure("/home/pcb/kerner/Dropbox/log.properties");
 		final File file1 = new File(
 				"/home/pcb/kerner/Desktop/ringversuch-v.3.1.1.jar");
 		final File file2 = new File(

@@ -36,20 +36,20 @@ public class Log {
 		}
 	}
 
-	public void info(String msg) {
+	public void info(Object msg) {
 		if (logger.isInfoEnabled()) {
-			logger.info(msg);
+			logger.info(msg.toString());
 		}
 	}
 
-	public void warn(String msg) {
+	public void warn(Object msg) {
 		if(logger.isWarnEnabled())
-		logger.warn(msg);
+		logger.warn(msg.toString());
 	}
 	
-	public void warn(String msg, Throwable t) {
+	public void warn(Object msg, Throwable t) {
 		if(logger.isWarnEnabled())
-		logger.warn(msg, t);
+		logger.warn(msg.toString(), t);
 	}
 	
 	public void error(String msg) {

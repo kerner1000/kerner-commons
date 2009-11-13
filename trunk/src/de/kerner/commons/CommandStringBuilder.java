@@ -26,6 +26,18 @@ public class CommandStringBuilder {
 	public CommandStringBuilder(String executable) {
 		sb.add(executable);
 	}
+	
+	public CommandStringBuilder(List<String> template) {
+		for(String s : template){
+			sb.add(s);
+		}
+	}
+	
+	public CommandStringBuilder(CommandStringBuilder template) {
+		for(String s : template.getCommandList()){
+			sb.add(s);
+		}
+	}
 
 	/**
 	 * <p> Add a command line argument that follows pattern
@@ -36,9 +48,10 @@ public class CommandStringBuilder {
 	 * @param identifier name of the command line argument
 	 * @param value value if the command line argument
 	 */
-	public void addValueCommand(String identifier, String value) {
+	public CommandStringBuilder addValueCommand(String identifier, String value) {
 		sb.add(identifier);
 		sb.add(value);
+		return this;
 	}
 
 	/**
@@ -49,19 +62,22 @@ public class CommandStringBuilder {
 	 * </p>
 	 * @param all Collection of command line arguments
 	 */
-	public void addAllValueCommands(Map<String, String> all) {
+	public CommandStringBuilder addAllValueCommands(Map<String, String> all) {
 		for (Entry<String, String> e : all.entrySet()) {
 			sb.add(e.getKey());
 			sb.add(e.getValue());
 		}
+		return this;
 	}
 
-	public void addAllFlagCommands(String... all) {
+	public CommandStringBuilder addAllFlagCommands(String... all) {
 		sb.addAll(Arrays.asList(all));
+		return this;
 	}
 
-	public void addAllFlagCommands(List<String> all) {
+	public CommandStringBuilder addAllFlagCommands(List<String> all) {
 		sb.addAll(all);
+		return this;
 	}
 
 	/**
@@ -73,8 +89,9 @@ public class CommandStringBuilder {
 	 * </p>
 	 * @param flagCommand command line argument
 	 */
-	public void addFlagCommand(String flagCommand) {
+	public CommandStringBuilder addFlagCommand(String flagCommand) {
 		sb.add(flagCommand);
+		return this;
 	}
 
 	public List<String> getCommandList() {

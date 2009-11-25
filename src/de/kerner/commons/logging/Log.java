@@ -25,39 +25,53 @@ public class Log {
 	}
 
 	public void debug(Object msg) {
+		if(msg == null)
+			msg = "null";
 		if (logger.isDebugEnabled()) {
 			logger.debug(msg.toString());
 		}
 	}
 
 	public void debug(Object msg, Throwable t) {
+		if(msg == null)
+			msg = "null";
 		if (logger.isDebugEnabled()) {
 			logger.debug(msg.toString(), t);
 		}
 	}
 
 	public void info(Object msg) {
+		if(msg == null)
+			msg = "null";
 		if (logger.isInfoEnabled()) {
 			logger.info(msg.toString());
 		}
 	}
 
 	public void warn(Object msg) {
+		if(msg == null)
+			msg = "null";
 		if(logger.isWarnEnabled())
 		logger.warn(msg.toString());
 	}
 	
 	public void warn(Object msg, Throwable t) {
+		if(msg == null)
+			msg = "null";
 		if(logger.isWarnEnabled())
 		logger.warn(msg.toString(), t);
 	}
 	
 	public void error(String msg) {
+		if(msg == null)
+			msg = "null";
 		if(logger.isErrorEnabled())
 		logger.error(msg);
 	}
 	
 	public void error(String msg, Throwable t) {
+		if(msg == null)
+			msg = "null";
 		if(logger.isErrorEnabled())
 		logger.error(msg, t);
 	}

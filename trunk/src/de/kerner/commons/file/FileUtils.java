@@ -29,6 +29,26 @@ public class FileUtils {
 
 	public final static String NEW_LINE = System.getProperty("line.separator");
 	
+	public static long copyFile(File source, File dest) throws IOException{
+		InputStream i = null;
+		try{
+		i = getInputStreamFromFile(source);
+		
+		if(dest.exists() || dest.mkdirs()){
+			// all good
+		} else
+			throw new IOException("File \"" + dest + "\" not there or cannot be created");
+		
+		return writeStreamToFile(i, dest);
+		
+		}finally{
+			if(i != null)
+				i.close();
+		}
+	}
+		
+		
+	
 	public static long writeStreamToFile(InputStream stream, File file) throws IOException{
 		FileOutputStream f = null;
 		try{

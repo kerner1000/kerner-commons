@@ -1,9 +1,7 @@
 package de.kerner.commons.workflow;
 
-public interface WorkFlow {
+public interface WorkFlowElement {
 	
 	void work() throws WorkFlowException;
-	
-	void addElement(WorkFlowElement element);
 
 }

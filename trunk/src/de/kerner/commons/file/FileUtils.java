@@ -28,6 +28,19 @@ public class FileUtils {
 			.getProperty("user.dir"));
 
 	public final static String NEW_LINE = System.getProperty("line.separator");
+	
+	public static long writeStreamToFile(InputStream stream, File file) throws IOException{
+		FileOutputStream f = null;
+		try{
+		f = new FileOutputStream(file);
+		final long result = inputStreamToOutputStream(stream, f);
+		return result;
+		}finally{
+			stream.close();
+			if(f != null)
+			f.close();
+		}
+	}
 
 	/**
 	 * 

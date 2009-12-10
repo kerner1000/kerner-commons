@@ -85,6 +85,7 @@ public abstract class AbstractProgrammRunner {
 		exitCode = exe.submit(
 				new ThreaddedProgramm(exeDir, workingDir, out, err))
 				.get();
+		exe.shutdown();
 		if (outFile != null) {
 			out.close();
 		}

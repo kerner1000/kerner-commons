@@ -21,6 +21,8 @@ import java.io.Writer;
 import com.thoughtworks.xstream.XStream;
 
 public class FileUtils {
+	
+	//TODO: introduce IO Utils
 
 	public static final int DEFAULT_BUFFER = 1024;
 
@@ -276,6 +278,7 @@ public class FileUtils {
 		return newName + ext;
 	}
 
+	@Deprecated // use FileNameUtils
 	public static String getRawFileName(File file) {
 		final String fileName = file.getName();
 		final int posOfExt = fileName.lastIndexOf(".");

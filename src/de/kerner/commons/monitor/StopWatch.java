@@ -1,4 +1,4 @@
-package de.kerner.commons;
+package de.kerner.commons.monitor;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,8 +1,7 @@
-package de.kerner.commons.file;
+package de.kerner.commons.monitor;
 
-import java.io.File;
 
-public class HumanReadableFileSizePrinter {
+public class HumanReadableSizePrinter {
     private static final String POST_FIX_B = "B";
     private static final String POST_FIX_K = "K";
     private static final String POST_FIX_M = "M";
@@ -12,7 +11,7 @@ public class HumanReadableFileSizePrinter {
     private final long oneG;
     private final long size;
 
-    public HumanReadableFileSizePrinter(long size, boolean usePowerOf1000) {
+    public HumanReadableSizePrinter(long size, boolean usePowerOf1000) {
         if (usePowerOf1000)
             oneK = 1000L;
         else
@@ -23,11 +22,11 @@ public class HumanReadableFileSizePrinter {
         this.size = size;
     }
 
-    HumanReadableFileSizePrinter(File file) {
+    HumanReadableSizePrinter(long size) {
         oneK = 1024L;
         oneM = oneK * oneK;
         oneG = oneK * oneM;
-        this.size = file.length();
+        this.size = size;
     }
 
     public String toString() {

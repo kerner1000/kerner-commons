@@ -12,6 +12,7 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import de.kerner.commons.file.FileUtils;
+import de.kerner.commons.io.IOUtils;
 import de.kerner.commons.logging.Log;
 
 /**
@@ -88,7 +89,7 @@ public class ZipUtils {
 					final File file = new File(destDir, entryFileName);
 					writer = new FileWriter(file);
 					inStream = zipFile.getInputStream(entry);
-					FileUtils.inputStreamToWriter(inStream, writer, bufferSize);
+					IOUtils.inputStreamToWriter(inStream, writer, bufferSize);
 				} finally {
 					if (inStream != null)
 						inStream.close();

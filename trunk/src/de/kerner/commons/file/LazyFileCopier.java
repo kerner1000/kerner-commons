@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import de.kerner.commons.io.IOUtils;
+
 public class LazyFileCopier {
 
 	private final InputStream inStream;
@@ -45,7 +47,7 @@ public class LazyFileCopier {
 		final BufferedWriter bw = new BufferedWriter(writer);
 		long r = 0;
 		try {
-			r = FileUtils.readerToWriter(br, bw);
+			r = IOUtils.readerToWriter(br, bw);
 		} finally {
 			bw.flush();
 			bw.close();

@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.Writer;
 
+import de.kerner.commons.io.IOUtils;
+
 public class LazyStringWriter {
 
 	private final String string;
@@ -23,7 +25,7 @@ public class LazyStringWriter {
 		final BufferedReader br = new BufferedReader(reader);
 		final FileWriter writer = new FileWriter(file);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		final long result = FileUtils.readerToWriter(br, bw);
+		final long result = IOUtils.readerToWriter(br, bw);
 		writer.close();
 		reader.close();
 		return result;
@@ -33,7 +35,7 @@ public class LazyStringWriter {
 		final StringReader reader = new StringReader(string);
 		final BufferedReader br = new BufferedReader(reader);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		final long result = FileUtils.readerToWriter(br, bw);
+		final long result = IOUtils.readerToWriter(br, bw);
 		writer.close();
 		reader.close();
 		return result;
@@ -44,7 +46,7 @@ public class LazyStringWriter {
 		final BufferedReader br = new BufferedReader(reader);
 		final OutputStreamWriter writer = new OutputStreamWriter(stream);
 		final BufferedWriter bw = new BufferedWriter(writer);
-		final long result = FileUtils.readerToWriter(br, bw);
+		final long result = IOUtils.readerToWriter(br, bw);
 		writer.close();
 		reader.close();
 		return result;

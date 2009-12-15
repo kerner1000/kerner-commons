@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
 
+import de.kerner.commons.io.IOUtils;
+
 /**
  * Simple helper class to read text files
  * @author Alexander Kerner
@@ -56,12 +58,12 @@ public class LazyStringReader {
 		final BufferedReader br = new BufferedReader(reader);
 		final StringWriter sw = new StringWriter();
 		final BufferedWriter bw = new BufferedWriter(sw);
-		FileUtils.readerToWriter(br, bw);
+		IOUtils.readerToWriter(br, bw);
 		return sw.toString();
 	}
 
 	public OutputStream getStream(OutputStream stream) throws IOException {
-		FileUtils.inputStreamToOutputStream(in, stream);
+		IOUtils.inputStreamToOutputStream(in, stream);
 		return stream;
 	}
 

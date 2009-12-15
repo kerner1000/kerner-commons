@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 import de.kerner.commons.file.FileUtils;
+import de.kerner.commons.io.IOUtils;
 import de.kerner.commons.logging.Log;
 
 public abstract class AbstractProcessRunner {
@@ -36,8 +37,8 @@ public abstract class AbstractProcessRunner {
 
 		final Process p = processBuilder.start();
 		log.debug("started process " + p);
-		FileUtils.inputStreamToOutputStream(p.getInputStream(), out);
-		FileUtils.inputStreamToOutputStream(p.getErrorStream(), err);
+		IOUtils.inputStreamToOutputStream(p.getInputStream(), out);
+		IOUtils.inputStreamToOutputStream(p.getErrorStream(), err);
 		final int exit = p.waitFor();
 		log.debug("process " + p + " exited with exit code " + exit);
 		return exit;

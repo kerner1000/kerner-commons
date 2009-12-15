@@ -9,6 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import de.kerner.commons.file.FileUtils;
+import de.kerner.commons.io.IOUtils;
 
 class ZipCreator extends AbstractArchiveCreator {
 	
@@ -29,7 +30,7 @@ class ZipCreator extends AbstractArchiveCreator {
 		final ZipEntry entry = new ZipEntry(entryName);
 //		LOGGER.debug(entryName);
 		out.putNextEntry(entry);
-		FileUtils.inputStreamToOutputStream(fi, out);
+		IOUtils.inputStreamToOutputStream(fi, out);
 		fi.close();
 	}
 	

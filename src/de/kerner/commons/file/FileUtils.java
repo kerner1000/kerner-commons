@@ -2,211 +2,95 @@ package de.kerner.commons.file;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.io.Serializable;
-import java.io.Writer;
 
 import com.thoughtworks.xstream.XStream;
 
-public class FileUtils {
-	
-	//TODO: introduce IO Utils
+import de.kerner.commons.io.IOUtils;
 
-	public static final int DEFAULT_BUFFER = 1024;
+/**
+ * <p>
+ * Utility class for commonly used File operations.
+ * </p>
+ * 
+ * @author Alexander Kerner
+ * @lastVisit 2009-12-14
+ * 
+ */
+public class FileUtils {
 
 	public static final File WORKING_DIR = new File(System
 			.getProperty("user.dir"));
 
 	public final static String NEW_LINE = System.getProperty("line.separator");
-	
-	public static long copyFile(File source, File dest) throws IOException{
+
+	/**
+	 * <p>
+	 * Copies one file to another.
+	 * </p>
+	 * 
+	 * @param source
+	 *            file that is copied
+	 * @param dest
+	 *            destination file to which is copied
+	 * @return number of bytes that where copied
+	 * @throws IOException
+	 */
+	public static long copyFile(File source, File dest) throws IOException {
+
+		// TODO needs testing!
+
+		if (source.isDirectory() || dest.isDirectory())
+			throw new IOException("wont copy directories");
 		InputStream i = null;
-		try{
-		i = getInputStreamFromFile(source);
-		
-		if(dest.exists() || dest.mkdirs()){
-			// all good
-		} else
-			throw new IOException("File \"" + dest + "\" not there or cannot be created");
-		
-		return writeStreamToFile(i, dest);
-		
-		}finally{
-			if(i != null)
+		try {
+			i = getInputStreamFromFile(source);
+
+			// create parent directories
+			if (dest.getParentFile().mkdirs()) {
+				// all good
+			} else
+				throw new IOException("\"" + dest + "\" cannot be created");
+			return writeStreamToFile(i, dest);
+
+		} finally {
+			if (i != null)
 				i.close();
 		}
 	}
-		
-		
-	
-	public static long writeStreamToFile(InputStream stream, File file) throws IOException{
+
+	/**
+	 * 
+	 * Copies the content of a <code>InputStream</code> to a <code>File</code>.
+	 * 
+	 * @param stream
+	 *            <code>InputStream</code> from which data is read.
+	 * @param file
+	 *            <code>File</code> to which data is written.
+	 * @return number of bytes written.
+	 * @throws IOException
+	 */
+	public static long writeStreamToFile(InputStream stream, File file)
+			throws IOException {
 		FileOutputStream f = null;
-		try{
-		f = new FileOutputStream(file);
-		final long result = inputStreamToOutputStream(stream, f);
-		return result;
-		}finally{
+		try {
+			f = new FileOutputStream(file);
+			final long result = IOUtils.inputStreamToOutputStream(stream, f);
+			return result;
+		} finally {
 			stream.close();
-			if(f != null)
-			f.close();
+			if (f != null)
+				f.close();
 		}
-	}
-
-	/**
-	 * 
-	 * Copies the content of a <code>Reader</code> to a <code>Writer</code>.
-	 * Will flush the <code>Writer</code>, but won't close <code>Reader</code>
-	 * or <code>Writer</code>.
-	 * 
-	 * @param reader
-	 *            <code>Reader</code> from which data is read.
-	 * @param writer
-	 *            <code>Writer</code> to which data is written.
-	 * @return number of bytes read/written.
-	 * @throws IOException
-	 */
-	public static long readerToWriter(Reader reader, Writer writer)
-			throws IOException {
-		return readerToWriter(reader, writer, 0);
-	}
-
-	/**
-	 * Copies the content of a <code>Reader</code> to a <code>Writer</code>.
-	 * Will flush the <code>Writer</code>, but won't close <code>Reader</code>
-	 * or <code>Writer</code>.
-	 * 
-	 * @param reader
-	 *            <code>Reader</code> from which data is read.
-	 * @param writer
-	 *            <code>Writer</code> to which data is written.
-	 * @param buffer
-	 *            the number of bytes to buffer reading.
-	 * @return number of bytes read/written.
-	 * @throws IOException
-	 */
-	public static long readerToWriter(final Reader reader, final Writer writer,
-			int buffer) throws IOException {
-		if (buffer == 0)
-			buffer = DEFAULT_BUFFER;
-		final char[] charBuffer = new char[buffer];
-		long count = 0;
-		int n = 0;
-		while ((n = reader.read(charBuffer)) != -1) {
-			writer.write(charBuffer, 0, n);
-			count += n;
-		}
-		writer.flush();
-		return count;
-	}
-
-	/**
-	 * Copies the content of an <code>InputStream</code> to an
-	 * <code>OutputStream</code>. Will flush the <code>OutputStream</code>, but
-	 * won't close <code>InputStream</code> or <code>OutputStream</code>.
-	 * 
-	 * @param in
-	 *            <code>InputStream</code> from which data is read.
-	 * @param out
-	 *            <code>OutputStream</code> to which data is written.
-	 * @return number of bytes read/written.
-	 * @throws IOException
-	 */
-	public static long inputStreamToOutputStream(InputStream in,
-			OutputStream out) throws IOException {
-		return inputStreamToOutputStream(in, out, DEFAULT_BUFFER);
-	}
-
-	/**
-	 * Copies the content of an <code>InputStream</code> to an
-	 * <code>OutputStream</code>. Will flush the <code>OutputStream</code>, but
-	 * won't close <code>InputStream</code> or <code>OutputStream</code>.
-	 * 
-	 * @param in
-	 *            <code>InputStream</code> from which data is read.
-	 * @param out
-	 *            <code>OutputStream</code> to which data is written.
-	 * @param buffer
-	 *            the number of bytes to buffer reading.
-	 * @return number of bytes read/written.
-	 * @throws IOException
-	 */
-	public static long inputStreamToOutputStream(final InputStream in,
-			final OutputStream out, int buffer) throws IOException {
-		if (buffer == 0)
-			buffer = DEFAULT_BUFFER;
-		final byte[] byteBuffer = new byte[buffer];
-		long count = 0;
-		int n = 0;
-		while ((n = in.read(byteBuffer)) != -1) {
-			out.write(byteBuffer, 0, n);
-			count += n;
-		}
-		out.flush();
-		return count;
-	}
-
-	/**
-	 * Copies the content of an <code>InputStream</code> to a
-	 * <code>Writer</code>. Will flush the <code>Writer</code>, but won't close
-	 * <code>InputStream</code> or <code>Writer</code>.
-	 * 
-	 * @param in
-	 *            <code>InputStream</code> from which data is read.
-	 * @param out
-	 *            <code>Writer</code> to which data is written.
-	 * @return number of bytes read/written.
-	 * @throws IOException
-	 */
-	public static long inputStreamToWriter(InputStream in, Writer out)
-			throws IOException {
-		InputStreamReader inr = new InputStreamReader(in);
-		return readerToWriter(inr, out);
-	}
-
-	/**
-	 * Copies the content of an <code>InputStream</code> to a
-	 * <code>Writer</code>. Will flush the <code>Writer</code>, but won't close
-	 * <code>InputStream</code> or <code>Writer</code>.
-	 * 
-	 * @param in
-	 *            <code>InputStream</code> from which data is read.
-	 * @param out
-	 *            <code>Writer</code> to which data is written.
-	 * @param buffer
-	 *            the number of bytes to buffer reading.
-	 * @return number of bytes read/written.
-	 * @throws IOException
-	 */
-	public static long inputStreamToWriter(final InputStream in,
-			final Writer out, final int buffer) throws IOException {
-		InputStreamReader inr = new InputStreamReader(in);
-		return readerToWriter(inr, out, buffer);
-	}
-
-	public static long outputStreamToReader(OutputStream out, Reader reader)
-			throws IOException {
-		OutputStreamWriter outw = new OutputStreamWriter(out);
-		return readerToWriter(reader, outw);
-	}
-
-	public static Writer outputStreamToWriter(OutputStream out) {
-		return new OutputStreamWriter(out);
-	}
-
-	public static Reader inputStreamToReader(InputStream in) {
-		return new InputStreamReader(in);
 	}
 
 	/**
@@ -220,73 +104,52 @@ public class FileUtils {
 	 */
 	public static InputStream getInputStreamFromFile(File file)
 			throws IOException {
-		// TODO: what about closing this stream?
 		return new FileInputStream(file);
 	}
 
+	/**
+	 * Reads a file an returns an <code>BufferedInputStream</code> from it.
+	 * 
+	 * @param file
+	 *            <code>File</code> from which the <code>BufferedInputStream</code> is
+	 *            created.
+	 * @return the <code>BufferedInputStream</code>.
+	 * @throws IOException
+	 */
 	public static BufferedInputStream getBufferedInputStreamFromFile(File file)
 			throws IOException {
-		// TODO: what about closing this stream?
 		return new BufferedInputStream(new FileInputStream(file));
 	}
 
+	/**
+	 * Reads a file an returns an <code>OutputStream</code> from it.
+	 * 
+	 * @param file
+	 *            <code>File</code> from which the <code>OutputStream</code> is
+	 *            created.
+	 * @return the <code>OutputStream</code>.
+	 * @throws IOException
+	 */
 	public static OutputStream getOutputStreamForFile(File file)
 			throws FileNotFoundException {
-		// TODO: what about closing this stream?
 		return new FileOutputStream(file);
 	}
 
+	/**
+	 * Reads a file an returns an <code>BufferedOutputStream</code> from it.
+	 * 
+	 * @param file
+	 *            <code>File</code> from which the <code>BufferedOutputStream</code> is
+	 *            created.
+	 * @return the <code>BufferedOutputStream</code>.
+	 * @throws IOException
+	 */
 	public static BufferedOutputStream getBufferedOutputStreamForFile(File file)
 			throws FileNotFoundException {
-		// TODO: what about closing this stream?
 		return new BufferedOutputStream(new FileOutputStream(file));
 	}
 
-	/**
-	 * 
-	 * <p>
-	 * Given a {@code File} named "hans.txt". newName is "peter". Returning
-	 * {@code String} will be "peter.txt".
-	 * </p>
-	 * 
-	 * <p>
-	 * Original name is "hans.txt.tex". newName is "peter". Returning {@code
-	 * String} will be "peter.tex".
-	 * </p>
-	 * 
-	 * <p>
-	 * Original name is "hans.txt.tex". newName is "peter.txt". Returning
-	 * {@code String} will be "peter.txt.tex".
-	 * </p>
-	 * 
-	 * @param file
-	 *            {@code File}, for which new name is wanted.
-	 * @param newName
-	 *            the new filename discarding extension.
-	 * @return the new filename including extension.
-	 */
-	public static String getNewFileName(File file, String newName) {
-		final String fileName = file.getName();
-		final int posOfExt = fileName.lastIndexOf(".");
-		if (posOfExt < 0) {
-			return newName;
-		}
-		// final String rawNameOld = fileName.substring(0, posOfExt);
-		// System.err.println("rawNameOld="+rawNameOld);
-		final String ext = fileName.substring(posOfExt, fileName.length());
-		// System.err.println("ext="+ext);
-		return newName + ext;
-	}
-
-	@Deprecated // use FileNameUtils
-	public static String getRawFileName(File file) {
-		final String fileName = file.getName();
-		final int posOfExt = fileName.lastIndexOf(".");
-		if (posOfExt < 0) {
-			return fileName;
-		}
-		return fileName.substring(0, posOfExt);
-	}
+	
 
 	/**
 	 * Extended accessibility test, if a file is available for reading. <br>
@@ -310,7 +173,7 @@ public class FileUtils {
 				else {
 					try {
 						return file.createNewFile();
-					} catch (IOException e) {
+					} catch (Exception e) {
 						return false;
 					}
 				}
@@ -417,31 +280,38 @@ public class FileUtils {
 		return c.cast(xstream.fromXML(new LazyStringReader(file).getString()));
 	}
 
+	/**
+	 * <p>
+	 * Tries to check whether file content is binary or not.
+	 * </p>
+	 * 
+	 * @param file
+	 *            File which is tested.
+	 * @return true, if this file is a binary file; else otherwise. Returning of
+	 *         <code>false</code> is reliable, whereas a returning of
+	 *         <code>false</code> might be incorrect.
+	 * @throws IOException
+	 */
 	public static boolean isBinary(File file) throws IOException {
-		boolean isbin = false;
-		java.io.InputStream in = null;
-		in = new FileInputStream(file);
-		BufferedReader r = new BufferedReader(new InputStreamReader(in));
-		char[] cc = new char[255]; // do a peek
-		r.read(cc, 0, 255);
-		double probBin = 0;
-		for (int i = 0; i < cc.length; i++) {
-			int j = (int) cc[i];
-			if (j < 32 || j > 127) {
-				probBin++;
+		InputStream in = null;
+		try {
+			in = getInputStreamFromFile(file);
+			byte[] cc = new byte[IOUtils.DEFAULT_BUFFER]; // do a peek
+			in.read(cc, 0, IOUtils.DEFAULT_BUFFER);
+			for (int i = 0; i < cc.length; i++) {
+				int j = (int) cc[i];
+				if (j < 32 || j > 127) {
+					System.out.println((char) j);
+					return false;
+				} else {
+					// all good
+				}
 			}
+		} finally {
+			if (in != null)
+				in.close();
 		}
-		in.close();
-		double pb = probBin / 255;
-		if (pb > 0.5) {
-			isbin = true;
-		}
-		return isbin;
-	}
-
-	public static void main(String[] args) {
-		File file = new File("hans.txt");
-		System.out.println(getRawFileName(file));
+		return true;
 	}
 
 }

@@ -12,6 +12,7 @@ import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 
 import de.kerner.commons.file.FileUtils;
+import de.kerner.commons.io.IOUtils;
 
 class JarCreator extends AbstractArchiveCreator {
 	
@@ -39,7 +40,7 @@ class JarCreator extends AbstractArchiveCreator {
 		final ZipEntry entry = new ZipEntry(entryName);
 //		LOGGER.debug(entryName);
 		out.putNextEntry(entry);
-		FileUtils.inputStreamToOutputStream(fi, out);
+		IOUtils.inputStreamToOutputStream(fi, out);
 		fi.close();
 	}
 	

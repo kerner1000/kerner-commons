@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 
+import de.kerner.commons.io.IOUtils;
+
 public class LazyFileWriter {
 
 	private final File file;
@@ -20,7 +22,7 @@ public class LazyFileWriter {
 		BufferedWriter bw = null;
 		try {
 			final OutputStream os = FileUtils.getOutputStreamForFile(file);
-			bw = new BufferedWriter(FileUtils.outputStreamToWriter(os));
+			bw = new BufferedWriter(IOUtils.outputStreamToWriter(os));
 			for (String s : lines) {
 				bw.append(s);
 				bw.append(FileUtils.NEW_LINE);

@@ -2,6 +2,8 @@ package de.kerner.commons.monitor;
 
 import java.util.concurrent.TimeUnit;
 
+import de.kerner.commons.TimePeriod;
+
 /**
  * 
  * @author Alexander Kerner

@@ -47,8 +47,6 @@ public class FileUtils {
 	 */
 	public static long copyFile(File source, File dest) throws IOException {
 
-		// TODO needs testing!
-
 		if (source.isDirectory() || dest.isDirectory())
 			throw new IOException("wont copy directories");
 		InputStream i = null;

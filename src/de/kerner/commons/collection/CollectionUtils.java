@@ -23,7 +23,7 @@ public class CollectionUtils {
 	 *            that is to be flattened.
 	 * @return the flat map.
 	 */
-	<V> Collection<V> flattenMap(Map<V, Collection<V>> map) {
+	public <V> Collection<V> flattenMap(Map<V, Collection<V>> map) {
 		final ArrayList<V> result = new ArrayList<V>();
 		for (Entry<V, Collection<V>> e : map.entrySet()) {
 			result.add(e.getKey());
@@ -31,5 +31,4 @@ public class CollectionUtils {
 		}
 		return result;
 	}
-
 }

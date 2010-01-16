@@ -56,14 +56,16 @@ public abstract class AbstractCounter {
 	/**
 	 * <p>
 	 * Resets this {@code AbstractCounter} and calls
-	 * {@link AbstractCounter#perform()}.
+	 * {@link AbstractCounter#perform()} if there has been any counts after last
+	 * call of {@link AbstractCounter#perform()}.
 	 * </p>
 	 */
 	public void stop() {
 		interval = 0;
 		intervalHelper = 0;
 		cnt = 0;
-		perform();
+		if (interval != 0)
+			perform();
 	}
 
 	/**
@@ -86,7 +88,7 @@ public abstract class AbstractCounter {
 	 * 
 	 * @return current counts
 	 */
-	public int getCnt() {
+	public int getCount() {
 		return cnt;
 	}
 

@@ -76,9 +76,20 @@ public abstract class AbstractCounter {
 	 * @param interval
 	 *            number of counts {@link AbstractCounter#count()} has to be
 	 *            called before {@link AbstractCounter#perform()} is called.
+	 * @throws NumberFormatException
+	 *             if {@code interval} < 1
 	 */
 	public void setInterval(int interval) {
+		if (interval < 1)
+			throw new NumberFormatException("interval must be > 0");
 		this.interval = interval;
+	}
+
+	/**
+	 * @return current interval for this {@code AbstractCounter}.
+	 */
+	public int getInterval() {
+		return interval;
 	}
 
 	/**

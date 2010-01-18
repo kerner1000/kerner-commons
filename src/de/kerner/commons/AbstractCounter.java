@@ -22,7 +22,6 @@ package de.kerner.commons;
  * 
  * @author Alexander Kerner
  * @threadSave primitive class members volatile
- * @lastVisit 2010-01-16
  * 
  */
 public abstract class AbstractCounter {

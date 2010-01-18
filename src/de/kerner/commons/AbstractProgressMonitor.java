@@ -1,5 +1,11 @@
 package de.kerner.commons;
 
+/**
+ * 
+ * @author Alexander Kerner
+ * @deprecated use {@link AbstractCounter} instead
+ *
+ */
 public abstract class AbstractProgressMonitor implements ProgressMonitor {
 
 	private final int total;

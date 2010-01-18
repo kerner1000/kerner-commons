@@ -20,6 +20,24 @@ package de.kerner.commons;
  * description // TODO
  * </p>
  * 
+ * <p>
+ * Example:
+ * 
+ * <pre>
+ * AbstractCounter cnt = new AbstractCounter() {
+ * 	&#064;Override
+ * 	public void perform() {
+ * 		System.out.println(performed + &quot; performed&quot;);
+ * 	}
+ * };
+ * cnt.setInterval(2);
+ * for (int i = 0; i &lt; 10; i++) {
+ * 	cnt.count();
+ * }
+ * </pre>
+ * 
+ * </p>
+ * 
  * @author Alexander Kerner
  * @threadSave primitive class members volatile
  * 

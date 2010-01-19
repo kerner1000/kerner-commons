@@ -31,6 +31,8 @@ public class FileUtils {
 	public static final File WORKING_DIR = new File(System
 			.getProperty("user.dir"));
 
+	
+	// TODO move to commons.io
 	public final static String NEW_LINE = System.getProperty("line.separator");
 
 	/**

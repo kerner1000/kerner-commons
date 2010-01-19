@@ -21,6 +21,7 @@ public abstract class AbstractLineByLineReader {
 				handleLine(strLine);
 			}
 		} finally {
+			if(fstream != null)
 			fstream.close();
 		}
 		return linesRead;

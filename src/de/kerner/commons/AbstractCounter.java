@@ -27,7 +27,7 @@ package de.kerner.commons;
  * AbstractCounter cnt = new AbstractCounter() {
  * 	&#064;Override
  * 	public void perform() {
- * 		System.out.println(performed + &quot; performed&quot;);
+ * 		System.out.println(&quot;performed!&quot;);
  * 	}
  * };
  * cnt.setInterval(2);

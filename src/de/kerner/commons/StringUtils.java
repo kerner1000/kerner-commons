@@ -1,16 +1,43 @@
+/**********************************************************************
+Copyright (c) 2010 Alexander Kerner. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ ***********************************************************************/
+
 package de.kerner.commons;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * <p>
+ * An utility class, that provides static methods for all kind of string
+ * operations.
+ * </p>
  * 
  * @author Alexander Kerner
- * @lastVisit 2009-11-09
+ * 
  * 
  */
 public class StringUtils {
 
+	/**
+	 * <p>
+	 * TODO description
+	 * </p>
+	 * <p>
+	 * TODO example
+	 * </p>
+	 */
 	public static String getString(Object... objects) {
 		if (objects == null || objects.length == 0)
 			return "";
@@ -22,6 +49,10 @@ public class StringUtils {
 	}
 
 	/**
+	 * 
+	 * <p>
+	 * TODO description
+	 * </p>
 	 * <p>
 	 * Example: {@code string} = "hans peter ulf": <br>
 	 * return "hans".
@@ -37,6 +68,9 @@ public class StringUtils {
 	}
 
 	/**
+	 * <p>
+	 * TODO description
+	 * </p>
 	 * <p>
 	 * Example: {@code string} = "hans peter ulf", {@code pattern} = "[1-3]": <br>
 	 * return "hans peter ulf".
@@ -58,6 +92,14 @@ public class StringUtils {
 		return string;
 	}
 
+	/**
+	 * <p>
+	 * TODO description
+	 * </p>
+	 * <p>
+	 * TODO example
+	 * </p>
+	 */
 	public static String removeAllBevoreFirstOccurence(String pattern,
 			String string) {
 		final String finalPattern = "(.*?)(" + pattern + ".+)";
@@ -70,18 +112,19 @@ public class StringUtils {
 		}
 		return string;
 	}
-	
-	public static String replaceAllNonMatching(String pattern, String string){
-		 Pattern p = Pattern.compile(pattern);
-	     Matcher m = p.matcher(string);
-	     return m.replaceAll("");
+
+	/**
+	 * <p>
+	 * TODO description
+	 * </p>
+	 * <p>
+	 * TODO example
+	 * </p>
+	 */
+	public static String replaceAllNonMatching(String pattern, String string) {
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(string);
+		return m.replaceAll("");
 
 	}
-
-	public static void main(String[] args) {
-		String s1 = "[^0-9]";
-		String s2 = ">supercont3.1_1002";
-		System.out.println(replaceAllNonMatching(s1, s2));
-	}
-
 }

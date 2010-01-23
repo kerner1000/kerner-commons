@@ -1,11 +1,16 @@
 package de.kerner.commons.io;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.Writer;
 
 /**
@@ -201,4 +206,16 @@ public class IOUtils {
 	public static Reader inputStreamToReader(InputStream in) {
 		return new InputStreamReader(in);
 	}
+	
+	public static <V> V deepCopy(Class<V> c, Serializable s) throws IOException, ClassNotFoundException{
+        if(c == null || s == null)
+                throw new NullPointerException();
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        new ObjectOutputStream(bs).writeObject(s);
+        ByteArrayInputStream bi = new ByteArrayInputStream(bs.toByteArray());
+        V v = c.cast(new ObjectInputStream(bi).readObject());
+        bs.close();
+        bi.close();
+        return v;
+}
 }

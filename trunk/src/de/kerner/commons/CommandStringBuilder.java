@@ -21,18 +21,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.kerner.commons.exec.AbstractProcessRunner;
+import de.kerner.commons.exec.AbstractProgrammRunner;
+
 /**
  * <p>
  * Helper Class to build a Command line argument string, which can easily passed
  * to constructor of {@link java.lang.ProcessBuilder}
  * </p>
+ * This class is also useful in combination of {@link AbstractProcessRunner} and
+ * {@link AbstractProgrammRunner}.
  * <p>
  * Example: TODO
  * </p>
  * 
  * @author Alexander Kerner
  * @see ProcessBuilder
- * @threadSave
+ * @see AbstractProcessRunner
+ * @see AbstractProgrammRunner
+ * 
  */
 public class CommandStringBuilder {
 
@@ -42,7 +49,12 @@ public class CommandStringBuilder {
 
 	/**
 	 * <p>
-	 * Constructor TODO
+	 * Constructs a new {@code CommandStringBuilder}. First argument for the
+	 * command line string to build is passed as argument for this constructor.
+	 * </p>
+	 * <p>
+	 * Notice: First argument is usually name of executable. Passed in either as
+	 * an absolute or relative path string.
 	 * </p>
 	 * 
 	 * @param executable
@@ -54,12 +66,13 @@ public class CommandStringBuilder {
 
 	/**
 	 * <p>
-	 * Constructor TODO
+	 * Constructs a new {@code CommandStringBuilder} from given template.
 	 * </p>
 	 * 
 	 * @param template
-	 *            {@code template} on which this {@code CommandStringBuilder}
-	 *            is initially created.
+	 *            {@code template} for this {@code CommandStringBuilder}. All
+	 *            elements of this {@code List} are initially added to the
+	 *            command line string to build.
 	 */
 	public CommandStringBuilder(List<String> template) {
 		for (String s : template) {
@@ -69,19 +82,20 @@ public class CommandStringBuilder {
 
 	/**
 	 * <p>
-	 * Constructor TODO
+	 * Constructs a new {@code CommandStringBuilder} from given template.
 	 * </p>
 	 * 
 	 * @param template
-	 *            {@code template} on which this {@code CommandStringBuilder}
-	 *            is initially created.
+	 *            {@code template} another {@code CommandStringBuilder} from
+	 *            which all command line arguments are taken over to this newly
+	 *            initiated {@code CommandStringBuilder}.
 	 */
 	public CommandStringBuilder(CommandStringBuilder template) {
 		for (String s : template.getCommandList()) {
 			sb.add(s);
 		}
 	}
-	
+
 	// Public //
 
 	/**
@@ -109,6 +123,9 @@ public class CommandStringBuilder {
 	 * instance <blockquote> <code>--verbose</code> <code>true</code>
 	 * </blockquote>
 	 * </p>
+	 * <p>
+	 * {@code Collection key} holds option identifier, {@code Collection value} option value. 
+	 * </p>
 	 * 
 	 * @param all
 	 *            Collection of command line arguments
@@ -122,8 +139,12 @@ public class CommandStringBuilder {
 	}
 
 	/**
-	 * <p> TODO </p>
-	 * @param all TODO
+	 * <p>
+	 * TODO
+	 * </p>
+	 * 
+	 * @param all
+	 *            TODO
 	 */
 	public CommandStringBuilder addAllFlagCommands(String... all) {
 		sb.addAll(Arrays.asList(all));
@@ -131,8 +152,12 @@ public class CommandStringBuilder {
 	}
 
 	/**
-	 * <p> TODO </p>
-	 * @param all TODO
+	 * <p>
+	 * TODO
+	 * </p>
+	 * 
+	 * @param all
+	 *            TODO
 	 */
 	public CommandStringBuilder addAllFlagCommands(List<String> all) {
 		sb.addAll(all);
@@ -141,7 +166,9 @@ public class CommandStringBuilder {
 
 	/**
 	 * <p>
-	 * Add a command line argument that does not expect any value. </p><p>
+	 * Add a command line argument that does not expect any value.
+	 * </p>
+	 * <p>
 	 * Pattern: <blockquote> <code>identifier</code></blockquote> for instance
 	 * <blockquote> <code>--help</code></blockquote>
 	 * </p>
@@ -155,13 +182,14 @@ public class CommandStringBuilder {
 	}
 
 	/**
-	 * TODO
-	 * @return TODO
+	 * <p> Return command line string list.
+	 * 
+	 * @return this {@code CommandStringBuilder}'s command string list.
 	 */
 	public List<String> getCommandList() {
 		return sb;
 	}
-	
+
 	// Override //
 
 	@Override

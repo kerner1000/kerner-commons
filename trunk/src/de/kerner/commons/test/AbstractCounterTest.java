@@ -37,7 +37,7 @@ public class AbstractCounterTest {
 		@Override
 		public void perform() {
 			performed++;
-			System.out.println(performed + " performed");
+			//System.out.println(performed + " performed");
 		}
 	}
 

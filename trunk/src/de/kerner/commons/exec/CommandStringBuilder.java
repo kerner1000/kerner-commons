@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
 
-package de.kerner.commons;
+package de.kerner.commons.exec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.kerner.commons.exec.AbstractProcessRunner;
-import de.kerner.commons.exec.AbstractProgrammRunner;
 
 /**
  * <p>
@@ -91,7 +89,7 @@ public class CommandStringBuilder {
 	 *            initiated {@code CommandStringBuilder}.
 	 */
 	public CommandStringBuilder(CommandStringBuilder template) {
-		for (String s : template.getCommandList()) {
+		for (String s : template.build()) {
 			sb.add(s);
 		}
 	}
@@ -186,7 +184,7 @@ public class CommandStringBuilder {
 	 * 
 	 * @return this {@code CommandStringBuilder}'s command string list.
 	 */
-	public List<String> getCommandList() {
+	public List<String> build() {
 		return sb;
 	}
 

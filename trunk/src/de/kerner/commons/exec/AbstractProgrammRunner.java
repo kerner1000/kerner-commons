@@ -223,8 +223,8 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 	 * </p>
 	 * 
 	 * @return current waiting delay
-	 * @see {@link AbstractProgrammRunner#addResultFileToWaitFor(File)}
-	 * @see {@link AbstractProgrammRunner#setWaitDelay(long)}
+	 * @see AbstractProgrammRunner#addResultFileToWaitFor(File)
+	 * @see AbstractProgrammRunner#setWaitDelay(long)
 	 */
 	public long getWaitDelay() {
 		return timeout;

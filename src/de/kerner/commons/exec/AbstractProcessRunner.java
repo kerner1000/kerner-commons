@@ -96,7 +96,7 @@ public abstract class AbstractProcessRunner implements ProcessRunner {
 	 * <p>
 	 * Equivalent to
 	 * {@link ProcessRunner#createAndRun(OutputStream, OutputStream)}, with
-	 * {@link System.out} and {@link System.err} as parameters.
+	 * {@link System#out} and {@link System#err} as parameters.
 	 * </p>
 	 * 
 	 * @return exit code of process

@@ -1,0 +1,14 @@
+de.kerner.commons
+de.kerner.commons.collection
+de.kerner.commons.collection.test
+de.kerner.commons.exec
+de.kerner.commons.exec.test
+de.kerner.commons.file
+de.kerner.commons.file.example
+de.kerner.commons.io
+de.kerner.commons.logging
+de.kerner.commons.monitor
+de.kerner.commons.test
+de.kerner.commons.workflow
+de.kerner.commons.xml
+de.kerner.commons.zip

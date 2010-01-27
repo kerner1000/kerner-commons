@@ -70,7 +70,11 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * Constructs a new {@code AbstractProgrammRunnner}. Process working
+	 * directory is set to {@code workingDir}. {@code workingDir} may be {@code
+	 * null} -- this means to use the working directory of the current Java
+	 * process, usually the directory named by the system property user.dir, as
+	 * the working directory of the child process.
 	 * </p>
 	 * 
 	 * @param workingDir
@@ -99,6 +103,14 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 		return true;
 	}
 
+	/**
+	 * <p>
+	 * Helper class to be able to access {@link this#getCommandList()}
+	 * </p>
+	 * 
+	 * @author Alexander Kerner
+	 * 
+	 */
 	private class Hans extends AbstractProcessRunner {
 
 		private final AbstractProgrammRunner parent;
@@ -152,7 +164,8 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * Implement this method to meet any preconditions before operation system
+	 * process is actually started.
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -161,7 +174,8 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * This method is called after successful termination of operating system
+	 * process ({@code exit code == 0}).
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -170,7 +184,8 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * This method is called after unsuccessful termination of operating system
+	 * process ({@code exit code != 0}).
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -181,10 +196,22 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * If any files have been defined via
+	 * {@link AbstractProgrammRunner#addResultFileToWaitFor(File)}, current
+	 * thread will check accessibility for these files every {@code millisecs}
+	 * milliseconds. If one of these files are not accessible jet for any reason
+	 * (file system issues, remote execution etc.) current thread will wait
+	 * {@code millisecs} milliseconds and then do check again.
+	 * </p>
+	 * <p>
+	 * <b>Attention:</b> if one of these files will never be accessible thread
+	 * will wait forever!
 	 * </p>
 	 * 
+	 * 
+	 * 
 	 * @param millisecs
+	 *            milliseconds to wait before next accessibility check
 	 */
 	public void setWaitDelay(long millisecs) {
 		this.timeout = millisecs;
@@ -192,10 +219,12 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * Returns current waiting delay in milliseconds.
 	 * </p>
 	 * 
-	 * @return
+	 * @return current waiting delay
+	 * @see {@link AbstractProgrammRunner#addResultFileToWaitFor(File)}
+	 * @see {@link AbstractProgrammRunner#setWaitDelay(long)}
 	 */
 	public long getWaitDelay() {
 		return timeout;
@@ -203,10 +232,16 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 
 	/**
 	 * <p>
-	 * TODO
+	 * Defines a file for shortcutting execution. That means if all files, that
+	 * have been defined via this method are accessible before actually
+	 * executing operating system process, this process will not be executed but
+	 * {@link AbstractProgrammRunner#createAndRun()} or
+	 * {@link AbstractProgrammRunner#createAndRun(OutputStream, OutputStream)}
+	 * will return {@code 0}.
 	 * </p>
 	 * 
 	 * @param file
+	 *            Shortcut file
 	 */
 	public synchronized void addShortCutFile(File file) {
 		shortCutFiles.add(file);

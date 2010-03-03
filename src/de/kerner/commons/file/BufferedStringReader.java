@@ -34,7 +34,11 @@ public abstract class BufferedStringReader extends AbstractGenericReader {
 		try {
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
+				try{
 				handleLine(strLine);
+				}catch(Exception e){
+					throw new IOException(e.getLocalizedMessage());
+				}
 			}
 		} finally {
 			// cannot happen
@@ -43,6 +47,6 @@ public abstract class BufferedStringReader extends AbstractGenericReader {
 		}
 	}
 
-	public abstract void handleLine(String line);
+	public abstract void handleLine(String line) throws Exception;
 
 }

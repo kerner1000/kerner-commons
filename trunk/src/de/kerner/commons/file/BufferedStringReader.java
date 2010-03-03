@@ -35,9 +35,10 @@ public abstract class BufferedStringReader extends AbstractGenericReader {
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
 				try{
+					
 				handleLine(strLine);
 				}catch(Exception e){
-					throw new IOException(e.getLocalizedMessage());
+					e.printStackTrace();
 				}
 			}
 		} finally {

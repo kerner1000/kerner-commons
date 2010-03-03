@@ -22,7 +22,7 @@ import java.io.Reader;
  */
 public interface GenericReader {
 	
-	public long read(File file) throws IOException;
+	public void read(File file) throws IOException;
 	
 	public void read(Reader reader) throws IOException;
 	

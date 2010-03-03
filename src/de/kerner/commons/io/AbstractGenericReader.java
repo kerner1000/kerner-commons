@@ -23,6 +23,7 @@ public abstract class AbstractGenericReader implements GenericReader {
 	public void read(File file) throws IOException {
 		if (FileUtils.fileCheck(file, false))
 			read(FileUtils.getInputStreamFromFile(file));
+		else
 		throw new IOException("cannot access file \"" + file + "\"");
 	}
 

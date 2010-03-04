@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- * An utility class, that provides static methods for all kind of string
+ * An utility class that provides static methods for all kind of string
  * operations.
  * </p>
  * 

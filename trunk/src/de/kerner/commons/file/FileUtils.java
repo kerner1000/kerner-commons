@@ -31,7 +31,6 @@ public class FileUtils {
 	public static final File WORKING_DIR = new File(System
 			.getProperty("user.dir"));
 
-	
 	// TODO move to commons.io
 	public final static String NEW_LINE = System.getProperty("line.separator");
 
@@ -111,8 +110,8 @@ public class FileUtils {
 	 * Reads a file an returns an <code>BufferedInputStream</code> from it.
 	 * 
 	 * @param file
-	 *            <code>File</code> from which the <code>BufferedInputStream</code> is
-	 *            created.
+	 *            <code>File</code> from which the
+	 *            <code>BufferedInputStream</code> is created.
 	 * @return the <code>BufferedInputStream</code>.
 	 * @throws IOException
 	 */
@@ -139,8 +138,8 @@ public class FileUtils {
 	 * Reads a file an returns an <code>BufferedOutputStream</code> from it.
 	 * 
 	 * @param file
-	 *            <code>File</code> from which the <code>BufferedOutputStream</code> is
-	 *            created.
+	 *            <code>File</code> from which the
+	 *            <code>BufferedOutputStream</code> is created.
 	 * @return the <code>BufferedOutputStream</code>.
 	 * @throws IOException
 	 */
@@ -148,8 +147,6 @@ public class FileUtils {
 			throws FileNotFoundException {
 		return new BufferedOutputStream(new FileOutputStream(file));
 	}
-
-	
 
 	/**
 	 * Extended accessibility test, if a file is available for reading. <br>
@@ -212,16 +209,37 @@ public class FileUtils {
 		}
 	}
 
+	/**
+	 * <p>
+	 * Write an {@code Object} that implements {@link Serializable} to a file.
+	 * </p>
+	 * 
+	 * @see Serializable
+	 * @param s {@code Object} that will be serialized
+	 * @param file file to write to
+	 * @throws IOException if anything goes wrong
+	 */
 	public static void objectToFile(Serializable s, File file)
 			throws IOException {
 		if (s == null || file == null)
-			throw new NullPointerException(s + " + " + file
-					+ " must not be null");
-		OutputStream fos = new FileOutputStream(file);
-		ObjectOutputStream outStream = new ObjectOutputStream(fos);
-		outStream.writeObject(s);
-		outStream.close();
-		fos.close();
+			throw new NullPointerException();
+		OutputStream fos = null;
+		BufferedOutputStream bos = null;
+		ObjectOutputStream outStream = null;
+		try {
+			fos = new FileOutputStream(file);
+			bos = new BufferedOutputStream(fos);
+			outStream = new ObjectOutputStream(bos);
+			outStream.writeObject(s);
+		} finally {
+			if (outStream != null)
+				outStream.close();
+			if (bos != null)
+				bos.close();
+			if (fos != null) {
+				fos.close();
+			}
+		}
 	}
 
 	public static <V> V fileToObject(Class<V> c, File file) throws IOException,

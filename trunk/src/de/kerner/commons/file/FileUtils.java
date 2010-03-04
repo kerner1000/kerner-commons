@@ -213,6 +213,9 @@ public class FileUtils {
 	 * <p>
 	 * Write an {@code Object} that implements {@link Serializable} to a file.
 	 * </p>
+	 * <p>
+	 * Serialisation is buffered: Internally a {@link BufferedOutputStream} is used.
+	 * </p>
 	 * 
 	 * @see Serializable
 	 * @param s {@code Object} that will be serialized
@@ -223,22 +226,34 @@ public class FileUtils {
 			throws IOException {
 		if (s == null || file == null)
 			throw new NullPointerException();
-		OutputStream fos = null;
-		BufferedOutputStream bos = null;
+		objectToStream(s, new FileOutputStream(file));
+	}
+	
+	/**
+	 * <p>
+	 * Write an {@code Object} that implements {@link Serializable} to an {@link OutputStream}.
+	 * </p>
+	 * <p>
+	 * Serialisation is buffered: Internally a {@link BufferedOutputStream} is used.
+	 * </p>
+	 * 
+	 * @see Serializable
+	 * @param s {@code Object} that will be serialized
+	 * @param sstream stream to write to
+	 * @throws IOException if anything goes wrong
+	 */
+	public static void objectToStream(Serializable s, OutputStream stream) throws IOException{
+		if(s == null || stream == null)
+			throw new NullPointerException();
 		ObjectOutputStream outStream = null;
+		BufferedOutputStream bos = null;
 		try {
-			fos = new FileOutputStream(file);
-			bos = new BufferedOutputStream(fos);
+			bos = new BufferedOutputStream(stream);
 			outStream = new ObjectOutputStream(bos);
 			outStream.writeObject(s);
 		} finally {
-			if (outStream != null)
+			if(outStream != null)
 				outStream.close();
-			if (bos != null)
-				bos.close();
-			if (fos != null) {
-				fos.close();
-			}
 		}
 	}
 

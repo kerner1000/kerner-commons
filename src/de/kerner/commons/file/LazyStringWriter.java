@@ -12,6 +12,12 @@ import java.io.Writer;
 
 import de.kerner.commons.io.IOUtils;
 
+/**
+ * 
+ * @author Alexander Kerner
+ * @deprecated use {@link BufferedStringWriter} instead
+ *
+ */
 public class LazyStringWriter {
 
 	private final String string;

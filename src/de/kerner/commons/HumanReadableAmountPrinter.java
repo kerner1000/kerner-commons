@@ -23,10 +23,12 @@ package de.kerner.commons;
  * <p>
  * Example: <br>
  * Print a file size of 1024 bytes in a human readable format.
+ * 
  * <pre>
  * System.out.println(new HumanReadableAmountPrinter(1024));
  * </pre>
- * Will print the string "1K". 
+ * 
+ * Will print the string "1K".
  * </p>
  * 
  * @author Alexander Kerner
@@ -42,9 +44,19 @@ public class HumanReadableAmountPrinter {
 	private final long oneK;
 	private final long oneM;
 	private final long oneG;
-	private final long size;
+	private final long amount;
 
-	public HumanReadableAmountPrinter(long size, boolean usePowerOf1000) {
+	/**
+	 * <p>
+	 * Construct a new {@code HumanReadableAMountPrinter}.
+	 * </p>
+	 * 
+	 * @param amount
+	 *            TODO
+	 * @param usePowerOf1000
+	 *            TODO
+	 */
+	public HumanReadableAmountPrinter(long amount, boolean usePowerOf1000) {
 		if (usePowerOf1000)
 			oneK = 1000L;
 		else
@@ -52,19 +64,27 @@ public class HumanReadableAmountPrinter {
 
 		oneM = oneK * oneK;
 		oneG = oneK * oneM;
-		this.size = size;
+		this.amount = amount;
 	}
 
-	HumanReadableAmountPrinter(long size) {
+	/**
+	 * <p>
+	 * Construct a new {@code HumanReadableAMountPrinter}.
+	 * </p>
+	 * 
+	 * @param amount
+	 *            TODO
+	 */
+	public HumanReadableAmountPrinter(long amount) {
 		oneK = 1024L;
 		oneM = oneK * oneK;
 		oneG = oneK * oneM;
-		this.size = size;
+		this.amount = amount;
 	}
 
 	public String toString() {
 		String postFix = POST_FIX_B;
-		long sizeCp = size;
+		long sizeCp = amount;
 		if (sizeCp / oneG > 0) {
 			postFix = POST_FIX_G;
 			sizeCp = sizeCp / oneG;

@@ -160,39 +160,52 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 		}
 	}
 
-	// Abstract //
+	// Public //
 
 	/**
 	 * <p>
-	 * Implement this method to meet any preconditions before operation system
+	 * Override this method to meet any preconditions before operation system
 	 * process is actually started.
+	 * </p>
+	 * <p>
+	 * By default, this method does nothing.
 	 * </p>
 	 * 
 	 * @throws Exception
 	 */
-	public abstract void prepare() throws Exception;
+	public void prepare() throws Exception {
+		// do nothing
+	}
 
 	/**
 	 * <p>
 	 * This method is called after successful termination of operating system
 	 * process ({@code exit code == 0}).
 	 * </p>
+	 * <p>
+	 * By default, this method does nothing.
+	 * </p>
 	 * 
 	 * @throws Exception
 	 */
-	public abstract void finsishSuccess() throws Exception;
+	public void finsishSuccess() throws Exception {
+		// do nothing
+	}
 
 	/**
 	 * <p>
 	 * This method is called after unsuccessful termination of operating system
 	 * process ({@code exit code != 0}).
 	 * </p>
+	 * <p>
+	 * By default, this method does nothing.
+	 * </p>
 	 * 
 	 * @throws Exception
 	 */
-	public abstract void finishError() throws Exception;
-
-	// Public //
+	public void finishError() throws Exception {
+		// do nothing
+	}
 
 	/**
 	 * <p>

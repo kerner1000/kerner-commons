@@ -15,6 +15,7 @@ limitations under the License.
 
 package de.kerner.commons;
 
+
 /**
  * <p>
  * TODO description
@@ -26,10 +27,12 @@ package de.kerner.commons;
  * @author Alexander Kerner
  * 
  */
-public interface AsyncCallBack<T> {
+public interface AsyncCallBack<R, V> {
 	
-	public void doOnSucess(Throwable t);
+	R run(V value) throws Throwable; 
 	
-	public void doOnFailure(T result);
+	void doOnSucess(R result);
+	
+	void doOnFailure(Throwable t);
 
 }

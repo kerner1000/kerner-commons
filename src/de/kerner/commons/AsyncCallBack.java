@@ -18,7 +18,7 @@ package de.kerner.commons;
 
 /**
  * <p>
- * TODO description
+ * Create an asynchronous callback.
  * </p>
  * <p>
  * TODO Example of usage

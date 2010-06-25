@@ -84,4 +84,17 @@ public class CollectionUtils {
 		}
 		return result;
 	}
+
+	/**
+	 * Check if the given object is an array (primitve or native).
+	 * 
+	 * @param obj
+	 *            Object to test.
+	 * @return True if the object is an array; false otherwise.
+	 */
+	public static boolean isArray(final Object obj) {
+		if (obj != null)
+			return obj.getClass().isArray();
+		return false;
+	}
 }

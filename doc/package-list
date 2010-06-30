@@ -8,6 +8,7 @@ de.kerner.commons.file.example
 de.kerner.commons.io
 de.kerner.commons.logging
 de.kerner.commons.monitor
+de.kerner.commons.swing
 de.kerner.commons.test
 de.kerner.commons.workflow
 de.kerner.commons.xml

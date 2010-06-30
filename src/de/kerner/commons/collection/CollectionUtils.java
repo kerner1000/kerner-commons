@@ -17,6 +17,7 @@ package de.kerner.commons.collection;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -96,5 +97,88 @@ public class CollectionUtils {
 		if (obj != null)
 			return obj.getClass().isArray();
 		return false;
+	}
+
+	public static boolean isCollection(Object obj) {
+		if (obj != null)
+			return obj instanceof Collection<?>;
+		return false;
+	}
+
+	public static boolean isList(Object obj) {
+		if (obj != null)
+			return obj instanceof List<?>;
+		return false;
+	}
+
+	/**
+	 * <p>
+	 * Extract all Objects of type <code>T</code> from an array that contains
+	 * objects of different types.
+	 * </p>
+	 * 
+	 * @param <T>
+	 *            wanted type
+	 * @param array
+	 *            Array from which Objects are retrieved.
+	 * @param c
+	 * @return an array containing all Objects that are an instance of wanted
+	 *         type.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[] getAllOfTypeAsArray(Object[] array, Class<T> c) {
+		return (T[]) getAllOfTypeAsList(array, c).toArray();
+	}
+
+	/**
+	 * <p>
+	 * Extract all Objects of type <code>T</code> from an array that contains
+	 * objects of different types.
+	 * </p>
+	 * 
+	 * @param <T>
+	 *            wanted type
+	 * @param array
+	 *            Array from which Objects are retrieved.
+	 * @param c
+	 * @return a list containing all Objects that are an instance of wanted
+	 *         type.
+	 */
+	public static <T> List<T> getAllOfTypeAsList(Object[] array, Class<T> c) {
+		final List<T> result = new ArrayList<T>();
+		for (Object o : array) {
+			if (o.getClass().equals(c)) {
+				result.add(c.cast(o));
+//			} else {
+//				System.err.println("NO MATCH: " + o.getClass() + " - " + c);
+//				System.err
+//						.println(o.getClass() + " is an array: " + isArray(o));
+//				if (isArray(o)) {
+//					Object[] o2 = (Object[]) o;
+//					for (Object o1 : o2) {
+//						System.err.println(o1);
+//					}
+//				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * <p>
+	 * Extract all Objects of type <code>T</code> from a <code>List</code> that
+	 * contains objects of different types.
+	 * </p>
+	 * 
+	 * @param <T>
+	 *            wanted type
+	 * @param list
+	 *            <code>List</code> from which Objects are retrieved.
+	 * @param c
+	 * @return a list containing all Objects that are an instance of wanted
+	 *         type.
+	 */
+	public static <T> List<T> getAllOfTypeAsList(List<?> list, Class<T> c) {
+		return getAllOfTypeAsList(list.toArray(), c);
 	}
 }

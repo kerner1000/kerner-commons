@@ -15,6 +15,8 @@ limitations under the License.
 
 package de.kerner.commons;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +31,36 @@ import java.util.regex.Pattern;
  * 
  */
 public class StringUtils {
+
+	private StringUtils() {
+
+	}
+	
+	public static List<String> splitToList(String pattern, String string) {
+		return splitToList(pattern, string, true);
+	}
+
+	public static List<String> splitToList(String pattern, String string,
+			boolean trimElements) {
+		final ArrayList<String> result = new ArrayList<String>();
+		final String[] sa = splitToArray(pattern, string);
+		for (String s : sa) {
+			String s2 = s.trim();
+			if (trimElements)
+				result.add(s2);
+			else
+				result.add(s);
+		}
+		return result;
+	}
+
+	public static String[] splitToArray(String pattern, String string) {
+		if (pattern == null || pattern.length() == 0)
+			throw new NullPointerException("empty pattern");
+		if (string == null || string.length() == 0)
+			throw new NullPointerException("empty string");
+		return string.split(pattern);
+	}
 
 	/**
 	 * <p>

@@ -122,7 +122,7 @@ public class TimePeriodTest {
 	@Test
 	public final void testToString() {
 		TimePeriod p = new TimePeriod(1, 2, TimeUnit.SECONDS);
-		assertEquals("1000", p.toString());
+		assertEquals("100", p.toString());
 	}
 
 }

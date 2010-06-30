@@ -19,8 +19,10 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -108,6 +110,94 @@ public class CollectionUtilsTest {
 		reference.add("F");
 		
 		assertArrayEquals(reference.toArray(), CollectionUtils.flattenMap(map).toArray());
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#isArray(java.lang.Object)}.
+	 */
+	@Test
+	public final void testIsArray() {
+		Object[] a = new Object[]{"string", 5};
+		assertTrue(CollectionUtils.isArray(a));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#isArray(java.lang.Object)}.
+	 */
+	@Test
+	public final void testIsArray01() {
+		Collection<Object> l = new ArrayList<Object>();
+		assertFalse(CollectionUtils.isArray(l));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#isCollection(java.lang.Object)}.
+	 */
+	@Test
+	public final void testIsCollection() {
+		Collection<Object> c = new HashSet<Object>();
+		assertTrue(CollectionUtils.isCollection(c));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#isList(java.lang.Object)}.
+	 */
+	@Test
+	public final void testIsList() {
+		Collection<Object> l = new ArrayList<Object>();
+		assertTrue(CollectionUtils.isCollection(l));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#isList(java.lang.Object)}.
+	 */
+	@Test
+	public final void testIsList02() {
+		Collection<Object> l = new ArrayList<Object>();
+		assertTrue(CollectionUtils.isList(l));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#getAllOfTypeAsList(java.lang.Object[], java.lang.Class)}.
+	 */
+	@Test
+	public final void testGetAllOfTypeAsList() {
+		Object[] a = new Object[]{"string", 5};
+		List<String> list = new ArrayList<String>();
+		list.add("string");
+		assertArrayEquals(list.toArray(), CollectionUtils.getAllOfTypeAsList(a, String.class).toArray());
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#getAllOfTypeAsList(java.lang.Object[], java.lang.Class)}.
+	 */
+	@Test
+	public final void testGetAllOfTypeAsList02() {
+		Object[] a = new Object[]{"string", new Integer(5)};
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(new Integer(5));
+		assertArrayEquals(list.toArray(), CollectionUtils.getAllOfTypeAsList(a, Integer.class).toArray());
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#getAllOfTypeAsList(java.lang.Object[], java.lang.Class)}.
+	 */
+	@Test
+	public final void testGetAllOfTypeAsList03() {
+		Object[] a = new Object[]{"string", 5};
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(5);
+		assertArrayEquals(list.toArray(), CollectionUtils.getAllOfTypeAsList(a, Integer.class).toArray());
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.collection.CollectionUtils#getAllOfTypeAsArray(java.lang.Object[], java.lang.Class)}.
+	 */
+	@Test
+	public final void testGetAllOfTypeAsArray() {
+		Object[] a = new Object[]{"string", 5};
+		Integer[] b = new Integer[]{5};
+		assertArrayEquals(b, CollectionUtils.getAllOfTypeAsArray(a, Integer.class));
 	}
 
 }

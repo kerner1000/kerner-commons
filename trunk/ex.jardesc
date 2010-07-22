@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/home/kerner/Desktop/kerner-commons.jar"/>
+    <options buildIfNeeded="true" compress="false" descriptionLocation="/kerner.commons/ex.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/kerner.commons/license.txt"/>
+        <file path="/kerner.commons/readme-dev.txt"/>
+        <file path="/kerner.commons/.classpath"/>
+        <folder path="/kerner.commons/lib"/>
+        <javaElement handleIdentifier="=kerner.commons/src"/>
+        <file path="/kerner.commons/toDo.lst"/>
+        <folder path="/kerner.commons/doc"/>
+        <file path="/kerner.commons/readme.txt"/>
+        <file path="/kerner.commons/.project"/>
+    </selectedElements>
+</jardesc>

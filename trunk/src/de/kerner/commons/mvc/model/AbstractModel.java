@@ -12,7 +12,7 @@ import de.kerner.commons.mvc.controller.ControllerOut;
  * @author kerner
  *
  */
-public class AbstractModel implements Model {
+public abstract class AbstractModel implements Model {
 	
 	private Collection<ControllerOut> c = new ArrayList<ControllerOut>();
 	

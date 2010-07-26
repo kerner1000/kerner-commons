@@ -16,28 +16,29 @@ import de.kerner.commons.io.AbstractGenericReader;
  * linefeed.
  * </p>
  * <p>
- * {@code BufferedStringReader} will use a {@link BufferedReader} internally for buffered reading.
+ * {@code BufferedStringReader} will use a {@link BufferedReader} internally for
+ * buffered reading.
  * </p>
  * 
  * @author Alexander Kerner
  * @see BufferedReader
  * 
  */
-public abstract class BufferedStringReader extends AbstractGenericReader {
+public abstract class BufferedStringReader extends AbstractGenericReader<Void> {
 
 	// Implement //
 
-	public void read(Reader reader) throws IOException {
+	public Void read(Reader reader) throws IOException {
 		if (reader == null)
 			throw new NullPointerException();
 		BufferedReader br = new BufferedReader(reader);
 		try {
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
-				try{
-					
-				handleLine(strLine);
-				}catch(Exception e){
+				try {
+
+					handleLine(strLine);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -46,6 +47,7 @@ public abstract class BufferedStringReader extends AbstractGenericReader {
 			// if(stream != null)
 			reader.close();
 		}
+		return null;
 	}
 
 	public abstract void handleLine(String line) throws Exception;

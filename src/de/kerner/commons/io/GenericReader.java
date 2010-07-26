@@ -14,18 +14,19 @@ import java.io.Reader;
  * {@code Reader} or from an {@code InputStream}.
  * </p>
  * 
+ * @param T type of returned object
  * @author Alexander Kerner
  * @see File
  * @see Reader
  * @see InputStream
  * 
  */
-public interface GenericReader {
+public interface GenericReader<T> {
 	
-	public void read(File file) throws IOException;
+	public T read(File file) throws IOException;
 	
-	public void read(Reader reader) throws IOException;
+	public T read(Reader reader) throws IOException;
 	
-	public void read(InputStream stream) throws IOException; 
+	public T read(InputStream stream) throws IOException; 
 
 }

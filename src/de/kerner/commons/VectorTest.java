@@ -3,9 +3,13 @@
  */
 package de.kerner.commons;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -31,8 +35,9 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class VectorTest {
 
-	Vector<String, String, String> v, v2;
-	Map<String, String> m = new LinkedHashMap<String, String>() {
+	private static Vector<String, String> v, v2;
+
+	private final static Map<String, String> m = new LinkedHashMap<String, String>() {
 		{
 			put("1", "eins");
 			put("2", "zwei");
@@ -45,6 +50,7 @@ public class VectorTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+
 	}
 
 	/**
@@ -59,6 +65,8 @@ public class VectorTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		v = new Vector<String, String>(m);
+		v2 = new Vector<String, String>(m);
 	}
 
 	/**
@@ -73,45 +81,17 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testVector() {
-		v = new Vector<String, String, String>();
-		v2 = new Vector<String, String, String>();
+		v = new Vector<String, String>();
+		assertNotNull(v);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector(java.lang.Object)}
-	 * .
+	 * Test method for {@link de.kerner.commons.Vector#Vector(java.util.Set)}.
 	 */
 	@Test
-	public final void testVectorK() {
-		v = new Vector<String, String, String>("key");
-		assertEquals("key", v.getIdentifier());
-	}
-	
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector(java.lang.Object)}
-	 * .
-	 */
-	@Test
-	public final void testVectorK01() {
-		Object o = new Object();
-		Vector<Object, String, String> v = new Vector<Object, String, String>(o);
-		assertEquals(o, v.getIdentifier());
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector(java.util.List)}.
-	 */
-	@Test
-	public final void testVectorListOfV() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector(V[])}.
-	 */
-	@Test
-	public final void testVectorVArray() {
-		fail("Not yet implemented"); // TODO
+	public final void testVectorSetOfV() {
+		v = new Vector<String, String>(m.values());
+		assertArrayEquals(m.values().toArray(), v.getAsList().toArray());
 	}
 
 	/**
@@ -119,26 +99,8 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testVectorMapOfIV() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link de.kerner.commons.Vector#Vector(java.lang.Object, java.util.List)}
-	 * .
-	 */
-	@Test
-	public final void testVectorKListOfV() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link de.kerner.commons.Vector#Vector(java.lang.Object, java.util.Map)}.
-	 */
-	@Test
-	public final void testVectorKMapOfIV() {
-		fail("Not yet implemented"); // TODO
+		v = new Vector<String, String>(m);
+		assertEquals(m, v.getMap());
 	}
 
 	/**
@@ -146,7 +108,6 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testGetAtIndexInt() {
-		v = new Vector<String, String, String>(m);
 		assertEquals("eins", v.getAtIndex(0));
 	}
 
@@ -155,7 +116,6 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testGetAtIndexInt01() {
-		v = new Vector<String, String, String>(m);
 		assertEquals("zwei", v.getAtIndex(1));
 	}
 
@@ -164,17 +124,7 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testGetAtIndexInt02() {
-		v = new Vector<String, String, String>(m);
 		assertEquals("drei", v.getAtIndex(2));
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#getAtIndex(int)}.
-	 */
-	@Test(expected = NoSuchElementException.class)
-	public final void testGetAtIndexInt03() {
-		v = new Vector<String, String, String>(m);
-		v.getAtIndex(3);
 	}
 
 	/**
@@ -183,7 +133,6 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testGetAtIndexI() {
-		v = new Vector<String, String, String>(m);
 		assertEquals("drei", v.getAtIndex("3"));
 	}
 
@@ -193,47 +142,85 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testGetAtIndexI01() {
-		v = new Vector<String, String, String>(m);
-		assertEquals("zwei", v.getAtIndex("2"));
+		assertEquals("eins", v.getAtIndex("1"));
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#getAtIndex(java.lang.Object)}.
+	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, java.lang.Object)}
+	 * .
+	 */
+	@Test
+	public final void testAssignIV() {
+		v.assign("11", "eins");
+		assertEquals("eins", v.getAtIndex("11"));
+	}
+
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, java.lang.Object)}
+	 * .
+	 */
+	@Test
+	public final void testAssignIV01() {
+		v.assign("22", "zwei");
+		assertEquals("zwei", v.getAtIndex("22"));
+
+	}
+
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, java.lang.Object)}
+	 * .
 	 */
 	@Test(expected = NoSuchElementException.class)
-	public final void testGetAtIndexI02() {
-		v = new Vector<String, String, String>(m);
-		v.getAtIndex("5");
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#getValues()}.
-	 */
-	@Test
-	public final void testGetValues() {
-		v = new Vector<String, String, String>(m);
-		assertArrayEquals(m.values().toArray(), v.getValues().toArray());
+	public final void testAssignIV02() {
+		v.assign("55", "funf");
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#setIdentifier(java.lang.Object)}.
+	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, int)}.
 	 */
 	@Test
-	public final void testSetIdentifier() {
-		v = new Vector<String, String, String>(m);
-		v.setIdentifier("ident");
-		assertEquals("ident", v.getIdentifier());
+	public final void testAssignIInt() {
+		v.assign("11", 0);
+		assertEquals("eins", v.getAtIndex("11"));
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#getIdentifier()}.
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, int)}.
 	 */
 	@Test
-	public final void testGetIdentifier() {
-		v = new Vector<String, String, String>("ident", m);
-		assertEquals("ident", v.getIdentifier());
+	public final void testAssignIInt02() {
+		v.assign("22", 1);
+		assertEquals("zwei", v.getAtIndex("22"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, int)}.
+	 */
+	@Test(expected=NoSuchElementException.class)
+	public final void testAssignIInt03() {
+		v.assign("55", 5);
+	}
+
+	/**
+	 * Test method for {@link de.kerner.commons.Vector#getAsList()}.
+	 */
+	@Test
+	public final void testGetAsList() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for {@link de.kerner.commons.Vector#getMap()}.
+	 */
+	@Test
+	public final void testGetMap() {
+		fail("Not yet implemented"); // TODO
 	}
 
 	/**
@@ -242,65 +229,15 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testEqualsObject() {
-		v = new Vector<String, String, String>("ident", m);
-		v2 = new Vector<String, String, String>(m);
-		v2.setIdentifier("ident");
-		assertEquals(v, v2);
+		fail("Not yet implemented"); // TODO
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
-	 * .
+	 * Test method for {@link de.kerner.commons.Vector#toString()}.
 	 */
 	@Test
-	public final void testEqualsObject01() {
-		v = new Vector<String, String, String>(m);
-		v2 = new Vector<String, String, String>(m);
-		assertEquals(v, v2);
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
-	 * .
-	 */
-	@Test
-	public final void testEqualsObject02() {
-		v = new Vector<String, String, String>();
-		v2 = new Vector<String, String, String>();
-		assertEquals(v, v2);
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
-	 * .
-	 */
-	@Test
-	public final void testEqualsObject03() {
-		v = new Vector<String, String, String>("ident");
-		v2 = new Vector<String, String, String>();
-		assertNotSame(v, v2);
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
-	 * .
-	 */
-	@Test
-	public final void testEqualsObject04() {
-		v = new Vector<String, String, String>(m);
-		v2 = new Vector<String, String, String>();
-		assertNotSame(v, v2);
-	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
-	 * .
-	 */
-	@Test
-	public final void testEqualsObject05() {
-		v = new Vector<String, String, String>(m);
-		v2 = new Vector<String, String, String>("ident");
-		assertNotSame(v, v2);
+	public final void testToString() {
+		fail("Not yet implemented"); // TODO
 	}
 
 }

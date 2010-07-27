@@ -20,6 +20,7 @@ import de.kerner.commons.file.FileUtils;
  * 
  * @author Alexander Kerner
  * @lastVisit 2010-07-27
+ * @notThreadSave
  * 
  * @param <T>
  */

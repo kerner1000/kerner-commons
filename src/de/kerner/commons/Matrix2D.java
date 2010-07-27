@@ -10,12 +10,28 @@ import java.util.NoSuchElementException;
 import de.kerner.commons.file.FileUtils;
 
 /**
- * @author kerner
+ * <p>
+ * description // TODO
+ * </p>
  * 
+ * <p>
+ * example // TODO
+ * </p>
+ * 
+ * @author Alexander Kerner
+ * @lastVisit 2010-07-27
+ * 
+ * @param <T>
  */
 public class Matrix2D<T> {
 
 	private final List<List<T>> m = new ArrayList<List<T>>();
+
+	public Matrix2D(Matrix2D<T> template) {
+		for (List<T> l : template.getRows()) {
+			this.m.add(l);
+		}
+	}
 
 	public Matrix2D(List<List<T>> m) {
 		for (List<T> l : m) {
@@ -55,8 +71,8 @@ public class Matrix2D<T> {
 		}
 		return result;
 	}
-	
-	public void addRow(List<T> row){
+
+	public void addRow(List<T> row) {
 		m.add(row);
 	}
 
@@ -72,10 +88,10 @@ public class Matrix2D<T> {
 		return m;
 	}
 
-	public int getRowNumber(){
+	public int getRowNumber() {
 		return m.size();
 	}
-	
+
 	public List<T> getColumn(int index) {
 		final List<T> result = new ArrayList<T>();
 		try {
@@ -83,10 +99,10 @@ public class Matrix2D<T> {
 				result.add(l.get(index));
 			}
 		} catch (IndexOutOfBoundsException e) {
-			if(index < 0 || getMaxRowLength() < index)
-			throw new NoSuchElementException(e.getLocalizedMessage());
-//			else
-//				result.add(null);
+			if (index < 0 || getMaxRowLength() < index)
+				throw new NoSuchElementException(e.getLocalizedMessage());
+			// else
+			// result.add(null);
 		}
 		return result;
 	}
@@ -94,20 +110,20 @@ public class Matrix2D<T> {
 	public List<List<T>> getColumns() {
 		final List<List<T>> result = new ArrayList<List<T>>();
 		final int index = getMaxRowLength();
-		for(int i=0; i<index; i++){
+		for (int i = 0; i < index; i++) {
 			result.add(getColumn(i));
 		}
 		return result;
 	}
-	
-	public int getColumnNumber(){
+
+	public int getColumnNumber() {
 		return getMaxRowLength();
 	}
 
 	public Matrix2D<T> invert() {
 		final Matrix2D<T> result = new Matrix2D<T>();
-		for(int i=0; i<getColumnNumber(); i++){
-//			System.err.println(getColumn(i));
+		for (int i = 0; i < getColumnNumber(); i++) {
+			// System.err.println(getColumn(i));
 			result.addRow(getColumn(i));
 		}
 		return result;

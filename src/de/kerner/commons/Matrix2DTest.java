@@ -13,68 +13,45 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.model.FrameworkMethod;
-
-import de.kerner.commons.logging.Log;
 
 /**
- * @author kerner
+ * <p>
+ * description // TODO
+ * </p>
+ * 
+ * <p>
+ * example // TODO
+ * </p>
+ * 
+ * @author Alexander Kerner
+ * @lastVisit 2010-07-27
  * 
  */
 public class Matrix2DTest {
 
-	private final static Log log = new Log(Matrix2DTest.class);
+	private static Matrix2D<String> m;
 
-//	@Rule
-//	public MethodRule watchman = new TestWatchman() {
-//		public void starting(FrameworkMethod method) {
-//			log.info("now test " + method.getName());
-//		}
-//	};
+	private static Matrix2D<String> m2;
 
-	private Matrix2D<String> m;
+	private final static String[][] array = { { "1-1", "1-2", "1-3" },
+			{ "2-1", "2-2", "2-3" }, { "3-1", "3-2" } };
 
-	private Matrix2D<String> m2;
+	private final static String[][] array2 = { { "1-1", "2-1", "3-1" },
+			{ "1-2", "2-2", "3-2" }, { "1-3", "2-3" } };
 
-	private final String[][] array = { { "1-1", "1-2", "1-3" },
-									   { "2-1", "2-2", "2-3" },
-									   { "3-1", "3-2" } };
-
-	private final String[][] array2 = { { "1-1", "2-1", "3-1" },
-										{ "1-2", "2-2", "3-2" },
-										{ "1-3", "2-3" } };
-
-	private List<String> row1 = new ArrayList<String>();
-	private List<String> row2 = new ArrayList<String>();
-	private List<String> row3 = new ArrayList<String>();
-	private List<String> column1 = new ArrayList<String>();
-	private List<String> column2 = new ArrayList<String>();
-	private List<String> column3 = new ArrayList<String>();
+	private final static List<String> row1 = new ArrayList<String>();
+	private final static List<String> row2 = new ArrayList<String>();
+	private final static List<String> row3 = new ArrayList<String>();
+	private final static List<String> column1 = new ArrayList<String>();
+	private final static List<String> column2 = new ArrayList<String>();
+	private final static List<String> column3 = new ArrayList<String>();
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-
 		row1.add(array[0][0]);
 		row1.add(array[0][1]);
 		row1.add(array[0][2]);
@@ -96,7 +73,20 @@ public class Matrix2DTest {
 
 		column3.add(array[0][2]);
 		column3.add(array[1][2]);
-	
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
 	}
 
 	/**
@@ -108,52 +98,50 @@ public class Matrix2DTest {
 
 	/**
 	 * Test method for
+	 * {@link de.kerner.commons.Matrix2D#Matrix2D(de.kerner.commons.Matrix2D)}.
+	 */
+	@Test
+	public final void testMatrix2DMatrix2DOfT() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
 	 * {@link de.kerner.commons.Matrix2D#Matrix2D(java.util.List)}.
 	 */
 	@Test
+	public final void testMatrix2DListOfListOfT() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for {@link de.kerner.commons.Matrix2D#Matrix2D()}.
+	 */
+	@Test
 	public final void testMatrix2D() {
-
-	}
-
-	/**
-	 * Test method for
-	 * {@link de.kerner.commons.Matrix2D#getRows(java.util.List)}.
-	 */
-	@Test
-	public final void testGetRows() {
-
-		m = new Matrix2D<String>(array);
-
-		List<List<String>> l = new ArrayList<List<String>>();
-		l.add(row1);
-		l.add(row2);
-		l.add(row3);
-
-//		log.info("row1=" + row1);
-//		log.info("row2=" + row2);
-//		log.info("all rows=" + l);
-
-		assertEquals(l, m.getRows());
-	}
-
-	/**
-	 * Test method for
-	 * {@link de.kerner.commons.Matrix2D#getRows(java.util.List)}.
-	 */
-	@Test
-	public final void testGetRows01() {
-
 		m = new Matrix2D<String>();
-
-		List<List<String>> l = new ArrayList<List<String>>();
-
-//		log.info("all rows=" + l);
-
-		assertEquals(l, m.getRows());
+		assertNotNull(m);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2D#getRows(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#Matrix2D(T[][])}.
+	 */
+	@Test
+	public final void testMatrix2DTArrayArray() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for {@link de.kerner.commons.Matrix2D#addRow(java.util.List)}
+	 * .
+	 */
+	@Test
+	public final void testAddRow() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRow(int)}.
 	 */
 	@Test
 	public final void testGetRow() {
@@ -163,22 +151,22 @@ public class Matrix2DTest {
 		l.add(row1);
 		l.add(row2);
 
-		assertEquals(row1, m.getRow(0));
+		assertArrayEquals(row1.toArray(), m.getRow(0).toArray());
 
-		assertEquals(row2, m.getRow(1));
+		assertArrayEquals(row2.toArray(), m.getRow(1).toArray());
 	}
-
+	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2D#getRows(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRow(int)}.
 	 */
 	@Test(expected = NoSuchElementException.class)
 	public final void testGetRow01() {
 		m = new Matrix2D<String>(array);
 		m.getRow(3);
 	}
-
+	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2D#getRows(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRow(int)}.
 	 */
 	@Test(expected = NoSuchElementException.class)
 	public final void testGetRow02() {
@@ -187,14 +175,55 @@ public class Matrix2DTest {
 	}
 
 	/**
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRows()}.
+	 */
+	@Test
+	public final void testGetRows() {
+		m = new Matrix2D<String>(array);
+
+		List<List<String>> l = new ArrayList<List<String>>();
+		l.add(row1);
+		l.add(row2);
+		l.add(row3);
+
+		assertArrayEquals(l.toArray(), m.getRows().toArray());
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRows()}.
+	 */
+	@Test
+	public final void testGetRows01() {
+
+		m = new Matrix2D<String>();
+
+		List<List<String>> l = new ArrayList<List<String>>();
+
+		// log.info("all rows=" + l);
+
+		assertEquals(l, m.getRows());
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRowNumber()}.
+	 */
+	@Test
+	public final void testGetRowNumber() {
+		m = new Matrix2D<String>(array);
+
+		assertEquals(array.length, m.getRowNumber());
+
+	}
+
+	/**
 	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
 	@Test
 	public final void testGetColumn() {
 		m = new Matrix2D<String>(array);
-		assertEquals(column1, m.getColumn(0));
+		assertArrayEquals(column1.toArray(), m.getColumn(0).toArray());
 	}
-
+	
 	/**
 	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
@@ -203,7 +232,7 @@ public class Matrix2DTest {
 		m = new Matrix2D<String>(array);
 		assertEquals(column2, m.getColumn(1));
 	}
-
+	
 	/**
 	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
@@ -232,47 +261,19 @@ public class Matrix2DTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link de.kerner.commons.Matrix2D#getColumns(java.util.list)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumns()}.
 	 */
 	@Test
 	public final void testGetColumns() {
-		m = new Matrix2D<String>(array);
-
-		List<List<String>> l = new ArrayList<List<String>>();
-		l.add(column1);
-		l.add(column2);
-		l.add(column3);
-
-//		log.info("all columns=" + m.getColumns());
-
-		assertEquals(column1, m.getColumn(0));
-		assertEquals(column2, m.getColumn(1));
-		assertEquals(column3, m.getColumn(2));
+		fail("Not yet implemented"); // TODO
 	}
-
-	/**
-	 * Test method for {@link de.kerner.commons.Matrix2D#getRowNumber()}.
-	 */
-	@Test
-	public final void testGetRowNumber() {
-		m = new Matrix2D<String>(array);
-
-//		log.info("number of rows=" + m.getRowNumber());
-
-		assertEquals(array.length, m.getRowNumber());
-
-	}
-
+	
 	/**
 	 * Test method for {@link de.kerner.commons.Matrix2D#getColumnNumber()}.
 	 */
 	@Test
 	public final void testGetColumnNumber() {
 		m = new Matrix2D<String>(array);
-
-//		log.info("number of columns=" + m.getColumnNumber());
-
 		// TODO remove hardcoded number of columns
 		assertEquals(3, m.getColumnNumber());
 
@@ -285,8 +286,6 @@ public class Matrix2DTest {
 	public final void testInvert() {
 		m = new Matrix2D<String>(array);
 		m2 = new Matrix2D<String>(array2);
-//		log.info("orig.="+m);
-//		log.info("inverted.="+m.invert());
 		assertEquals(m.invert(), m2);
 	}
 	
@@ -299,12 +298,13 @@ public class Matrix2DTest {
 		m2 = new Matrix2D<String>(array2);
 		assertEquals(m2.invert(), m);
 	}
-	
+
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
+	 * Test method for
+	 * {@link de.kerner.commons.Matrix2D#equals(java.lang.Object)}.
 	 */
 	@Test
-	public final void testEquals() {
+	public final void testEqualsObject() {
 		m = new Matrix2D<String>(array);
 		m2 = new Matrix2D<String>(array2);
 		assertEquals(m.invert(), m2);
@@ -314,7 +314,7 @@ public class Matrix2DTest {
 	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
 	 */
 	@Test
-	public final void testEquals01() {
+	public final void testEqualsObject01() {
 		m = new Matrix2D<String>(array);
 		m2 = new Matrix2D<String>(array);
 		assertNotSame(m.invert(), m2);
@@ -324,7 +324,7 @@ public class Matrix2DTest {
 	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
 	 */
 	@Test
-	public final void testEquals02() {
+	public final void testEqualsObject02() {
 		m = new Matrix2D<String>(array);
 		m2 = new Matrix2D<String>(array);
 		assertEquals(m, m2);
@@ -334,7 +334,7 @@ public class Matrix2DTest {
 	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
 	 */
 	@Test
-	public final void testEquals03() {
+	public final void testEqualsObject03() {
 		m = new Matrix2D<String>(array);
 		m2 = new Matrix2D<String>(array);
 		assertEquals(m2, m);

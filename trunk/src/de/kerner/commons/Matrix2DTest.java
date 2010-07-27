@@ -154,6 +154,12 @@ public class Matrix2DTest {
 		assertArrayEquals(row1.toArray(), m.getRow(0).toArray());
 
 		assertArrayEquals(row2.toArray(), m.getRow(1).toArray());
+		
+		System.out.println(m);
+		
+		System.out.println(m.getRows());
+		
+		System.out.println(m.getColumns());
 	}
 	
 	/**

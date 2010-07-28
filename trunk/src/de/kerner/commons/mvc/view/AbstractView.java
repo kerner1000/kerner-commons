@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.kerner.commons.mvc.controller.ControllerIn;
-import de.kerner.commons.mvc.controller.ControllerOut;
 
 /**
  * @author kerner

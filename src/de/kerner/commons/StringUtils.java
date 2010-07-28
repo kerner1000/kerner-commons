@@ -115,12 +115,15 @@ public class StringUtils {
 	 */
 	public static String removeAllAfterFirstOccurence(String pattern,
 			String string) {
-		final String finalPattern = "(.+?)" + pattern + "(.*)";
+		final String finalPattern = "(.+?)" + pattern + "(.*?)";
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string);
 		if (m.matches()) {
-			return m.group(1).trim();
+//			System.err.println(m.group(0));
+//			System.err.println(m.group(1));
+			return m.group(2).trim();
 		}
+//		System.err.println(string);
 		return string;
 	}
 
@@ -134,7 +137,7 @@ public class StringUtils {
 	 */
 	public static String removeAllBevoreFirstOccurence(String pattern,
 			String string) {
-		final String finalPattern = "(.*?)(" + pattern + ".+)";
+		final String finalPattern = "(.+?)(" + pattern + ".*?)";
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string);
 		if (m.matches()) {

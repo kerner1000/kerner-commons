@@ -90,7 +90,8 @@ public class StringUtilsTest {
 	 */
 	@Test
 	public final void testRemoveAllAfterFirstOccurence() {
-		fail("Not yet implemented"); // TODO
+		String s = "1..17";
+		assertEquals("17", StringUtils.removeAllAfterFirstOccurence("\\.+", s));
 	}
 
 	/**

@@ -13,24 +13,25 @@ import de.kerner.commons.file.FileUtils;
  * <p>
  * TODO description
  * </p>
+ * @see GenericReader
  * @author Alexander Kerner
  *
  */
-public abstract class AbstractGenericReader implements GenericReader {
+public abstract class AbstractGenericReader<T> implements GenericReader<T> {
 
 	// Implement //
 
-	public void read(File file) throws IOException {
+	public T read(File file) throws IOException {
 		if (FileUtils.fileCheck(file, false))
-			read(FileUtils.getInputStreamFromFile(file));
+			return read(FileUtils.getInputStreamFromFile(file));
 		else
 		throw new IOException("cannot access file \"" + file + "\"");
 	}
 
-	public void read(InputStream stream) throws IOException {
+	public T read(InputStream stream) throws IOException {
 		if (stream == null)
 			throw new NullPointerException();
-		read(IOUtils.inputStreamToReader(stream));
+		return read(IOUtils.inputStreamToReader(stream));
 	}
 
 }

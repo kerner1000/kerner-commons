@@ -6,12 +6,15 @@ package de.kerner.commons;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -42,6 +45,30 @@ public class VectorTest {
 			put("1", "eins");
 			put("2", "zwei");
 			put("3", "drei");
+		}
+	};
+	
+	private final static Set<String> s = new LinkedHashSet<String>(){
+		{
+			add("s1");
+			add("s2");
+			add("s3");
+		}
+	};
+	
+	private final static Set<String> ss = new LinkedHashSet<String>(){
+		{
+			add("ss1");
+			add("ss2");
+		}
+	};
+	
+	private final static Set<String> sss = new LinkedHashSet<String>(){
+		{
+			add("sss1");
+			add("sss2");
+			add("sss3");
+			add("sss4");
 		}
 	};
 
@@ -206,6 +233,96 @@ public class VectorTest {
 	public final void testAssignIInt03() {
 		v.assign("55", 5);
 	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI() {
+		v.assignAll(s);
+		assertEquals("eins", v.getAtIndex("s1"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI01() {
+		v.assignAll(s);
+		assertEquals("zwei", v.getAtIndex("s2"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI02() {
+		v.assignAll(s);
+		assertEquals("drei", v.getAtIndex("s3"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI03() {
+		v.assignAll(ss);
+		assertEquals("eins", v.getAtIndex("ss1"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI04() {
+		v.assignAll(ss);
+		assertEquals("zwei", v.getAtIndex("ss2"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test(expected=NoSuchElementException.class)
+	public final void testAssignAllSetOfI05() {
+		v.assignAll(ss);
+		v.getAtIndex("ss3");
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI06() {
+		v.assignAll(sss);
+		assertEquals("zwei", v.getAtIndex("sss2"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI07() {
+		v.assignAll(sss);
+		assertEquals("eins", v.getAtIndex("sss1"));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 */
+	@Test
+	public final void testAssignAllSetOfI08() {
+		v.assignAll(sss);
+		assertEquals("drei", v.getAtIndex("sss3"));
+	}
 
 	/**
 	 * Test method for {@link de.kerner.commons.Vector#getAsList()}.
@@ -220,7 +337,7 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testGetMap() {
-		fail("Not yet implemented"); // TODO
+		assertEquals(m, v.getMap());
 	}
 
 	/**
@@ -229,15 +346,25 @@ public class VectorTest {
 	 */
 	@Test
 	public final void testEqualsObject() {
-		fail("Not yet implemented"); // TODO
+		assertEquals(v, v2);
 	}
-
+	
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#toString()}.
+	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
+	 * .
 	 */
 	@Test
-	public final void testToString() {
-		fail("Not yet implemented"); // TODO
+	public final void testEqualsObject01() {
+		v2.assignAll(s);
+		assertNotSame(v, v2);
 	}
+
+//	/**
+//	 * Test method for {@link de.kerner.commons.Vector#toString()}.
+//	 */
+//	@Test
+//	public final void testToString() {
+//		fail("Not yet implemented"); // TODO
+//	}
 
 }

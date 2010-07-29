@@ -91,7 +91,16 @@ public class StringUtilsTest {
 	@Test
 	public final void testRemoveAllAfterFirstOccurence() {
 		String s = "1..17";
-		assertEquals("17", StringUtils.removeAllAfterFirstOccurence("\\.+", s));
+		assertEquals("1", StringUtils.removeAllAfterFirstOccurence("\\.+", s));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#removeAllAfterFirstOccurence(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testRemoveAllAfterFirstOccurence01() {
+		String s = "aaBBccDDee";
+		assertEquals("aa", StringUtils.removeAllAfterFirstOccurence("[A-Z]+", s));
 	}
 
 	/**
@@ -100,7 +109,27 @@ public class StringUtilsTest {
 	@Test
 	public final void testRemoveAllBevoreFirstOccurence() {
 		String s = "1..17";
-		assertEquals("1", StringUtils.removeAllBevoreFirstOccurence("\\.+", s));
+		assertEquals("17", StringUtils.removeAllBevoreFirstOccurence("\\.+", s));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#removeAllBevoreFirstOccurence(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testRemoveAllBevoreFirstOccurence01() {
+		String s = "aaBBccDDee";
+		assertEquals("ccDDee", StringUtils.removeAllBevoreFirstOccurence("[A-Z]+", s));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#removeAllBevoreFirstOccurence(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testRemoveAllBevoreFirstOccurence02() {
+		String s = "aaBBccDDee";
+		s = StringUtils.removeAllBevoreFirstOccurence("[A-Z]+", s);
+		s = StringUtils.removeAllAfterFirstOccurence("[A-Z]+", s);
+		assertEquals("cc", s);
 	}
 
 	/**

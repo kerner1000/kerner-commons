@@ -35,7 +35,7 @@ public class StringUtils {
 	private StringUtils() {
 
 	}
-	
+
 	public static List<String> splitToList(String pattern, String string) {
 		return splitToList(pattern, string, true);
 	}
@@ -119,11 +119,11 @@ public class StringUtils {
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string);
 		if (m.matches()) {
-//			System.err.println(m.group(0));
-//			System.err.println(m.group(1));
-			return m.group(2).trim();
+			// System.err.println(m.group(0));
+			// System.err.println(m.group(1));
+			return m.group(1).trim();
 		}
-//		System.err.println(string);
+		// System.err.println(string);
 		return string;
 	}
 
@@ -137,15 +137,18 @@ public class StringUtils {
 	 */
 	public static String removeAllBevoreFirstOccurence(String pattern,
 			String string) {
-		final String finalPattern = "(.+?)(" + pattern + ".*?)";
+		final String finalPattern = "(.+?)" + pattern + "(.*?)";
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string);
 		if (m.matches()) {
-//			System.err.println(m.group(0));
-//			System.err.println(m.group(1));
-			return m.group(1).trim();
+			// System.err.println(m.group(0));
+			// System.err.println(m.group(1));
+			
+			return m.group(2).trim();
+			
+
 		}
-//		System.err.println(string);
+		// System.err.println(string);
 		return string;
 	}
 
@@ -163,4 +166,35 @@ public class StringUtils {
 		return m.replaceAll("");
 
 	}
+
+//	public static String removeFirstOccurence(String pattern, String string){
+//		final String finalPattern = "(.+?)(" + pattern + ".*?)";
+//		final Pattern p = Pattern.compile(finalPattern);
+//		final Matcher m = p.matcher(string);
+//		if (m.matches()) {
+//			
+//			
+////			System.err.println(m.group(0));
+////			System.err.println(m.group(1));
+//			return m.group(2).trim();
+//			
+//			
+//		}
+////		System.err.println(string);
+//		return string;
+//	}
+//
+//	public static String removeLastOccurence(String pattern, String string) {
+//		final String finalPattern = "(.+?)(" + pattern + ".*?)";
+//		final Pattern p = Pattern.compile(finalPattern);
+//		final Matcher m = p.matcher(string);
+//		if (m.matches()) {
+//			// System.err.println(m.group(0));
+//			// System.err.println(m.group(1));
+//			return m.group(2).trim();
+//
+//		}
+//		// System.err.println(string);
+//		return string;
+//	}
 }

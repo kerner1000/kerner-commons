@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.kerner.commons.file.FileUtils;
+
 /**
  * <p>
  * An utility class that provides static methods for all kind of string
@@ -151,6 +153,50 @@ public class StringUtils {
 		// System.err.println(string);
 		return string;
 	}
+	
+	public static String removeAllAfterLastOccurence(String pattern, String string) {
+		
+		// maybe use other regex:
+		// pattern: (\d+)$
+		// string: abc56abc66
+		// outcome: 66
+		
+		final String finalPattern = "(.+)" + pattern + "(.*?)";
+		final Pattern p = Pattern.compile(finalPattern);
+		final Matcher m = p.matcher(string);
+		if (m.matches()) {
+			// System.err.println(m.group(0));
+			// System.err.println(m.group(1));
+			
+			return m.group(1).trim();
+			
+
+		}
+		// System.err.println(string);
+		return string;
+	}
+	
+	public static String removeAllBeforeLastOccurence(String pattern, String string) {
+		
+		// maybe use other regex:
+		// pattern: (\d+)$
+		// string: abc56abc66
+		// outcome: 66
+		
+		final String finalPattern = "(.+)" + pattern + "(.*?)";
+		final Pattern p = Pattern.compile(finalPattern);
+		final Matcher m = p.matcher(string);
+		if (m.matches()) {
+			// System.err.println(m.group(0));
+			// System.err.println(m.group(1));
+			
+			return m.group(2).trim();
+			
+
+		}
+		// System.err.println(string);
+		return string;
+	}
 
 	/**
 	 * <p>
@@ -166,6 +212,30 @@ public class StringUtils {
 		return m.replaceAll("");
 
 	}
+	
+	public static String formatMultiLineStringToLength(String string, int length){
+		string = string.replaceAll("\\s", "").trim();
+		StringBuilder sb = new StringBuilder();
+		while (string.length() > length) {
+			int endIndex = length;
+			sb.append(string.subSequence(0, endIndex).toString() + FileUtils.NEW_LINE);
+			string = string.substring(endIndex);
+		}
+		if(string != null && !string.equals(FileUtils.NEW_LINE))
+		sb.append(string);
+//		sb.append(FileUtils.NEW_LINE);
+		return sb.toString();
+	}
+	
+//	public static int firstPositionOf(String pattern, String string){
+//		final String finalPattern = "(.+)" + pattern + "(.*?)";
+//		final Pattern p = Pattern.compile(finalPattern);
+//		final Matcher m = p.matcher(string);
+//		if (m.matches()) {	
+//			return m.
+//		}
+//		return string;
+//	}
 
 //	public static String removeFirstOccurence(String pattern, String string){
 //		final String finalPattern = "(.+?)(" + pattern + ".*?)";

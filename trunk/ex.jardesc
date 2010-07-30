@@ -13,12 +13,10 @@
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/kerner.commons/license.txt"/>
         <file path="/kerner.commons/readme-dev.txt"/>
-        <file path="/kerner.commons/.classpath"/>
         <folder path="/kerner.commons/lib"/>
         <javaElement handleIdentifier="=kerner.commons/src"/>
-        <file path="/kerner.commons/toDo.lst"/>
         <folder path="/kerner.commons/doc"/>
+        <file path="/kerner.commons/toDo.lst"/>
         <file path="/kerner.commons/readme.txt"/>
-        <file path="/kerner.commons/.project"/>
     </selectedElements>
 </jardesc>

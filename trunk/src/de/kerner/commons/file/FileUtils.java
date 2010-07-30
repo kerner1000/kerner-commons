@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 import com.thoughtworks.xstream.XStream;
 
+import de.kerner.commons.StringUtils;
 import de.kerner.commons.io.IOUtils;
 
 /**
@@ -30,6 +31,9 @@ public class FileUtils {
 
 	public static final File WORKING_DIR = new File(System
 			.getProperty("user.dir"));
+	
+	public static final File USER_DIR = new File(System
+			.getProperty("user.home"));
 
 	// TODO move to commons.io
 	public final static String NEW_LINE = System.getProperty("line.separator");
@@ -214,13 +218,17 @@ public class FileUtils {
 	 * Write an {@code Object} that implements {@link Serializable} to a file.
 	 * </p>
 	 * <p>
-	 * Serialisation is buffered: Internally a {@link BufferedOutputStream} is used.
+	 * Serialisation is buffered: Internally a {@link BufferedOutputStream} is
+	 * used.
 	 * </p>
 	 * 
 	 * @see Serializable
-	 * @param s {@code Object} that will be serialized
-	 * @param file file to write to
-	 * @throws IOException if anything goes wrong
+	 * @param s
+	 *            {@code Object} that will be serialized
+	 * @param file
+	 *            file to write to
+	 * @throws IOException
+	 *             if anything goes wrong
 	 */
 	public static void objectToFile(Serializable s, File file)
 			throws IOException {
@@ -228,22 +236,28 @@ public class FileUtils {
 			throw new NullPointerException();
 		objectToStream(s, new FileOutputStream(file));
 	}
-	
+
 	/**
 	 * <p>
-	 * Write an {@code Object} that implements {@link Serializable} to an {@link OutputStream}.
+	 * Write an {@code Object} that implements {@link Serializable} to an
+	 * {@link OutputStream}.
 	 * </p>
 	 * <p>
-	 * Serialisation is buffered: Internally a {@link BufferedOutputStream} is used.
+	 * Serialisation is buffered: Internally a {@link BufferedOutputStream} is
+	 * used.
 	 * </p>
 	 * 
 	 * @see Serializable
-	 * @param s {@code Object} that will be serialized
-	 * @param sstream stream to write to
-	 * @throws IOException if anything goes wrong
+	 * @param s
+	 *            {@code Object} that will be serialized
+	 * @param sstream
+	 *            stream to write to
+	 * @throws IOException
+	 *             if anything goes wrong
 	 */
-	public static void objectToStream(Serializable s, OutputStream stream) throws IOException{
-		if(s == null || stream == null)
+	public static void objectToStream(Serializable s, OutputStream stream)
+			throws IOException {
+		if (s == null || stream == null)
 			throw new NullPointerException();
 		ObjectOutputStream outStream = null;
 		BufferedOutputStream bos = null;
@@ -252,7 +266,7 @@ public class FileUtils {
 			outStream = new ObjectOutputStream(bos);
 			outStream.writeObject(s);
 		} finally {
-			if(outStream != null)
+			if (outStream != null)
 				outStream.close();
 		}
 	}
@@ -345,6 +359,46 @@ public class FileUtils {
 				in.close();
 		}
 		return true;
+	}
+	
+	public static String getFileExtension(File file){
+		return getFileExtension(file.getAbsolutePath());
+	}
+	
+	public static String getFileExtension(String string){
+		return StringUtils.removeAllBeforeLastOccurence("\\.", string);
+	}
+	
+	public static String getFileNameWithoutExtension(File file){
+		return getFileExtension(file.getAbsolutePath());
+	}
+	
+	public static String getFileNameWithoutExtension(String string){
+		return StringUtils.removeAllAfterLastOccurence("\\.", string);
+	}
+	
+	public static String appendToFileName(String string, String append){
+		String name = getFileNameWithoutExtension(string);
+		String ex = getFileExtension(string);
+		name = name + append;
+		name = name + "." + ex;
+		return name;
+	}
+
+	public static void appendToFileName(File file, String append) throws IOException {
+		if (fileCheck(file, false)) {
+			String name = file.getAbsolutePath();
+			String suffix = StringUtils.removeAllBeforeLastOccurence("\\.", name);
+			name = StringUtils.removeAllAfterLastOccurence("\\.", name);
+			name = name + append;
+			File f = new File(name + "." + suffix);
+//				System.err.println(f);
+			if (file.renameTo(f)) {
+				// all good
+			} else
+				throw new IOException("could not rename file \"" + file + "\"");
+		} else
+			throw new IOException("cannot access file \"" + file + "\"");
 	}
 
 }

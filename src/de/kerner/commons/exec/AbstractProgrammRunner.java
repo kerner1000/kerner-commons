@@ -86,6 +86,10 @@ public abstract class AbstractProgrammRunner implements ProcessRunner {
 	public AbstractProgrammRunner(String workingDir) {
 		this.workingDir = new File(workingDir);
 	}
+	
+	public AbstractProgrammRunner() {
+		this.workingDir = null;
+	}
 
 	// Private //
 

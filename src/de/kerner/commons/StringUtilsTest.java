@@ -102,6 +102,24 @@ public class StringUtilsTest {
 		String s = "aaBBccDDee";
 		assertEquals("aa", StringUtils.removeAllAfterFirstOccurence("[A-Z]+", s));
 	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#removeAllAfterLastOccurence(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testRemoveAllAfterLastOccurence() {
+		String s = "aaBBcc.DD.ee";
+		assertEquals("aaBBcc.DD", StringUtils.removeAllAfterLastOccurence("\\.", s));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#removeAllBeforeLastOccurence(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testRemoveAllBeforeLastOccurence() {
+		String s = "aaBBcc.DD.ee";
+		assertEquals("ee", StringUtils.removeAllBeforeLastOccurence("\\.", s));
+	}
 
 	/**
 	 * Test method for {@link de.kerner.commons.StringUtils#removeAllBevoreFirstOccurence(java.lang.String, java.lang.String)}.

@@ -128,5 +128,10 @@ public abstract class AbstractCounter {
 	 * </p>
 	 */
 	public abstract void perform();
+	
+	@Override
+	public String toString() {
+		return Integer.toString(getCount());
+	}
 
 }

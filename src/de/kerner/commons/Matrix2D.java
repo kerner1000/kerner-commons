@@ -130,6 +130,62 @@ public class Matrix2D<T> {
 		return result;
 	}
 
+	public boolean isColumnConsistent() {
+
+		final AbstractCounter cnt = new AbstractCounter() {
+
+			@Override
+			public void perform() {
+				// TODO Auto-generated method stub
+
+			}
+		};
+
+		cnt.setCount(1);
+
+		// TODO not unit tested
+
+		int length = getColumns().iterator().next().size();
+		for (List<T> c : getColumns()) {
+			cnt.count();
+			if (length != c.size()) {
+				System.err.println("column " + cnt
+						+ " not consistent (length expected: " + length
+						+ ", actual: " + c.size() + ")");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean isRowConsistent() {
+
+		final AbstractCounter cnt = new AbstractCounter() {
+
+			@Override
+			public void perform() {
+				// TODO Auto-generated method stub
+
+			}
+		};
+
+		cnt.setCount(1);
+
+		// TODO not unit tested
+
+		int length = getRows().iterator().next().size();
+		for (List<T> c : getRows()) {
+			cnt.count();
+			if (length != c.size()) {
+				System.err.println("row " + cnt
+						+ " not consistent (length expected: " + length
+						+ ", actual: " + c.size() + ")");
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

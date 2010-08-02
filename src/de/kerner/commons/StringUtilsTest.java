@@ -151,11 +151,61 @@ public class StringUtilsTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.StringUtils#replaceAllNonMatching(java.lang.String, java.lang.String)}.
+	 * Test method for {@link de.kerner.commons.StringUtils#removeAllNonMatching(java.lang.String, java.lang.String)}.
 	 */
 	@Test
-	public final void testReplaceAllNonMatching() {
-		fail("Not yet implemented"); // TODO
+	public final void testRemoveAllNonMatching() {
+		String s = "aaBBccDDee";
+		assertEquals("aaccee", StringUtils.removeAllNonMatching("[A-Z]+", s));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#replace(java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testReplace() {
+		String s = "aaBBccDDee";
+		String ss = "XX";
+		assertEquals("aaXXccXXee", StringUtils.replace("[A-Z]+", s, ss));
 	}
 
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#replace(java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testReplace02() {
+		String s = "\tfoo\tbar\t";
+		String ss = "\t";
+		assertEquals("\tfoo\tbar\t_", StringUtils.replace(ss + "$", s, "\t_"));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#replace(java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testReplace03() {
+		String s = "\tfoo\tbar\t";
+		String ss = "\t";
+		assertEquals("_\tfoo\tbar\t", StringUtils.replace("^"+ss, s, "_\t"));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#firstIndexOf(java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testFirstIndexOf() {
+		String s = "aaBBccDDee";
+		assertEquals(2, StringUtils.firstIndexOf("[A-Z]+", s));
+	}
+	
+	/**
+	 * Test method for {@link de.kerner.commons.StringUtils#lastIndexOf(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testLastIndexOf() {
+		String s = "aaBBccDDee";
+		assertEquals(7, StringUtils.lastIndexOf("[A-Z]+", s));
+	}
+	
+	
 }

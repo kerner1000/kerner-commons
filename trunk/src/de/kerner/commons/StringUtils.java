@@ -219,10 +219,10 @@ public class StringUtils {
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string1);
 		if (m.matches()) {
-			System.err.println(m.group(0));
-			System.err.println(m.group(1));
-			System.err.println(m.group(2));
-			System.err.println(m.group(3));
+//			System.err.println(m.group(0));
+//			System.err.println(m.group(1));
+//			System.err.println(m.group(2));
+//			System.err.println(m.group(3));
 			return m.toMatchResult().start(2);
 
 		}

@@ -119,6 +119,14 @@ public abstract class AbstractCounter {
 	public int getCount() {
 		return cnt;
 	}
+	
+	public void setCount(int count){
+		
+		//TODO not unit tested
+		
+		this.cnt = count;
+		this.intervalHelper = count;
+	}
 
 	// Abstract //
 

@@ -145,57 +145,88 @@ public class StringUtils {
 		if (m.matches()) {
 			// System.err.println(m.group(0));
 			// System.err.println(m.group(1));
-			
+
 			return m.group(2).trim();
-			
 
 		}
 		// System.err.println(string);
 		return string;
 	}
-	
-	public static String removeAllAfterLastOccurence(String pattern, String string) {
-		
+
+	public static String removeAllAfterLastOccurence(String pattern,
+			String string) {
+
 		// maybe use other regex:
 		// pattern: (\d+)$
 		// string: abc56abc66
 		// outcome: 66
-		
+
 		final String finalPattern = "(.+)" + pattern + "(.*?)";
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string);
 		if (m.matches()) {
 			// System.err.println(m.group(0));
 			// System.err.println(m.group(1));
-			
+
 			return m.group(1).trim();
-			
 
 		}
 		// System.err.println(string);
 		return string;
 	}
-	
-	public static String removeAllBeforeLastOccurence(String pattern, String string) {
-		
+
+	public static String removeAllBeforeLastOccurence(String pattern,
+			String string) {
+
 		// maybe use other regex:
 		// pattern: (\d+)$
 		// string: abc56abc66
 		// outcome: 66
-		
+
 		final String finalPattern = "(.+)" + pattern + "(.*?)";
 		final Pattern p = Pattern.compile(finalPattern);
 		final Matcher m = p.matcher(string);
 		if (m.matches()) {
 			// System.err.println(m.group(0));
 			// System.err.println(m.group(1));
-			
+
 			return m.group(2).trim();
-			
 
 		}
 		// System.err.println(string);
 		return string;
+	}
+
+	public static int firstIndexOf(String pattern, String string1) {
+
+		final String finalPattern = "(.+?)(" + pattern + ")(.*)";
+		final Pattern p = Pattern.compile(finalPattern);
+		final Matcher m = p.matcher(string1);
+		if (m.matches()) {
+//			System.err.println(m.group(0));
+//			System.err.println(m.group(1));
+//			System.err.println(m.group(2));
+//			System.err.println(m.group(3));
+			return m.toMatchResult().start(2);
+
+		}
+		return -1;
+	}
+	
+	public static int lastIndexOf(String pattern, String string1) {
+
+		final String finalPattern = "(.+)(" + pattern + ")(.*)";
+		final Pattern p = Pattern.compile(finalPattern);
+		final Matcher m = p.matcher(string1);
+		if (m.matches()) {
+			System.err.println(m.group(0));
+			System.err.println(m.group(1));
+			System.err.println(m.group(2));
+			System.err.println(m.group(3));
+			return m.toMatchResult().start(2);
+
+		}
+		return -1;
 	}
 
 	/**
@@ -206,65 +237,82 @@ public class StringUtils {
 	 * TODO example
 	 * </p>
 	 */
-	public static String replaceAllNonMatching(String pattern, String string) {
+	public static String removeAllNonMatching(String pattern, String string) {
 		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(string);
 		return m.replaceAll("");
 
 	}
-	
-	public static String formatMultiLineStringToLength(String string, int length){
+
+	/**
+	 * <p>
+	 * TODO description
+	 * </p>
+	 * <p>
+	 * TODO example
+	 * </p>
+	 */
+	public static String replace(String pattern, String string,
+			String replacement) {
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(string);
+		return m.replaceAll(replacement);
+
+	}
+
+	public static String formatMultiLineStringToLength(String string, int length) {
 		string = string.replaceAll("\\s", "").trim();
 		StringBuilder sb = new StringBuilder();
 		while (string.length() > length) {
 			int endIndex = length;
-			sb.append(string.subSequence(0, endIndex).toString() + FileUtils.NEW_LINE);
+			sb.append(string.subSequence(0, endIndex).toString()
+					+ FileUtils.NEW_LINE);
 			string = string.substring(endIndex);
 		}
-		if(string != null && !string.equals(FileUtils.NEW_LINE))
-		sb.append(string);
-//		sb.append(FileUtils.NEW_LINE);
+		if (string != null && !string.equals(FileUtils.NEW_LINE))
+			sb.append(string);
+		// sb.append(FileUtils.NEW_LINE);
 		return sb.toString();
 	}
-	
-//	public static int firstPositionOf(String pattern, String string){
-//		final String finalPattern = "(.+)" + pattern + "(.*?)";
-//		final Pattern p = Pattern.compile(finalPattern);
-//		final Matcher m = p.matcher(string);
-//		if (m.matches()) {	
-//			return m.
-//		}
-//		return string;
-//	}
 
-//	public static String removeFirstOccurence(String pattern, String string){
-//		final String finalPattern = "(.+?)(" + pattern + ".*?)";
-//		final Pattern p = Pattern.compile(finalPattern);
-//		final Matcher m = p.matcher(string);
-//		if (m.matches()) {
-//			
-//			
-////			System.err.println(m.group(0));
-////			System.err.println(m.group(1));
-//			return m.group(2).trim();
-//			
-//			
-//		}
-////		System.err.println(string);
-//		return string;
-//	}
-//
-//	public static String removeLastOccurence(String pattern, String string) {
-//		final String finalPattern = "(.+?)(" + pattern + ".*?)";
-//		final Pattern p = Pattern.compile(finalPattern);
-//		final Matcher m = p.matcher(string);
-//		if (m.matches()) {
-//			// System.err.println(m.group(0));
-//			// System.err.println(m.group(1));
-//			return m.group(2).trim();
-//
-//		}
-//		// System.err.println(string);
-//		return string;
-//	}
+	// public static int firstPositionOf(String pattern, String string){
+	// final String finalPattern = "(.+)" + pattern + "(.*?)";
+	// final Pattern p = Pattern.compile(finalPattern);
+	// final Matcher m = p.matcher(string);
+	// if (m.matches()) {
+	// return m.
+	// }
+	// return string;
+	// }
+
+	// public static String removeFirstOccurence(String pattern, String string){
+	// final String finalPattern = "(.+?)(" + pattern + ".*?)";
+	// final Pattern p = Pattern.compile(finalPattern);
+	// final Matcher m = p.matcher(string);
+	// if (m.matches()) {
+	//			
+	//			
+	// // System.err.println(m.group(0));
+	// // System.err.println(m.group(1));
+	// return m.group(2).trim();
+	//			
+	//			
+	// }
+	// // System.err.println(string);
+	// return string;
+	// }
+	//
+	// public static String removeLastOccurence(String pattern, String string) {
+	// final String finalPattern = "(.+?)(" + pattern + ".*?)";
+	// final Pattern p = Pattern.compile(finalPattern);
+	// final Matcher m = p.matcher(string);
+	// if (m.matches()) {
+	// // System.err.println(m.group(0));
+	// // System.err.println(m.group(1));
+	// return m.group(2).trim();
+	//
+	// }
+	// // System.err.println(string);
+	// return string;
+	// }
 }

@@ -211,6 +211,26 @@ public class Vector<I, V> {
 	public synchronized Map<I, V> getMap() {
 		return new LinkedHashMap<I, V>(map);
 	}
+	
+	public boolean containsValue(V value){
+		
+		// TODO unit test
+		
+//		System.err.println("fffff  " + values);
+		
+		synchronized (values) {
+			return values.contains(value);
+		}
+	}
+	
+	public boolean containsKey(I key){
+		
+		// TODO unit test
+		
+		synchronized (map) {
+			return map.containsKey(key);
+		}
+	}
 
 	@Override
 	public int hashCode() {

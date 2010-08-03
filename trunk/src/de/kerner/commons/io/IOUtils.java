@@ -222,17 +222,20 @@ public class IOUtils {
 		return v;
 	}
 
-	public static void closeProperly(Writer writer) throws IOException {
-		if (writer != null)
-
+	public static void closeProperly(Writer writer) {
+		if (writer != null)try{
 			writer.close();
-
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+			
 	}
 
-	public static void closeProperly(Reader reader) throws IOException {
-		if (reader != null)
-
+	public static void closeProperly(Reader reader) {
+		if (reader != null)try{
 			reader.close();
-
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

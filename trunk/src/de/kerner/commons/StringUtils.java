@@ -29,7 +29,7 @@ import de.kerner.commons.file.FileUtils;
  * </p>
  * 
  * @author Alexander Kerner
- * 
+ * @lastVisit 2010-08-03
  * 
  */
 public class StringUtils {

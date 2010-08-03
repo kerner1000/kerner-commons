@@ -199,27 +199,105 @@ public class StringUtilsTest {
 		String s = "aaBBcc.DD.ee";
 		assertEquals("ee", StringUtils.removeAllBeforeLastOccurence("\\.", s));
 	}
-
+	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.StringUtils#firstIndexOf(java.lang.String, java.lang.String)}
+	 * {@link de.kerner.commons.StringUtils#reverse(java.lang.Strin)}
 	 * .
 	 */
 	@Test
-	public final void testFirstIndexOf() {
-		String s = "aaBBccDDee";
-		assertEquals(2, StringUtils.firstIndexOf("[A-Z]+", s));
+	public final void testReverse() {
+		String s1 = "aaBBccDDee";
+		String s2 = "eeDDccBBaa";
+		assertEquals(s1, StringUtils.reverse(s2));
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.StringUtils#lastIndexOf(java.lang.String, java.lang.String)}
+	 * {@link de.kerner.commons.StringUtils#firstIndexOf(java.lang.String, java.lang.String, boolean)}
 	 * .
 	 */
 	@Test
-	public final void testLastIndexOf() {
+	public final void testFirstIndexOfExclusive() {
 		String s = "aaBBccDDee";
-		assertEquals(7, StringUtils.lastIndexOf("[A-Z]+", s));
+		assertEquals(2, StringUtils.firstIndexOf("[A-Z]+", s, false));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#firstIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testFirstIndexOfExclusive01() {
+		String s = "aaBBBBccDDDDee";
+		assertEquals(2, StringUtils.firstIndexOf("[A-Z]+", s, false));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#firstIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testFirstIndexOfInclusive() {
+		String s = "aaBBccDDee";
+		assertEquals(3, StringUtils.firstIndexOf("[A-Z]+", s, true));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#firstIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testFirstIndexOfInclusive01() {
+		String s = "aaBBBBccDDDee";
+		assertEquals(5, StringUtils.firstIndexOf("[A-Z]+", s, true));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#lastIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testLastIndexOfExclusive() {
+		String s = "aaBBccDDee";
+		assertEquals(6, StringUtils.lastIndexOf("[A-Z]+", s, false));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#lastIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testLastIndexOfExclusive01() {
+		String s = "aaBBBBccDDDDee";
+		assertEquals(8, StringUtils.lastIndexOf("[A-Z]+", s, false));
+	}
+
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#lastIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testLastIndexOfInclusive() {
+		String s = "aaBBccDDee";
+		assertEquals(7, StringUtils.lastIndexOf("[A-Z]+", s, true));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link de.kerner.commons.StringUtils#lastIndexOf(java.lang.String, java.lang.String, boolean)}
+	 * .
+	 */
+	@Test
+	public final void testLastIndexOfInclusive01() {
+		String s = "aaBBBccDDDDDee";
+		assertEquals(11, StringUtils.lastIndexOf("[A-Z]+", s, true));
 	}
 
 	/**

@@ -4,6 +4,7 @@
 package de.kerner.commons;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -33,12 +34,12 @@ import de.kerner.commons.logging.Log;
  * @param <V>
  *            Value of elements
  */
-public class Vector<I, V> {
+public class Vector<I, V> implements Iterable<V> {
 
 	private final static Log log = new Log(Vector.class);
 
-	private final Map<I, V> map = new LinkedHashMap<I, V>();
-	private final List<V> values = new LinkedList<V>();
+	protected final Map<I, V> map = new LinkedHashMap<I, V>();
+	protected final List<V> values = new LinkedList<V>();
 
 	/**
 	 * <p>
@@ -231,6 +232,32 @@ public class Vector<I, V> {
 			return map.containsKey(key);
 		}
 	}
+	
+	public synchronized int getIndexForIdentifier(String identifier){
+		
+		// TODO unit test
+		
+		AbstractCounter cnt = new AbstractCounter() {
+			@Override
+			public void perform() {
+				// TODO Auto-generated method stub
+			}
+		};
+		for(I i : map.keySet()){
+			if(i.equals(identifier))
+				return cnt.getCount();
+			cnt.count();
+		}
+		return -1;
+	}
+	
+	// Implement //
+	
+	public Iterator<V> iterator() {
+		return map.values().iterator();
+	}
+	
+	// Override //
 
 	@Override
 	public int hashCode() {

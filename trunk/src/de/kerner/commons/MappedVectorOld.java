@@ -3,6 +3,7 @@
  */
 package de.kerner.commons;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -18,7 +19,7 @@ import de.kerner.commons.logging.Log;
 
 /**
  * <p>
- * description // TODO
+ * A {@code MappedList} is 
  * </p>
  * 
  * <p>
@@ -27,36 +28,37 @@ import de.kerner.commons.logging.Log;
  * 
  * @author Alexander Kerner
  * @threadSave
- * @lastVisit 2010-07-27
+ * @lastVisit 2010-08-04
+ * @deprecated
  * 
  * @param <I>
  *            Identifier for elements
  * @param <V>
  *            Value of elements
  */
-public class Vector<I, V> implements Iterable<V> {
+public class MappedVectorOld<I, V> implements Iterable<V> {
 
-	private final static Log log = new Log(Vector.class);
+	private final static Log log = new Log(MappedVectorOld.class);
 
 	protected final Map<I, V> map = new LinkedHashMap<I, V>();
-	protected final List<V> values = new LinkedList<V>();
+	protected final List<V> values = new ArrayList<V>();
 
 	/**
 	 * <p>
 	 * Construct a new empty {@code Vector}.
 	 * </p>
 	 */
-	public Vector() {
+	public MappedVectorOld() {
 
 	}
 
-	public Vector(Collection<V> values) {
+	public MappedVectorOld(Collection<V> values) {
 		synchronized (this.values) {
 			this.values.addAll(values);
 		}
 	}
 
-	public Vector(Map<I, V> values) {
+	public MappedVectorOld(Map<I, V> values) {
 		synchronized (this) {
 			this.map.putAll(values);
 			this.values.addAll(values.values());
@@ -273,9 +275,9 @@ public class Vector<I, V> implements Iterable<V> {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Vector<?, ?>))
+		if (!(obj instanceof MappedVectorOld<?, ?>))
 			return false;
-		Vector<?, ?> other = (Vector<?, ?>) obj;
+		MappedVectorOld<?, ?> other = (MappedVectorOld<?, ?>) obj;
 		if (values == null) {
 			if (other.values != null)
 				return false;

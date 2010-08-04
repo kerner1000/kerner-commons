@@ -35,7 +35,7 @@ import de.kerner.commons.collection.MappedVector;
  * 
  * @author Alexander Kerner
  * @lastVisit 2010-07-27
- * @deprecated create new UnitTest (this one was taken from old MappedVector class
+ * @deprecated out of date
  * 
  */
 @SuppressWarnings("serial")

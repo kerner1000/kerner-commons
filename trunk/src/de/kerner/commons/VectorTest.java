@@ -22,6 +22,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.kerner.commons.collection.MappedVector;
+
 /**
  * <p>
  * description // TODO
@@ -33,14 +35,15 @@ import org.junit.Test;
  * 
  * @author Alexander Kerner
  * @lastVisit 2010-07-27
+ * @deprecated create new UnitTest (this one was taken from old MappedVector class
  * 
  */
 @SuppressWarnings("serial")
 public class VectorTest {
 
-	private static Vector<String, String> v, v2;
+	private static MappedVector<String> v, v2;
 
-	private final static Map<String, String> m = new LinkedHashMap<String, String>() {
+	private final static Map<Object, String> m = new LinkedHashMap<Object, String>() {
 		{
 			put("1", "eins");
 			put("2", "zwei");
@@ -48,7 +51,7 @@ public class VectorTest {
 		}
 	};
 	
-	private final static Set<String> s = new LinkedHashSet<String>(){
+	private final static Set<Object> s = new LinkedHashSet<Object>(){
 		{
 			add("s1");
 			add("s2");
@@ -56,14 +59,14 @@ public class VectorTest {
 		}
 	};
 	
-	private final static Set<String> ss = new LinkedHashSet<String>(){
+	private final static Set<Object> ss = new LinkedHashSet<Object>(){
 		{
 			add("ss1");
 			add("ss2");
 		}
 	};
 	
-	private final static Set<String> sss = new LinkedHashSet<String>(){
+	private final static Set<Object> sss = new LinkedHashSet<Object>(){
 		{
 			add("sss1");
 			add("sss2");
@@ -92,8 +95,8 @@ public class VectorTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		v = new Vector<String, String>(m);
-		v2 = new Vector<String, String>(m);
+		v = new MappedVector<String>(m);
+		v2 = new MappedVector<String>(m);
 	}
 
 	/**
@@ -104,34 +107,34 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector()}.
+	 * Test method for {@link de.kerner.commons.MappedVector#Vector()}.
 	 */
 	@Test
 	public final void testVector() {
-		v = new Vector<String, String>();
+		v = new MappedVector<String>();
 		assertNotNull(v);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector(java.util.Set)}.
+	 * Test method for {@link de.kerner.commons.MappedVector#Vector(java.util.Set)}.
 	 */
 	@Test
 	public final void testVectorSetOfV() {
-		v = new Vector<String, String>(m.values());
+		v = new MappedVector<String>(m.values());
 		assertArrayEquals(m.values().toArray(), v.getAsList().toArray());
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#Vector(java.util.Map)}.
+	 * Test method for {@link de.kerner.commons.MappedVector#Vector(java.util.Map)}.
 	 */
 	@Test
 	public final void testVectorMapOfIV() {
-		v = new Vector<String, String>(m);
+		v = new MappedVector<String>(m);
 		assertEquals(m, v.getMap());
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#getAtIndex(int)}.
+	 * Test method for {@link de.kerner.commons.MappedVector#getAtIndex(int)}.
 	 */
 	@Test
 	public final void testGetAtIndexInt() {
@@ -139,7 +142,7 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#getAtIndex(int)}.
+	 * Test method for {@link de.kerner.commons.MappedVector#getAtIndex(int)}.
 	 */
 	@Test
 	public final void testGetAtIndexInt01() {
@@ -147,7 +150,7 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#getAtIndex(int)}.
+	 * Test method for {@link de.kerner.commons.MappedVector#getAtIndex(int)}.
 	 */
 	@Test
 	public final void testGetAtIndexInt02() {
@@ -156,7 +159,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#getAtIndex(java.lang.Object)}.
+	 * {@link de.kerner.commons.MappedVector#getAtIndex(java.lang.Object)}.
 	 */
 	@Test
 	public final void testGetAtIndexI() {
@@ -165,7 +168,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#getAtIndex(java.lang.Object)}.
+	 * {@link de.kerner.commons.MappedVector#getAtIndex(java.lang.Object)}.
 	 */
 	@Test
 	public final void testGetAtIndexI01() {
@@ -174,7 +177,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, java.lang.Object)}
+	 * {@link de.kerner.commons.MappedVector#assign(java.lang.Object, java.lang.Object)}
 	 * .
 	 */
 	@Test
@@ -185,7 +188,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, java.lang.Object)}
+	 * {@link de.kerner.commons.MappedVector#assign(java.lang.Object, java.lang.Object)}
 	 * .
 	 */
 	@Test
@@ -197,7 +200,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, java.lang.Object)}
+	 * {@link de.kerner.commons.MappedVector#assign(java.lang.Object, java.lang.Object)}
 	 * .
 	 */
 	@Test(expected = NoSuchElementException.class)
@@ -207,7 +210,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, int)}.
+	 * {@link de.kerner.commons.MappedVector#assign(java.lang.Object, int)}.
 	 */
 	@Test
 	public final void testAssignIInt() {
@@ -217,7 +220,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, int)}.
+	 * {@link de.kerner.commons.MappedVector#assign(java.lang.Object, int)}.
 	 */
 	@Test
 	public final void testAssignIInt02() {
@@ -227,7 +230,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assign(java.lang.Object, int)}.
+	 * {@link de.kerner.commons.MappedVector#assign(java.lang.Object, int)}.
 	 */
 	@Test(expected=NoSuchElementException.class)
 	public final void testAssignIInt03() {
@@ -236,7 +239,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI() {
@@ -246,7 +249,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI01() {
@@ -256,7 +259,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI02() {
@@ -266,7 +269,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI03() {
@@ -276,7 +279,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI04() {
@@ -286,7 +289,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test(expected=NoSuchElementException.class)
 	public final void testAssignAllSetOfI05() {
@@ -296,7 +299,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI06() {
@@ -306,7 +309,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI07() {
@@ -316,7 +319,7 @@ public class VectorTest {
 	
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Vector#assignAll(java.util.Set)}.
+	 * {@link de.kerner.commons.MappedVector#assignAll(java.util.Set)}.
 	 */
 	@Test
 	public final void testAssignAllSetOfI08() {
@@ -325,7 +328,7 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#getAsList()}.
+	 * Test method for {@link de.kerner.commons.MappedVector#getAsList()}.
 	 */
 	@Test
 	public final void testGetAsList() {
@@ -333,7 +336,7 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#getMap()}.
+	 * Test method for {@link de.kerner.commons.MappedVector#getMap()}.
 	 */
 	@Test
 	public final void testGetMap() {
@@ -341,7 +344,7 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
+	 * Test method for {@link de.kerner.commons.MappedVector#equals(java.lang.Object)}
 	 * .
 	 */
 	@Test
@@ -350,7 +353,7 @@ public class VectorTest {
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Vector#equals(java.lang.Object)}
+	 * Test method for {@link de.kerner.commons.MappedVector#equals(java.lang.Object)}
 	 * .
 	 */
 	@Test

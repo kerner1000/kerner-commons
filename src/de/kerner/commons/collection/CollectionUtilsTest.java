@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
 
-package de.kerner.commons.collection.test;
+package de.kerner.commons.collection;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +31,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.kerner.commons.collection.CollectionUtils;
 
 /**
  * @author Alexander Kerner

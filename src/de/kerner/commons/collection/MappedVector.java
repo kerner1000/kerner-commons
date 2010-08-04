@@ -159,7 +159,12 @@ public class MappedVector<V> implements Iterable<V> {
 	}
 
 	public V getAtIndex(int i) {
+		try{
 		return values.get(i);
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new NoSuchElementException("No such element for index \""
+					+ i + "\"");
+		}
 	}
 
 	public V getAtIndex(Object key) {

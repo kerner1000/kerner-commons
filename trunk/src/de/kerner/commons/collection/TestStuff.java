@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.kerner.commons.collection.test;
+package de.kerner.commons.collection;
 
 import java.util.ArrayList;
 import java.util.List;

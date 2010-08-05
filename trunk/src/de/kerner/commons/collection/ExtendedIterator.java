@@ -16,8 +16,8 @@ limitations under the License.
 package de.kerner.commons.collection;
 
 import java.util.Collection;
-import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -36,7 +36,7 @@ public class ExtendedIterator<T> implements Iterator<T> {
 //	private final static Log log = new Log(ExtendedIterator.class);
 	
 	// Use LinkedList since it implements hashcode, equals, and serializable
-	private final Deque<T> toGo = new LinkedList<T>();
+	private final Queue<T> toGo = new LinkedList<T>();
 	
 	private final Stack<T> done = new Stack<T>();
 	
@@ -77,7 +77,7 @@ public class ExtendedIterator<T> implements Iterator<T> {
 	public void reset() {
 		// when resetting, we also restore previous ordering of elements! //
 		while(!done.isEmpty()){
-			toGo.addFirst(done.pop());
+			toGo.add(done.pop());
 		}
 		done.clear();
 	}

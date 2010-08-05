@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -75,6 +76,7 @@ public class MappedVectorMutableTest {
 	 * Test method for {@link de.kerner.commons.collection.MappedVectorMutable#MappedVectorMutable()}.
 	 */
 	@Test
+	@Ignore
 	public final void testMappedVectorMutable() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -83,6 +85,7 @@ public class MappedVectorMutableTest {
 	 * Test method for {@link de.kerner.commons.collection.MappedVectorMutable#MappedVectorMutable(int)}.
 	 */
 	@Test
+	@Ignore
 	public final void testMappedVectorMutableInt() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -91,6 +94,7 @@ public class MappedVectorMutableTest {
 	 * Test method for {@link de.kerner.commons.collection.MappedVectorMutable#MappedVectorMutable(java.util.Collection)}.
 	 */
 	@Test
+	@Ignore
 	public final void testMappedVectorMutableCollectionOfV() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -99,6 +103,7 @@ public class MappedVectorMutableTest {
 	 * Test method for {@link de.kerner.commons.collection.MappedVectorMutable#MappedVectorMutable(int, int)}.
 	 */
 	@Test
+	@Ignore
 	public final void testMappedVectorMutableIntInt() {
 		fail("Not yet implemented"); // TODO
 	}

@@ -24,6 +24,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.kerner.commons.exec.AbstractProcessRunner;
@@ -68,6 +69,7 @@ public class AbstractProgrammRunnerTest {
 	 * Test method for {@link de.kerner.commons.exec.AbstractProgrammRunner#setWaitDelay(long)}.
 	 */
 	@Test
+	@Ignore
 	public final void testSetWaitDelay() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -76,6 +78,7 @@ public class AbstractProgrammRunnerTest {
 	 * Test method for {@link de.kerner.commons.exec.AbstractProgrammRunner#addShortCutFile(java.io.File)}.
 	 */
 	@Test
+	@Ignore
 	public final void testAddShortCutFile() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -84,6 +87,7 @@ public class AbstractProgrammRunnerTest {
 	 * Test method for {@link de.kerner.commons.exec.AbstractProgrammRunner#addResultFileToWaitFor(java.io.File)}.
 	 */
 	@Test
+	@Ignore
 	public final void testAddResultFileToWaitFor() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -92,6 +96,7 @@ public class AbstractProgrammRunnerTest {
 	 * Test method for {@link de.kerner.commons.exec.AbstractProgrammRunner#redirectOutStreamToFile(java.io.File)}.
 	 */
 	@Test
+	@Ignore
 	public final void testRedirectOutStreamToFile() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -100,6 +105,7 @@ public class AbstractProgrammRunnerTest {
 	 * Test method for {@link de.kerner.commons.exec.AbstractProgrammRunner#redirectErrStreamToFile(java.io.File)}.
 	 */
 	@Test
+	@Ignore
 	public final void testRedirectErrStreamToFile() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -108,6 +114,7 @@ public class AbstractProgrammRunnerTest {
 	 * Test method for {@link de.kerner.commons.exec.AbstractProgrammRunner#createAndRun(java.io.OutputStream, java.io.OutputStream)}.
 	 */
 	@Test
+	@Ignore
 	public final void testCreateAndRunOutputStreamOutputStream() {
 		fail("Not yet implemented"); // TODO
 	}

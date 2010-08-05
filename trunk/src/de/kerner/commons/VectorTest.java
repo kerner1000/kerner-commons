@@ -20,6 +20,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.kerner.commons.collection.MappedVector;
@@ -121,7 +122,7 @@ public class VectorTest {
 	@Test
 	public final void testVectorSetOfV() {
 		v = new MappedVector<String>(m.values());
-		assertArrayEquals(m.values().toArray(), v.getAsList().toArray());
+		assertArrayEquals(m.values().toArray(), v.asList().toArray());
 	}
 
 	/**
@@ -130,7 +131,7 @@ public class VectorTest {
 	@Test
 	public final void testVectorMapOfIV() {
 		v = new MappedVector<String>(m);
-		assertEquals(m, v.getMap());
+		assertEquals(m, v.getMappings());
 	}
 
 	/**
@@ -328,19 +329,20 @@ public class VectorTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.MappedVector#getAsList()}.
+	 * Test method for {@link de.kerner.commons.MappedVector#asList()}.
 	 */
 	@Test
+	@Ignore
 	public final void testGetAsList() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.MappedVector#getMap()}.
+	 * Test method for {@link de.kerner.commons.MappedVector#getMappings()}.
 	 */
 	@Test
 	public final void testGetMap() {
-		assertEquals(m, v.getMap());
+		assertEquals(m, v.getMappings());
 	}
 
 	/**

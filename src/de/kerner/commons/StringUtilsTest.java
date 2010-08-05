@@ -21,6 +21,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.kerner.commons.file.FileUtils;
@@ -74,6 +75,7 @@ public class StringUtilsTest {
 	 * .
 	 */
 	@Test
+	@Ignore
 	public final void testSplitToListStringString() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -84,6 +86,7 @@ public class StringUtilsTest {
 	 * .
 	 */
 	@Test
+	@Ignore
 	public final void testSplitToListStringStringBoolean() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -94,6 +97,7 @@ public class StringUtilsTest {
 	 * .
 	 */
 	@Test
+	@Ignore
 	public final void testSplitToArray() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -103,6 +107,7 @@ public class StringUtilsTest {
 	 * {@link de.kerner.commons.StringUtils#getString(java.lang.Object[])}.
 	 */
 	@Test
+	@Ignore
 	public final void testGetString() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -113,6 +118,7 @@ public class StringUtilsTest {
 	 * .
 	 */
 	@Test
+	@Ignore
 	public final void testRemoveAllAfterFirstWhiteSpace() {
 		fail("Not yet implemented"); // TODO
 	}

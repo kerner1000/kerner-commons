@@ -56,7 +56,7 @@ public class MappedVectorMutable<V> extends MappedVector<V> {
 	/**
 	 * @param arg0
 	 */
-	public MappedVectorMutable(Map<Object, V> arg0) {
+	public MappedVectorMutable(Map<? extends Object, V> arg0) {
 		super(arg0);
 	}
 

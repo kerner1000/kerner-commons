@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Vector;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import de.kerner.commons.AbstractCounter;
@@ -43,10 +44,7 @@ public class MappedVector<V> implements Iterable<V> {
 	 */
 	protected final Vector<V> values;
 
-	/**
-	 * Note: Access thread save
-	 */
-	protected final Map<Object, V> map = new ConcurrentHashMap<Object, V>();
+	protected final Map<Object, V> map = new LinkedHashMap<Object, V>();
 
 	/**
 	 * 
@@ -72,10 +70,13 @@ public class MappedVector<V> implements Iterable<V> {
 	/**
 	 * @param arg0
 	 */
-	public MappedVector(Map<Object, V> arg0) {
+	public MappedVector(final Map<? extends Object, V> arg0) {
 		synchronized (MappedVector.class) {
 			values = new Vector<V>(arg0.values());
 			map.putAll(arg0);
+//			for (Entry<?, V> e : arg0.entrySet()) {
+//				map.put(e.getKey(), e.getValue());
+//			}
 		}
 	}
 
@@ -135,8 +136,8 @@ public class MappedVector<V> implements Iterable<V> {
 		}
 	}
 
-	public void assignAll(Set<Object> keySet) {
-		List<Object> list = new ArrayList<Object>(keySet);
+	public void assignAll(Set<? extends Object> keySet) {
+		List<? extends Object> list = new ArrayList<Object>(keySet);
 		synchronized (this) {
 			map.clear();
 			for (int i = 0; i < keySet.size(); i++) {
@@ -150,23 +151,78 @@ public class MappedVector<V> implements Iterable<V> {
 		}
 	}
 
-	public boolean containsKey(Object key) {
+	/**
+	 * <p>
+	 * Returns true if this {@code MappedVector} contains a mapping for the
+	 * specified key. More formally, returns true if and only if this {@code
+	 * MappedVector} contains a mapping for a key k such that (key==null ?
+	 * k==null : key.equals(k)). (There can be at most one such mapping.)
+	 * </p>
+	 * 
+	 * @param key
+	 *            key whose presence in this map is to be tested
+	 * @return true if this map contains a mapping for the specified key; false
+	 *         otherwise
+	 */
+	public synchronized boolean containsKey(Object key) {
 		return map.containsKey(key);
 	}
 
+	/**
+	 * <p>
+	 * Returns true if this {@code MappedVector} contains the specified element.
+	 * More formally, returns true if and only if this {@code MappedVector}
+	 * contains at least one element e such that (o==null ? e==null :
+	 * o.equals(e)).
+	 * </p>
+	 * 
+	 * @param value
+	 *            element whose presence in this vector is to be tested
+	 * @return true if this vector contains the specified element; false
+	 *         otherwise
+	 */
 	public boolean containsValue(V value) {
 		return values.contains(value);
 	}
 
-	public V getAtIndex(int i) {
-		try{
-		return values.get(i);
-		}catch(ArrayIndexOutOfBoundsException e){
+	/**
+	 * <p>
+	 * Returns the element at the specified position in this {@code
+	 * MappedVector}.
+	 * </p>
+	 * 
+	 * @param index
+	 *            index of the element to return
+	 * @return object at the specified index
+	 * @throws NoSuchElementException
+	 *             if {@code index} is out of range
+	 */
+	public V getAtIndex(int index) {
+		try {
+			return values.get(index);
+		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new NoSuchElementException("No such element for index \""
-					+ i + "\"");
+					+ index + "\"");
 		}
 	}
 
+	/**
+	 * <p>
+	 * Returns the value to which the specified key is mapped.
+	 * </p>
+	 * <p>
+	 * More formally, if this {@code MappedVector} contains a mapping from a key
+	 * k to a value v such that (key==null ? k==null : key.equals(k)), then this
+	 * method returns v. (There can be at most one such mapping.)
+	 * </p>
+	 * 
+	 * @param key
+	 *            the key whose associated value is to be returned
+	 * @return the value to which the specified key is mapped
+	 * @throws NoSuchElementException
+	 *             if this {@code MappedVector} does not contain a value that is
+	 *             mapped by this key
+	 */
 	public V getAtIndex(Object key) {
 		synchronized (this) {
 			V v = map.get(key);
@@ -196,7 +252,7 @@ public class MappedVector<V> implements Iterable<V> {
 		}
 	}
 
-	public List<V> getAsList() {
+	public List<V> asList() {
 
 		// TODO refactor to asList()
 
@@ -208,7 +264,7 @@ public class MappedVector<V> implements Iterable<V> {
 		return new Vector<V>(values);
 	}
 
-	public Map<Object, V> getMap() {
+	public synchronized Map<? extends Object, V> getMappings() {
 
 		// TODO refactor to getMappings()
 

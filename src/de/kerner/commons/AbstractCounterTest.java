@@ -108,7 +108,7 @@ public class AbstractCounterTest {
 			cnt.count();
 			// ten runs performed, ten to go.
 			if (i == 9)
-				cnt.stop();
+				cnt.finish();
 		}
 		assertEquals(cnt.getCount(), 10);
 	}

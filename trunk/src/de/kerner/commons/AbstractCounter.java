@@ -77,12 +77,12 @@ public abstract class AbstractCounter {
 	 * call of {@link AbstractCounter#perform()}.
 	 * </p>
 	 */
-	public void stop() {
-		interval = 0;
-		intervalHelper = 0;
-		cnt = 0;
+	public void finish() {
 		if (interval != 0)
 			perform();
+		intervalHelper = 0;
+		cnt = 0;
+		interval = 0;
 	}
 
 	/**

@@ -39,6 +39,12 @@ public class Log {
 			logger.debug(msg.toString(), t);
 		}
 	}
+	
+	public void debug(Throwable t) {
+		if (logger.isDebugEnabled()) {
+			logger.debug(t.getLocalizedMessage(), t);
+		}
+	}
 
 	public void info(Object msg) {
 		if(msg == null)
@@ -62,11 +68,21 @@ public class Log {
 		logger.warn(msg.toString(), t);
 	}
 	
+	public void warn(Throwable t) {
+		if(logger.isWarnEnabled())
+		logger.warn(t.getLocalizedMessage(), t);
+	}
+	
 	public void error(String msg) {
 		if(msg == null)
 			msg = "null";
 		if(logger.isErrorEnabled())
 		logger.error(msg);
+	}
+	
+	public void error(Throwable t) {
+		if(logger.isErrorEnabled())
+		logger.error(t.getLocalizedMessage(), t);
 	}
 	
 	public void error(String msg, Throwable t) {

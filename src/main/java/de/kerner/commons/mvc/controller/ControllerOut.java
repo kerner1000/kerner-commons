@@ -12,37 +12,33 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
+package de.kerner.commons.mvc.controller;
 
 /**
  * <p>
- * TODO description
+ * {@code ControllerOut} is a controller component, that takes events coming
+ * from [@code Model}. direction of events is:
  * </p>
  * <p>
- * TODO Example of usage
+ * {@code Model} -> {@code ControllerOut} -> {@code View}
  * </p>
+ * <p>
+ * Notice that all events must be dropped to the AWT event dispatch thread!
+ * </p>
+ * TODO Example of usage </p>
  * 
  * @author Alexander Kerner
+ * @see Model
+ * @see Controller
+ * @see ControllerIn
  * 
  */
-public interface Iterator<T> {
+public interface ControllerOut {
 
-	boolean hasNext();
+	void infoMsg(String msg);
 
-	boolean isEmpty();
+	void warnMsg(String msg);
 
-	void next();
-
-	void reset();
-
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
+	void errorMsg(String msg);
 
 }

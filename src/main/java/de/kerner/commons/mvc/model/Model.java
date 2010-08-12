@@ -12,37 +12,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
+package de.kerner.commons.mvc.model;
+
+import de.kerner.commons.mvc.controller.ControllerOut;
 
 /**
- * <p>
- * TODO description
- * </p>
- * <p>
- * TODO Example of usage
- * </p>
- * 
- * @author Alexander Kerner
- * 
+ * @author kerner
+ *
  */
-public interface Iterator<T> {
+public interface Model {
+	
+	void addController(ControllerOut control);
 
-	boolean hasNext();
-
-	boolean isEmpty();
-
-	void next();
-
-	void reset();
-
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
-
+	void shutdown();
 }

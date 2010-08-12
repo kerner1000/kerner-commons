@@ -12,53 +12,41 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
 
-/**
- * @author kerner
- *
- */
-public class IllegalValueException extends Exception {
+package de.kerner.commons.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.LayoutManager;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+public class DefaultBuilder {
 	
-
+	private final JPanel content = new JPanel();
 	
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2318046818811220733L;
-
-	/**
-	 * 
-	 */
-	public IllegalValueException() {
-		// TODO Auto-generated constructor stub
+	DefaultBuilder(){
+		content.setLayout(new BorderLayout());
 	}
 
-	/**
-	 * @param message
-	 */
-	public IllegalValueException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
+	public DefaultBuilder addMainComponent(JComponent component) {
+		content.add(component, BorderLayout.CENTER);
+		return this;
+	}
+	
+	public DefaultBuilder addButtomComponent(JComponent component) {
+		content.add(component, BorderLayout.SOUTH);
+		return this;
 	}
 
-	/**
-	 * @param cause
-	 */
-	public IllegalValueException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
+	public JComponent build() {
+		return content;
 	}
 
-	/**
-	 * @param message
-	 * @param cause
-	 */
-	public IllegalValueException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
+	public DefaultBuilder addRightComponent(JComponent component) {
+		content.add(component, BorderLayout.EAST);
+		return this;
 	}
 
 }

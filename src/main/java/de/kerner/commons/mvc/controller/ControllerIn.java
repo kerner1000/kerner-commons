@@ -12,37 +12,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
+package de.kerner.commons.mvc.controller;
 
 /**
  * <p>
- * TODO description
+ * {@code ControllerIn} is a controller component, that takes events coming from
+ * [@code View}. direction of events is:
+ * </p>
+ * <p>
+ * {@code View} -> {@code ControllerIn} -> {@code Model}
  * </p>
  * <p>
  * TODO Example of usage
  * </p>
  * 
  * @author Alexander Kerner
+ * @see View
+ * @see Controller
+ * @see ControllerOut
  * 
  */
-public interface Iterator<T> {
-
-	boolean hasNext();
-
-	boolean isEmpty();
-
-	void next();
-
-	void reset();
-
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
+public interface ControllerIn {
 
 }

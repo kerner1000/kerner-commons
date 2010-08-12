@@ -1,5 +1,5 @@
 /**********************************************************************
-Copyright (c) 2010 Alexander Kerner. All rights reserved.
+Copyright (c) 2009-2010 Alexander Kerner. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -39,10 +39,12 @@ package de.kerner.commons;
  * </p>
  * 
  * @author Alexander Kerner
- * @threadSave primitive class members volatile
+ * @threadSave
  * 
  */
 public abstract class AbstractCounter {
+	
+	// lastVisit 2010-08-12
 
 	private volatile int interval = 0;
 	private volatile int intervalHelper = 0;
@@ -119,11 +121,11 @@ public abstract class AbstractCounter {
 	public int getCount() {
 		return cnt;
 	}
-	
-	public void setCount(int count){
-		
-		//TODO not unit tested
-		
+
+	public void setCount(int count) {
+
+		// TODO not unit tested
+
 		this.cnt = count;
 		this.intervalHelper = count;
 	}
@@ -136,7 +138,7 @@ public abstract class AbstractCounter {
 	 * </p>
 	 */
 	public abstract void perform();
-	
+
 	@Override
 	public String toString() {
 		return Integer.toString(getCount());

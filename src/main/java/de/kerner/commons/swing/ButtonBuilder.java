@@ -12,37 +12,35 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
 
-/**
- * <p>
- * TODO description
- * </p>
- * <p>
- * TODO Example of usage
- * </p>
- * 
- * @author Alexander Kerner
- * 
- */
-public interface Iterator<T> {
+package de.kerner.commons.swing;
 
-	boolean hasNext();
+import java.awt.GridLayout;
 
-	boolean isEmpty();
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
-	void next();
+public class ButtonBuilder {
+	
+	private final JPanel content = new JPanel();
+	private final static int vGap = 0;
+	private final static int hGap = 0;
+	
+	ButtonBuilder(){
+		final GridLayout g = new GridLayout();
+		g.setHgap(hGap);
+		g.setVgap(vGap);
+		content.setLayout(g);
+	}
 
-	void reset();
+	public ButtonBuilder add(JButton button){
+		content.add(button);
+		return this;
+	}
 
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
+	public JComponent build() {
+		return content;
+	}
 
 }

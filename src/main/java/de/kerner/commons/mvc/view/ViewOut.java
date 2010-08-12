@@ -12,37 +12,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
+package de.kerner.commons.mvc.view;
 
 /**
  * <p>
- * TODO description
+ * {@code ViewOut} is a view component, that visualizes / audiolizes the application.
+ * It is a passive component, therefore direction of events is
+ * </p>
+ * <p>
+ * {@code Model} -> {@code Controller} -> {@code ViewOut}
  * </p>
  * <p>
  * TODO Example of usage
  * </p>
  * 
  * @author Alexander Kerner
+ * @see View
+ * @see Model
+ * @see ViewIn
  * 
  */
-public interface Iterator<T> {
-
-	boolean hasNext();
-
-	boolean isEmpty();
-
-	void next();
-
-	void reset();
-
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
+public interface ViewOut {
 
 }

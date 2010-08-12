@@ -12,37 +12,40 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
+package de.kerner.commons.file;
+
+import java.io.BufferedReader;
 
 /**
  * <p>
  * TODO description
  * </p>
  * <p>
- * TODO Example of usage
+ * TODO example
  * </p>
  * 
  * @author Alexander Kerner
+ * @see BufferedStringReader
  * 
  */
-public interface Iterator<T> {
+public class LazyStringReader extends BufferedStringReader {
 
-	boolean hasNext();
+	private StringBuilder sb = new StringBuilder();
 
-	boolean isEmpty();
+	/**
+	 * TODO
+	 */
+	public LazyStringReader() {
+		// TODO Auto-generated constructor stub
+	}
 
-	void next();
-
-	void reset();
-
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
+	@Override
+	public void handleLine(String line) {
+		sb.append(line);
+	}
+	
+	public String getString(){
+		return sb.toString();
+	}
 
 }

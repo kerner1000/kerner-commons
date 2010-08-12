@@ -12,37 +12,34 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ***********************************************************************/
-package de.kerner.commons.collection;
+package de.kerner.commons.mvc.view;
+
+import java.util.Collection;
 
 /**
- * <p>
- * TODO description
- * </p>
- * <p>
- * TODO Example of usage
- * </p>
- * 
- * @author Alexander Kerner
- * 
+ * @author kerner
+ *
  */
-public interface Iterator<T> {
+public abstract class ViewManager extends AbstractView {
 
-	boolean hasNext();
+	public void destroyView() {
+		for(View v : getViews()){
+			v.destroyView();
+		}
+	}
 
-	boolean isEmpty();
+	public void hideView() {
+		for(View v : getViews()){
+			v.hideView();
+		}
+	}
 
-	void next();
-
-	void reset();
-
-	T getCurrent();
-
-	boolean contains(T t);
-
-	int getSize();
-
-	boolean remove(T e);
-
-	boolean add(T e);
+	public void showView() {
+		for(View v : getViews()){
+			v.showView();
+		}
+	}
+	
+	public abstract Collection<View> getViews();
 
 }

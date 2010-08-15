@@ -16,30 +16,59 @@ package de.kerner.commons.mvc.view;
 
 import java.util.Collection;
 
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+
 /**
- * @author kerner
- *
+ * 
+ * <p>
+ * {@code ViewManager} is an implementation prototype for {@link AbstractView},
+ * that further divides the View component into several different View types
+ * that are all managed by the {@code ViewManger}.
+ * </p>
+ * <p>
+ * A {@code ViewManager} is registered as a {@code View} proxy to the
+ * {@code Controller} component.
+ * </p>
+ * 
+ * <p>
+ * TODO example
+ * </p>
+ * 
+ * @autor Alexander Kerner
+ * 
  */
 public abstract class ViewManager extends AbstractView {
+	
+	// lastVisit 2010-08-15
 
 	public void destroyView() {
-		for(View v : getViews()){
+		for (View v : getViews()) {
 			v.destroyView();
 		}
 	}
 
 	public void hideView() {
-		for(View v : getViews()){
+		for (View v : getViews()) {
 			v.hideView();
 		}
 	}
 
 	public void showView() {
-		for(View v : getViews()){
+		for (View v : getViews()) {
 			v.showView();
 		}
 	}
-	
+
+	/**
+	 * 
+	 * <p>
+	 * get all managed views.
+	 * </p>
+	 *
+	 * @return all views that are registered to this {@code ViewManager}
+	 * @see View
+	 */
 	public abstract Collection<View> getViews();
 
 }

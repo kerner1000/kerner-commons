@@ -20,12 +20,23 @@ import java.util.Collection;
 import de.kerner.commons.mvc.controller.ControllerIn;
 
 /**
- * @author kerner
+ * 
+ * <p>
+ * {@code AbstractView} is a prototype implementation for {@link View}.
+ * </p>
+ * 
+ * <p>
+ * TODO example
+ * </p>
+ *
+ * @autor Alexander Kerner
  *
  */
 public abstract class AbstractView implements View {
 	
-	Collection<ControllerIn> controls = new ArrayList<ControllerIn>();
+	// lastVisit 2010-08-15
+	
+	private final Collection<ControllerIn> controls = new ArrayList<ControllerIn>();
 	
 	public AbstractView(ControllerIn... control){
 		if(control == null || control.length == 0)

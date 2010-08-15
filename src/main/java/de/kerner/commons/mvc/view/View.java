@@ -14,9 +14,11 @@ limitations under the License.
  ***********************************************************************/
 package de.kerner.commons.mvc.view;
 
+import javax.swing.JFrame;
+
 /**
  * <p>
- * TODO description
+ * View component in the MVC pattern.
  * </p>
  * <p>
  * TODO Example of usage
@@ -25,12 +27,45 @@ package de.kerner.commons.mvc.view;
  * @author Alexander Kerner
  * 
  */
-public interface View extends ViewIn, ViewOut{
+public interface View extends ViewIn, ViewOut {
+
+	// lastVisit 2010-08-15
 	
+	/**
+	 * 
+	 * <p>
+	 * Enable this view. 
+	 * </p>
+	 * <p>
+	 * A Swing view for example will call {@link JFrame#show()}.
+	 * </p>
+	 * 
+	 */
 	void showView();
 
+	/**
+	 * <p>
+	 * Disable this view temporally. 
+	 * </p>
+	 * <p>
+	 * A Swing view for example will call {@link JFrame#hide()}.
+	 * </p>
+	 * 
+	 * 
+	 */
 	void hideView();
 
+	/**
+	 * 
+	 * <p>
+	 * Destroy this {@codeView}.
+	 * </p>
+	 * <p>
+	 * A Swing view for example will call {@link JFrame#dispose()}.
+	 * </p>
+	 * 
+	 * 
+	 */
 	void destroyView();
-	
+
 }

@@ -33,5 +33,7 @@ package de.kerner.commons.mvc.view;
  * 
  */
 public interface ViewOut {
+	
+	// lastVisit 2010-08-15
 
 }

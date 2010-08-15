@@ -17,12 +17,44 @@ package de.kerner.commons.mvc.model;
 import de.kerner.commons.mvc.controller.ControllerOut;
 
 /**
- * @author kerner
+ * 
+ * <p>
+ * A {@code Model} represents the model component in the MVC pattern.
+ * </p>
+ * 
+ * <p>
+ * TODO example
+ * </p>
+ *
+ * @autor Alexander Kerner
  *
  */
 public interface Model {
 	
+	/**
+	 * 
+	 * <p>
+	 * Register a controller to this {@code Model}.
+	 * </p>
+	 * 
+	 * <p>
+	 * TODO example
+	 * </p>
+	 *
+	 * @param control
+	 */
 	void addController(ControllerOut control);
 
+	/**
+	 * 
+	 * <p>
+	 * Shut down this {@code Model}.
+	 * </p>
+	 * 
+	 * <p>
+	 * TODO example
+	 * </p>
+	 *
+	 */
 	void shutdown();
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" skipped="0" tests="11" time="0.013" failures="0" name="de.kerner.commons.collection.CollectionUtilsTest">
+  <properties>
+    <property value="Java(TM) 2 Runtime Environment, Standard Edition" name="java.runtime.name"/>
+    <property value="/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/amd64" name="sun.boot.library.path"/>
+    <property value="1.5.0_18-b02" name="java.vm.version"/>
+    <property value="Sun Microsystems Inc." name="java.vm.vendor"/>
+    <property value="http://java.sun.com/" name="java.vendor.url"/>
+    <property value=":" name="path.separator"/>
+    <property value="Java HotSpot(TM) 64-Bit Server VM" name="java.vm.name"/>
+    <property value="sun.io" name="file.encoding.pkg"/>
+    <property value="US" name="user.country"/>
+    <property value="SUN_STANDARD" name="sun.java.launcher"/>
+    <property value="unknown" name="sun.os.patch.level"/>
+    <property value="Java Virtual Machine Specification" name="java.vm.specification.name"/>
+    <property value="/mountpoints/stoneage/home/kerner/workspace/kerner-commons" name="user.dir"/>
+    <property value="1.5.0_18-b02" name="java.runtime.version"/>
+    <property value="sun.awt.X11GraphicsEnvironment" name="java.awt.graphicsenv"/>
+    <property value="/mountpoints/stoneage/home/kerner/workspace/kerner-commons" name="basedir"/>
+    <property value="/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/endorsed" name="java.endorsed.dirs"/>
+    <property value="amd64" name="os.arch"/>
+    <property value="/tmp/surefirebooter8679220097893217217.jar" name="surefire.real.class.path"/>
+    <property value="/tmp" name="java.io.tmpdir"/>
+    <property value="
+" name="line.separator"/>
+    <property value="Sun Microsystems Inc." name="java.vm.specification.vendor"/>
+    <property value="Linux" name="os.name"/>
+    <property value="UTF-8" name="sun.jnu.encoding"/>
+    <property value="/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/amd64/server:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/amd64:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/../lib/amd64:/usr/lib/jvm/java-6-sun-1.6.0.20/jre/lib/amd64/server:/usr/lib/jvm/java-6-sun-1.6.0.20/jre/lib/amd64:/usr/lib/jvm/java-6-sun-1.6.0.20/jre/../lib/amd64:/usr/lib64/xulrunner-addons" name="java.library.path"/>
+    <property value="/mountpoints/stoneage/home/kerner/workspace/kerner-commons/target/test-classes:/mountpoints/stoneage/home/kerner/workspace/kerner-commons/target/classes:/home/kerner/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/kerner/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar:/home/kerner/.m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2.jar:/home/kerner/.m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O.jar:" name="surefire.test.class.path"/>
+    <property value="Java Platform API Specification" name="java.specification.name"/>
+    <property value="49.0" name="java.class.version"/>
+    <property value="HotSpot 64-Bit Server Compiler" name="sun.management.compiler"/>
+    <property value="2.6.32-24-generic" name="os.version"/>
+    <property value="/home/kerner" name="user.home"/>
+    <property value="" name="user.timezone"/>
+    <property value="sun.print.PSPrinterJob" name="java.awt.printerjob"/>
+    <property value="UTF-8" name="file.encoding"/>
+    <property value="1.5" name="java.specification.version"/>
+    <property value="kerner" name="user.name"/>
+    <property value="/mountpoints/stoneage/home/kerner/workspace/kerner-commons/target/test-classes:/mountpoints/stoneage/home/kerner/workspace/kerner-commons/target/classes:/home/kerner/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/kerner/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar:/home/kerner/.m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2.jar:/home/kerner/.m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O.jar:" name="java.class.path"/>
+    <property value="1.0" name="java.vm.specification.version"/>
+    <property value="64" name="sun.arch.data.model"/>
+    <property value="/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre" name="java.home"/>
+    <property value="Sun Microsystems Inc." name="java.specification.vendor"/>
+    <property value="en" name="user.language"/>
+    <property value="mixed mode" name="java.vm.info"/>
+    <property value="1.5.0_18" name="java.version"/>
+    <property value="/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/ext" name="java.ext.dirs"/>
+    <property value="/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/rt.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/i18n.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/jsse.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/jce.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/lib/charsets.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.18/jre/classes" name="sun.boot.class.path"/>
+    <property value="Sun Microsystems Inc." name="java.vendor"/>
+    <property value="/home/kerner/.m2/repository" name="localRepository"/>
+    <property value="/" name="file.separator"/>
+    <property value="http://java.sun.com/cgi-bin/bugreport.cgi" name="java.vendor.url.bug"/>
+    <property value="little" name="sun.cpu.endian"/>
+    <property value="UnicodeLittle" name="sun.io.unicode.encoding"/>
+    <property value="gnome" name="sun.desktop"/>
+    <property value="" name="sun.cpu.isalist"/>
+  </properties>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0.003" name="testFlattenMap01"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testFlattenMap02"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0.001" name="testIsArray"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testIsArray01"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testIsCollection"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testIsList"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testIsList02"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testGetAllOfTypeAsList"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0.001" name="testGetAllOfTypeAsList02"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testGetAllOfTypeAsList03"/>
+  <testcase classname="de.kerner.commons.collection.CollectionUtilsTest" time="0" name="testGetAllOfTypeAsArray"/>
+</testsuite>

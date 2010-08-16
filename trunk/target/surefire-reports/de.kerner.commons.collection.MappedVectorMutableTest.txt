@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: de.kerner.commons.collection.MappedVectorMutableTest
--------------------------------------------------------------------------------
-Tests run: 37, Failures: 0, Errors: 0, Skipped: 4, Time elapsed: 0.054 sec

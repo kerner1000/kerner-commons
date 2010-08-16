@@ -16,6 +16,7 @@ limitations under the License.
 package de.kerner.commons;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,6 +81,17 @@ public class StringUtils {
 			sb.append(o);
 		}
 		return sb.toString();
+	}
+	
+	public static String getString(Collection<Object> objects){
+		if (objects == null || objects.size() == 0)
+			return "";
+		final StringBuilder sb = new StringBuilder(objects.size());
+		for (Object o : objects) {
+			sb.append(o);
+		}
+		return sb.toString();
+		
 	}
 
 	/**

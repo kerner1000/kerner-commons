@@ -31,9 +31,9 @@ import org.junit.Test;
  */
 public class Matrix2DTest {
 
-	private static Matrix2DImpl<String> m;
+	private static Matrix2D<String> m;
 
-	private static Matrix2DImpl<String> m2;
+	private static Matrix2D<String> m2;
 
 	private final static String[][] array = { { "1-1", "1-2", "1-3" },
 			{ "2-1", "2-2", "2-3" }, { "3-1", "3-2" } };
@@ -99,7 +99,7 @@ public class Matrix2DTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Matrix2DImpl#Matrix2D(de.kerner.commons.Matrix2DImpl)}.
+	 * {@link de.kerner.commons.Matrix2D#Matrix2D(de.kerner.commons.Matrix2D)}.
 	 */
 	@Test
 	@Ignore
@@ -109,7 +109,7 @@ public class Matrix2DTest {
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Matrix2DImpl#Matrix2D(java.util.List)}.
+	 * {@link de.kerner.commons.Matrix2D#Matrix2D(java.util.List)}.
 	 */
 	@Test
 	@Ignore
@@ -118,16 +118,16 @@ public class Matrix2DTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#Matrix2D()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#Matrix2D()}.
 	 */
 	@Test
 	public final void testMatrix2D() {
-		m = new Matrix2DImpl<String>();
+		m = new Matrix2D<String>();
 		assertNotNull(m);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#Matrix2D(T[][])}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#Matrix2D(T[][])}.
 	 */
 	@Test
 	@Ignore
@@ -136,7 +136,7 @@ public class Matrix2DTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#addRow(java.util.List)}
+	 * Test method for {@link de.kerner.commons.Matrix2D#addRow(java.util.List)}
 	 * .
 	 */
 	@Test
@@ -146,11 +146,11 @@ public class Matrix2DTest {
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getRow(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRow(int)}.
 	 */
 	@Test
 	public final void testGetRow() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 
 		List<List<String>> l = new ArrayList<List<String>>();
 		l.add(row1);
@@ -168,29 +168,29 @@ public class Matrix2DTest {
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getRow(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRow(int)}.
 	 */
 	@Test(expected = NoSuchElementException.class)
 	public final void testGetRow01() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		m.getRow(3);
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getRow(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRow(int)}.
 	 */
 	@Test(expected = NoSuchElementException.class)
 	public final void testGetRow02() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		m.getRow(-1);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getRows()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRows()}.
 	 */
 	@Test
 	public final void testGetRows() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 
 		List<List<String>> l = new ArrayList<List<String>>();
 		l.add(row1);
@@ -201,12 +201,12 @@ public class Matrix2DTest {
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getRows()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRows()}.
 	 */
 	@Test
 	public final void testGetRows01() {
 
-		m = new Matrix2DImpl<String>();
+		m = new Matrix2D<String>();
 
 		List<List<String>> l = new ArrayList<List<String>>();
 
@@ -216,63 +216,63 @@ public class Matrix2DTest {
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getRowNumber()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getRowNumber()}.
 	 */
 	@Test
 	public final void testGetRowNumber() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 
 		assertEquals(array.length, m.getRowNumber());
 
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumn(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
 	@Test
 	public final void testGetColumn() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		assertArrayEquals(column1.toArray(), m.getColumn(0).toArray());
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumn(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
 	@Test
 	public final void testGetColumn01() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		assertEquals(column2, m.getColumn(1));
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumn(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
 	@Test
 	public final void testGetColumn02() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		assertEquals(column3, m.getColumn(2));
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumn(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
 	@Test(expected = NoSuchElementException.class)
 	public final void testGetColumn03() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		m.getColumn(-1);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumn(int)}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumn(int)}.
 	 */
 	@Test(expected = NoSuchElementException.class)
 	public final void testGetColumn04() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		m.getColumn(4);
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumns()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumns()}.
 	 */
 	@Test
 	@Ignore
@@ -281,74 +281,74 @@ public class Matrix2DTest {
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#getColumnNumber()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#getColumnNumber()}.
 	 */
 	@Test
 	public final void testGetColumnNumber() {
-		m = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
 		// TODO remove hardcoded number of columns
 		assertEquals(3, m.getColumnNumber());
 
 	}
 
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#invert()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#invert()}.
 	 */
 	@Test
 	public final void testInvert() {
-		m = new Matrix2DImpl<String>(array);
-		m2 = new Matrix2DImpl<String>(array2);
+		m = new Matrix2D<String>(array);
+		m2 = new Matrix2D<String>(array2);
 		assertEquals(m.invert(), m2);
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#invert()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#invert()}.
 	 */
 	@Test
 	public final void testInvert01() {
-		m = new Matrix2DImpl<String>(array);
-		m2 = new Matrix2DImpl<String>(array2);
+		m = new Matrix2D<String>(array);
+		m2 = new Matrix2D<String>(array2);
 		assertEquals(m2.invert(), m);
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.kerner.commons.Matrix2DImpl#equals(java.lang.Object)}.
+	 * {@link de.kerner.commons.Matrix2D#equals(java.lang.Object)}.
 	 */
 	@Test
 	public final void testEqualsObject() {
-		m = new Matrix2DImpl<String>(array);
-		m2 = new Matrix2DImpl<String>(array2);
+		m = new Matrix2D<String>(array);
+		m2 = new Matrix2D<String>(array2);
 		assertEquals(m.invert(), m2);
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#equals()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
 	 */
 	@Test
 	public final void testEqualsObject01() {
-		m = new Matrix2DImpl<String>(array);
-		m2 = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
+		m2 = new Matrix2D<String>(array);
 		assertNotSame(m.invert(), m2);
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#equals()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
 	 */
 	@Test
 	public final void testEqualsObject02() {
-		m = new Matrix2DImpl<String>(array);
-		m2 = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
+		m2 = new Matrix2D<String>(array);
 		assertEquals(m, m2);
 	}
 	
 	/**
-	 * Test method for {@link de.kerner.commons.Matrix2DImpl#equals()}.
+	 * Test method for {@link de.kerner.commons.Matrix2D#equals()}.
 	 */
 	@Test
 	public final void testEqualsObject03() {
-		m = new Matrix2DImpl<String>(array);
-		m2 = new Matrix2DImpl<String>(array);
+		m = new Matrix2D<String>(array);
+		m2 = new Matrix2D<String>(array);
 		assertEquals(m2, m);
 	}
 

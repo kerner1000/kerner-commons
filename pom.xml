@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.code.kerner-commons</groupId>
 	<artifactId>kerner-commons</artifactId>
 	<name>kerner-commons</name>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.1.1</version>
 	<packaging>jar</packaging>
 	<description>This library provides commonly used utility classes.</description>
 	<developers>
@@ -19,9 +18,9 @@
 		</developer>
 	</developers>
 	<scm>
-		<url>http://kerner-commons.googlecode.com/svn/trunk</url>
-		<connection>scm:svn:http://kerner-commons.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://kerner-commons.googlecode.com/svn/trunk</developerConnection>
+		<url>http://kerner-commons.googlecode.com/svn/tags/kerner-commons-0.1.1</url>
+		<connection>scm:svn:http://kerner-commons.googlecode.com/svn/tags/kerner-commons-0.1.1</connection>
+		<developerConnection>scm:svn:https://kerner-commons.googlecode.com/svn/tags/kerner-commons-0.1.1</developerConnection>
 	</scm>
 	<licenses>
 		<license>

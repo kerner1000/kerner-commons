@@ -3,7 +3,7 @@
 	<groupId>com.google.code.kerner-commons</groupId>
 	<artifactId>kerner-commons</artifactId>
 	<name>kerner-commons</name>
-	<version>0.1.1</version>
+	<version>0.1.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>This library provides commonly used utility classes.</description>
 	<developers>
@@ -18,9 +18,9 @@
 		</developer>
 	</developers>
 	<scm>
-		<url>http://kerner-commons.googlecode.com/svn/tags/kerner-commons-0.1.1</url>
-		<connection>scm:svn:http://kerner-commons.googlecode.com/svn/tags/kerner-commons-0.1.1</connection>
-		<developerConnection>scm:svn:https://kerner-commons.googlecode.com/svn/tags/kerner-commons-0.1.1</developerConnection>
+		<url>http://kerner-commons.googlecode.com/svn/trunk</url>
+		<connection>scm:svn:http://kerner-commons.googlecode.com/svn/trunk</connection>
+		<developerConnection>scm:svn:https://kerner-commons.googlecode.com/svn/trunk</developerConnection>
 	</scm>
 	<licenses>
 		<license>
